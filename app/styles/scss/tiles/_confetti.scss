@@ -1,0 +1,13 @@
+@import "color";
+@import "modules/button";
+
+#confetti {
+	background-color: $confetti-background;
+	color: $confetti-text-color;
+
+	a.url {
+		position: absolute;
+		bottom: $button-padding;
+		right: $button-padding;
+	}
+}

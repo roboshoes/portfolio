@@ -1,0 +1,22 @@
+@import "color";
+@import "modules/button";
+
+#marblerun {
+	background-color: $marblerun-background;
+	color: $marblerun-text-color;
+
+	overflow: hidden;
+
+	a.url {
+		position: absolute;
+		bottom: $button-padding;
+		right: $button-padding;
+	}
+
+	img {
+		display: block;
+		margin-left: $inner-padding;
+		border: 4px solid white;
+	}
+
+}

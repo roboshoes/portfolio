@@ -1,0 +1,23 @@
+@import "color";
+@import "modules/button";
+
+#swirl {
+	background-color: $swirl-background;
+	color: $swirl-text-color;
+
+	img {
+		display: block;
+		margin-top: 13px;
+	}
+
+	a.url {
+		position: absolute;
+		bottom: $button-padding;
+		right: $button-padding;
+	}
+
+	span.description {
+		display: block;
+		margin: $inner-padding;
+	}
+}

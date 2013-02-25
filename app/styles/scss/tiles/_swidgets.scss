@@ -1,0 +1,13 @@
+@import "color";
+@import "modules/button";
+
+#swidgets {
+	background-color: $swidgets-background;
+	color: $swidgets-text-color;
+
+	a.url {
+		position: absolute;
+		bottom: $button-padding;
+		right: $button-padding;
+	}
+}

@@ -1,0 +1,69 @@
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
+
+$inner-padding: 22px;
+$outer-margin: 8px;
+$button-padding: 8px;
+
+.tile {
+	margin-right: $outer-margin;
+	margin-bottom: $outer-margin;
+
+	position: relative;
+
+	float: left;
+
+	opacity: 0;
+
+	@include transition-property( opacity, transform );
+	@include transition-duration( 1s, 0.5s );
+
+	@include apply-origin( center center center, true );
+}
+
+.tile.over {
+	@include translate3d( 0, 0, -50px );
+}
+
+.tile.under {
+	@include translate3d( 0, 0, -50px );
+}
+
+h2 {
+	font-size: 30px;
+	font-width: bold;
+
+	padding-top: $inner-padding;
+	padding-left: $inner-padding;
+}
+
+span.subtitle {
+	display: block;
+
+	font-size: 14px;
+	font-width: bold;
+
+	padding-top: 0px;
+	padding-left: $inner-padding;
+}
+
+span.description {
+	line-height: 20px;
+	font-size: 14px;
+	display: block;
+	margin: $inner-padding;
+}
+
+@import "tiles/swirl";
+@import "tiles/twitter";
+@import "tiles/mathias";
+@import "tiles/resume";
+@import "tiles/marblerun";
+@import "tiles/swidgets";
+@import "tiles/html5games";
+@import "tiles/contact";
+@import "tiles/worms";
+@import "tiles/adk";
+@import "tiles/mario";
+@import "tiles/confetti";

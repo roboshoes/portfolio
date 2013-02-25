@@ -1,0 +1,30 @@
+@import "color";
+@import "compass/css3/text-shadow";
+
+@mixin shadow {
+	@include text-shadow( rgba( black, 0.6 ) 0 0 10px, rgba( black, 1 ) 0 0 25px, rgba( black, 1 ) 0 0 30px );
+}
+
+#mathias {
+	background-image: url(../../images/mathias.jpg);
+	background-repeat: no-repeat;
+	background-color: black;
+
+	color: $mathias-text-color;
+
+	.line1, .line2 {
+		display: block;
+		margin-left: $inner-padding;
+	}
+
+	.line1 {
+		font-size: 35px;
+		@include shadow;
+		margin-top: 115px;
+	}
+
+	.line2 {
+		font-size: 25px;
+		@include shadow;
+	}
+}

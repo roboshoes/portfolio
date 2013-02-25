@@ -1,0 +1,780 @@
+/* line 17, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 4, ../scss/modules/_grid.scss */
+.one-by-one {
+  width: 192px;
+  height: 192px;
+}
+
+/* line 9, ../scss/modules/_grid.scss */
+.one-by-two {
+  width: 192px;
+  height: 392px;
+}
+
+/* line 14, ../scss/modules/_grid.scss */
+.two-by-one {
+  width: 392px;
+  height: 192px;
+}
+
+/* line 19, ../scss/modules/_grid.scss */
+.two-by-two {
+  width: 392px;
+  height: 392px;
+}
+
+/* line 24, ../scss/modules/_grid.scss */
+.three-by-two {
+  width: 592px;
+  height: 392px;
+}
+
+/* line 29, ../scss/modules/_grid.scss */
+.four-by-one {
+  width: 792px;
+  height: 192px;
+}
+
+/* line 7, ../scss/_basic.scss */
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* line 11, ../scss/_basic.scss */
+html {
+  overflow-y: scroll;
+}
+
+/* line 15, ../scss/_basic.scss */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 22, ../scss/_basic.scss */
+body {
+  font-family: "Hammersmith One", "Helvetica Neue", "Arial", sans-serif;
+  background-color: #3f3f3f;
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  -ms-perspective: 500px;
+  -o-perspective: 500px;
+  perspective: 500px;
+}
+
+/* line 29, ../scss/_basic.scss */
+header {
+  background-color: black;
+  height: 47px;
+  width: 792px;
+  margin: 0 auto 8px auto;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+/* line 40, ../scss/_basic.scss */
+header.hidden {
+  -webkit-transform: translate3d(0, -50px, 0) rotateX(50deg);
+  -moz-transform: translate3d(0, -50px, 0) rotateX(50deg);
+  -ms-transform: translate3d(0, -50px, 0) rotateX(50deg);
+  -o-transform: translate3d(0, -50px, 0) rotateX(50deg);
+  transform: translate3d(0, -50px, 0) rotateX(50deg);
+}
+/* line 44, ../scss/_basic.scss */
+header h1 {
+  font-size: 18px;
+  color: white;
+  padding: 15px;
+}
+
+/* line 51, ../scss/_basic.scss */
+#container {
+  padding-left: 8px;
+  width: 800px;
+  margin: auto;
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  -ms-perspective: 500px;
+  -o-perspective: 500px;
+  perspective: 500px;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+/* line 4, ../scss/modules/_grid.scss */
+.one-by-one {
+  width: 192px;
+  height: 192px;
+}
+
+/* line 9, ../scss/modules/_grid.scss */
+.one-by-two {
+  width: 192px;
+  height: 392px;
+}
+
+/* line 14, ../scss/modules/_grid.scss */
+.two-by-one {
+  width: 392px;
+  height: 192px;
+}
+
+/* line 19, ../scss/modules/_grid.scss */
+.two-by-two {
+  width: 392px;
+  height: 392px;
+}
+
+/* line 24, ../scss/modules/_grid.scss */
+.three-by-two {
+  width: 592px;
+  height: 392px;
+}
+
+/* line 29, ../scss/modules/_grid.scss */
+.four-by-one {
+  width: 792px;
+  height: 192px;
+}
+
+/* line 9, ../scss/_tiles.scss */
+.tile {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  position: relative;
+  float: left;
+  opacity: 0;
+  -webkit-transition-property: opacity, -webkit-transform;
+  -moz-transition-property: opacity, -moz-transform;
+  -o-transition-property: opacity, -o-transform;
+  transition-property: opacity, transform;
+  -webkit-transition-duration: 1s, 0.5s;
+  -moz-transition-duration: 1s, 0.5s;
+  -o-transition-duration: 1s, 0.5s;
+  transition-duration: 1s, 0.5s;
+  -webkit-transform-origin: center center center;
+  -moz-transform-origin: center center center;
+  -ms-transform-origin: center center center;
+  -o-transform-origin: center center center;
+  transform-origin: center center center;
+}
+
+/* line 25, ../scss/_tiles.scss */
+.tile.over {
+  -webkit-transform: translate3d(0, 0, -50px);
+  -moz-transform: translate3d(0, 0, -50px);
+  -ms-transform: translate3d(0, 0, -50px);
+  -o-transform: translate3d(0, 0, -50px);
+  transform: translate3d(0, 0, -50px);
+}
+
+/* line 29, ../scss/_tiles.scss */
+.tile.under {
+  -webkit-transform: translate3d(0, 0, -50px);
+  -moz-transform: translate3d(0, 0, -50px);
+  -ms-transform: translate3d(0, 0, -50px);
+  -o-transform: translate3d(0, 0, -50px);
+  transform: translate3d(0, 0, -50px);
+}
+
+/* line 33, ../scss/_tiles.scss */
+h2 {
+  font-size: 30px;
+  font-width: bold;
+  padding-top: 22px;
+  padding-left: 22px;
+}
+
+/* line 41, ../scss/_tiles.scss */
+span.subtitle {
+  display: block;
+  font-size: 14px;
+  font-width: bold;
+  padding-top: 0px;
+  padding-left: 22px;
+}
+
+/* line 51, ../scss/_tiles.scss */
+span.description {
+  line-height: 20px;
+  font-size: 14px;
+  display: block;
+  margin: 22px;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 4, ../scss/tiles/_swirl.scss */
+#swirl {
+  background-color: gainsboro;
+  color: black;
+}
+/* line 8, ../scss/tiles/_swirl.scss */
+#swirl img {
+  display: block;
+  margin-top: 13px;
+}
+/* line 13, ../scss/tiles/_swirl.scss */
+#swirl a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+/* line 19, ../scss/tiles/_swirl.scss */
+#swirl span.description {
+  display: block;
+  margin: 22px;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 8, ../scss/tiles/_twitter.scss */
+#twitter {
+  background-color: #3da11a;
+  color: white;
+}
+/* line 12, ../scss/tiles/_twitter.scss */
+#twitter span.quotation {
+  font-family: "Georgia", "Times", serif;
+  font-size: 58px;
+  position: absolute;
+  top: 101px;
+}
+/* line 19, ../scss/tiles/_twitter.scss */
+#twitter span.quotation.one {
+  left: 22px;
+}
+/* line 20, ../scss/tiles/_twitter.scss */
+#twitter span.quotation.two {
+  right: 22px;
+}
+/* line 23, ../scss/tiles/_twitter.scss */
+#twitter div.wrapper {
+  display: table;
+  margin-top: 19px;
+  height: 60px;
+}
+/* line 29, ../scss/tiles/_twitter.scss */
+#twitter div.cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 34, ../scss/tiles/_twitter.scss */
+#twitter div.quote {
+  display: block;
+  line-height: 20px;
+  width: 278px;
+  margin-left: 57px;
+}
+/* line 40, ../scss/tiles/_twitter.scss */
+#twitter div.quote a {
+  color: #225410;
+  text-decoration: none;
+  padding: 1px;
+  background-image: url("../../images/white-stripe.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 26px;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+}
+/* line 14, ../scss/modules/_small-button.scss */
+#twitter div.quote a:hover {
+  background-position: 0 0;
+  color: black;
+}
+/* line 46, ../scss/tiles/_twitter.scss */
+#twitter a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* line 8, ../scss/tiles/_mathias.scss */
+#mathias {
+  background-image: url(../../images/mathias.jpg);
+  background-repeat: no-repeat;
+  background-color: black;
+  color: white;
+}
+/* line 15, ../scss/tiles/_mathias.scss */
+#mathias .line1, #mathias .line2 {
+  display: block;
+  margin-left: 22px;
+}
+/* line 20, ../scss/tiles/_mathias.scss */
+#mathias .line1 {
+  font-size: 35px;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 0 10px, black 0 0 25px, black 0 0 30px;
+  margin-top: 115px;
+}
+/* line 26, ../scss/tiles/_mathias.scss */
+#mathias .line2 {
+  font-size: 25px;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 0 10px, black 0 0 25px, black 0 0 30px;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 4, ../scss/tiles/_resume.scss */
+#resume {
+  background-color: #2154bb;
+  color: white;
+}
+/* line 9, ../scss/tiles/_resume.scss */
+#resume a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 4, ../scss/tiles/_marblerun.scss */
+#marblerun {
+  background-color: #d6c50a;
+  color: white;
+  overflow: hidden;
+}
+/* line 10, ../scss/tiles/_marblerun.scss */
+#marblerun a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+/* line 16, ../scss/tiles/_marblerun.scss */
+#marblerun img {
+  display: block;
+  margin-left: 22px;
+  border: 4px solid white;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 4, ../scss/tiles/_swidgets.scss */
+#swidgets {
+  background-color: #ac0403;
+  color: white;
+}
+/* line 8, ../scss/tiles/_swidgets.scss */
+#swidgets a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 4, ../scss/tiles/_html5games.scss */
+#html5games {
+  background-color: #7196bd;
+  color: white;
+}
+/* line 8, ../scss/tiles/_html5games.scss */
+#html5games a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+/* line 14, ../scss/tiles/_html5games.scss */
+#html5games img {
+  border: 4px solid white;
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+}
+/* line 21, ../scss/tiles/_html5games.scss */
+#html5games span.description.side {
+  display: block;
+  width: 160px;
+  position: absolute;
+  left: 180px;
+  top: 155px;
+}
+
+/* line 4, ../scss/tiles/_contact.scss */
+#contact {
+  background-color: #ae6044;
+  color: white;
+}
+/* line 8, ../scss/tiles/_contact.scss */
+#contact a {
+  color: inherit;
+  text-decoration: none;
+  padding: 1px;
+  background-image: url("../../images/white-stripe.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 26px;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+}
+/* line 14, ../scss/modules/_small-button.scss */
+#contact a:hover {
+  background-position: 0 0;
+  color: black;
+}
+/* line 13, ../scss/tiles/_contact.scss */
+#contact span.right, #contact span.left {
+  position: absolute;
+}
+/* line 17, ../scss/tiles/_contact.scss */
+#contact span.right {
+  text-align: right;
+  right: 0;
+}
+
+/* line 3, ../scss/tiles/_worms.scss */
+#worms {
+  background-color: #8a4e9c;
+  color: white;
+}
+/* line 7, ../scss/tiles/_worms.scss */
+#worms img {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/* line 13, ../scss/tiles/_worms.scss */
+#worms span.description {
+  width: 180px;
+}
+/* line 17, ../scss/tiles/_worms.scss */
+#worms a.url {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+}
+
+/* line 3, ../scss/tiles/_adk.scss */
+#adk {
+  background-color: #1b1b1b;
+  color: white;
+}
+/* line 7, ../scss/tiles/_adk.scss */
+#adk a {
+  position: absolute;
+  bottom: 8px;
+}
+/* line 12, ../scss/tiles/_adk.scss */
+#adk span.description {
+  width: 460px;
+}
+/* line 16, ../scss/tiles/_adk.scss */
+#adk a.url {
+  left: 8px;
+}
+/* line 20, ../scss/tiles/_adk.scss */
+#adk a.code {
+  left: 78px;
+}
+
+/* line 4, ../scss/tiles/_mario.scss */
+#mario {
+  background-color: #71bd7b;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  color: white;
+}
+/* line 10, ../scss/tiles/_mario.scss */
+#mario span.description a {
+  color: #2f4d33;
+  text-decoration: none;
+  padding: 1px;
+  background-image: url("../../images/white-stripe.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 26px;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+}
+/* line 14, ../scss/modules/_small-button.scss */
+#mario span.description a:hover {
+  background-position: 0 0;
+  color: black;
+}
+/* line 15, ../scss/tiles/_mario.scss */
+#mario a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* line 3, ../scss/modules/_button.scss */
+.button {
+  font-size: 16px;
+  color: white;
+  background-image: url("../../images/button-background.jpg");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  -webkit-transition-property: background-position, color;
+  -moz-transition-property: background-position, color;
+  -o-transition-property: background-position, color;
+  transition-property: background-position, color;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  -moz-transition-duration: 0.2s, 0.2s;
+  -o-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* line 23, ../scss/modules/_button.scss */
+.button:hover {
+  background-position: 0 -26px;
+  color: black;
+}
+
+/* line 4, ../scss/tiles/_confetti.scss */
+#confetti {
+  background-color: #13757e;
+  color: white;
+}
+/* line 8, ../scss/tiles/_confetti.scss */
+#confetti a.url {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}

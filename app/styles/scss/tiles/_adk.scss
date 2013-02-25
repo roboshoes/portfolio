@@ -1,0 +1,23 @@
+@import "color";
+
+#adk {
+	background-color: $adk-background;
+	color: $adk-text-color;
+
+	a {
+		position: absolute;
+		bottom: $button-padding;
+	}
+
+	span.description {
+		width: 460px;
+	}
+
+	a.url {
+		left: $button-padding;
+	}
+
+	a.code {
+		left: $button-padding * 2 + 62px;
+	}
+}

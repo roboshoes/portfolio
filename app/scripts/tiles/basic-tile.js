@@ -14,7 +14,7 @@ define( [
 			$.ajax( {
 				url : "templates/" + content.template + ".hbs",
 				dataType: "text",
-					success : function ( data ) {
+					success : function( data ) {
 
 					var source = template( data, content );
 					container = $( source );
@@ -26,7 +26,7 @@ define( [
 		}
 
 		this.getContainer = function() {
-			return container;
+			return container[ 0 ];
 		}
 
 		this.fadeIn = function() {

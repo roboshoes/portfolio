@@ -10,7 +10,7 @@ define( [
 		var self = this;
 		var content;
 		var tiles = [];
-		var container = $( "#container" );
+		var container = document.getElementById( "container" );
 		var numLoaded = 0;
 
 		this.loadJSON = function( onCompleteClosure ) {
@@ -42,7 +42,7 @@ define( [
 
 		var initUI = function() {
 			setTimeout( function() {
-				$( "header" ).removeClass( "hidden" );
+				document.getElementById( "header" ).removeAttribute( "class" );
 			}, 200 )
 
 			setTimeout( insertTiles, 600 );
@@ -54,7 +54,7 @@ define( [
 			for (var i = 0; i < tiles.length; i++ ) {
 				tile = tiles[ i ];
 
-				container.append( tile.getContainer() );
+				container.appendChild( tile.getContainer() );
 				fadeInTile( tile, i );
 			}
 		}

@@ -10,9 +10,8 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						src: [
-							"fonts/**",
 							"images/**",
-							"videos/**",
+							"server/**",
 							"templates/**",
 							"content.json",
 							"favicon.ico",
@@ -139,5 +138,5 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-hashres" );
 	grunt.loadNpmTasks( "grunt-targethtml" );
 
-	grunt.registerTask( "build", "clean copy:build requirejs:compile compass:build concat:build targethtml:build hashres:build" );
+	grunt.registerTask( "build", [ "clean", "copy:build", "requirejs:compile", "compass:build", "concat:build", "targethtml:build", "hashres:build" ] );
 }

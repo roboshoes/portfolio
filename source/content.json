@@ -1,0 +1,95 @@
+{
+	"author": "Mathias Paumgarten",
+	"version": "1.0",
+
+	"swirl": {
+		"title": "SWIRL",
+		"subtitle": "PARTICLE EFFECT",
+		"image": "images/swirl.jpg",
+		"url": "http://www.mathias-paumgarten.com/lab/swirl/",
+		"description": "SWIRL is a particle effect written in ActionScript that let's you write any phrase but uses swirly particles instead of a sleak font.<br>TRY! NOW!!"
+	},
+
+	"twitter": {
+		"title": "TWITTER",
+		"subtitle": "LATEST TWEET"
+	},
+
+	"mathias": {
+		"title": "",
+		"subtitle": ""
+	},
+
+	"resume":	{
+		"title": "RESUME",
+		"subtitle": "ME IN PDF FORMAT",
+		"url": "http://mathias-paumgarten.com/downloads/CV.pdf",
+		"description": "Download.<br>Read.<br>Judge."
+	},
+
+	"marblerun": {
+		"title": "MARBLE RUN",
+		"subtitle": "ONLINE (DHU) BROWSER GAME",
+		"description": "Marble Run is a simple browser game with the single purpose to create world's longest marble run. We might have been aiming a little high with our goal but we did win the Mozilla Game On Challenge 2010 after all.<br><br>How does it work? Hard to explain but easy to play so give it a shot!",
+		"url": "http://marblerun.at",
+		"image": "images/marblerun.jpg"
+	},
+
+	"swidgets":	{
+		"title": "SWIDGETS",
+		"subtitle": "DESKTOP TODO APP",
+		"description": "Desktop Todo Application using AIR. Simple. Small. Easy.",
+		"image": "images/swidgets.jpg",
+		"url": "http://swidgets.lorenzpaulus.com/"
+	},
+
+	"html5games": {
+		"title": "HTML5 GAMES MOST WANTED",
+		"subtitle": "BUILD THE BEST HTML5 GAMES",
+		"description1": "This book is a collaborative piece of work. It covers many chapters from CSS3 over Particle Systems to Web Sockets.",
+		"description2": "It therefore is perfect for beginners who are getting their feed wet with JavaScript as well as experienced developers who want to broaden their horizon.",
+		"image": "images/html5games.jpg",
+		"url": "http://www.amazon.com/HTML5-Games-Most-Wanted-Build/dp/1430239786/ref=sr_1_1?ie=UTF8&qid=1350063186&sr=8-1&keywords=html5+games+most+wanted"
+	},
+
+	"worms": {
+		"title": "WORMS",
+		"subtitle": "HTML5 CANVAS",
+		"description": "I call this: Worms ala Canvas. Bon Appetit.",
+		"image": "images/worms.jpg",
+		"url": "http://mathias-paumgarten.com/lab/worms/"
+	},
+
+	"confetti": {
+		"title": "CONFETTI",
+		"subtitle": "PARTICLES AND BEZIER CURVES",
+		"description": "Much like WORMS, Confetti is a result of a little time off work. I played around with HTML5 Canvas and this is what happend.",
+		"image": "images/confetti.jpg",
+		"url": "http://www.mathias-paumgarten.com/lab/confetti/"
+	},
+
+	"adk": {
+		"title": "ACHTUNG DIE KURVE",
+		"subtitle": "MULTI PLAYER CANVAS GAME",
+		"description": "Achtung die Kurve (\"Watch out, a curve\") is a browser based multi-player game. It's as if Snake (the old cell phone game) and Tron had a baby.",
+		"url": "http://stravid.com/projects/achtung-die-kurve/",
+		"code": "https://github.com/stravid/achtung-die-kurve",
+		"image": "images/adk.jpg"
+	},
+
+	"mario": {
+		"title": "MARIO WEBHOFER",
+		"subtitle": "PORTFOLIO",
+		"description": "Mario Webhofer is a Photographer based in Innsbruck, Austria. This Portfolio, designed by <a href=\"http://www.dole-deluxe.com\" target=\"_blank\">Bernd Baumgartner</a>, presents many of his artistic pieces.",
+		"url": "http://www.mariowebhofer.at",
+		"image": "images/mario.png"
+	},
+
+	"contact": {
+		"title": "CONTACT",
+		"subtitle": "HOW TO GET AHOLD OF ME",
+		"left": "mail<br>twitter<br>linkedin<br>github",
+		"right": "<a href=\"mailto:mail@mathias-paumgarten.com\">mail@mathias-paumgarten.com</a><br><a href=\"http://twitter.com/mrPaumgarten\" target=\"_blank\">@mrPaumgarten</a><br><a href=\"http://www.linkedin.com/in/mathiaspaumgarten\" target=\"_blank\">linkedin.com/in/mathiaspaumgarten</a><br><a href=\"http://www.github.com/MathiasPaumgarten\" target=\"_blank\">github.com/MathiasPaumgarten</a>"
+	}
+
+}

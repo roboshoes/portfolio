@@ -2,3 +2,4 @@ deploy
 .sass-cache
 node_modules
 design
+.ftppass

@@ -18,7 +18,7 @@ module.exports = function( grunt ) {
 							"robots.txt"
 						],
 						dest: "deploy/",
-						cwd: "app/",
+						cwd: "source/",
 						expand: true
 					}
 				]
@@ -28,10 +28,10 @@ module.exports = function( grunt ) {
 		compass: {
 			dev: {
 				options: {
-					sassDir: "app/styles/scss",
-					cssDir: "app/styles/css",
+					sassDir: "source/styles/scss",
+					cssDir: "source/styles/css",
 					environment: "development",
-					imagesDir: "app/images",
+					imagesDir: "source/images",
 					outputStyle: "expanded",
 					noLineComments: false,
 					force: true
@@ -40,11 +40,11 @@ module.exports = function( grunt ) {
 
 			build: {
 				options: {
-					sassDir: "app/styles/scss",
+					sassDir: "source/styles/scss",
 					cssDir: "deploy/styles/css",
 					environment: "production",
 					imagesDir: "deploy/images",
-					outputStyle: "expanded",
+					outputStyle: "compressed",
 					noLineComments: false,
 					force: true
 				}
@@ -54,19 +54,13 @@ module.exports = function( grunt ) {
 		requirejs: {
 			compile: {
 				options: {
-					baseUrl: "app/scripts",
+					baseUrl: "source/scripts",
 					out: "deploy/scripts/main.js",
-					optimize : "uglify",
-					inlineText: true,
-					preserveLicenseComments: false,
 					name: "main",
 					include: "requireJS",
 
 					paths: {
-						requireJS: "vendor/require",
-						hm: "vendor/hm",
-						jquery: "vendor/jquery.min",
-						frame: "vendor/frame"
+						requireJS: "libs/require"
 					}
 				}
 			}
@@ -76,12 +70,12 @@ module.exports = function( grunt ) {
 			options: {
 				stripBanners: true,
 				banner: "/*\n* <%= pkg.title || pkg.name %>\n" +
-			            "* <%= pkg.url %>\n" +
-			            "*\n" +
-			            "* Build by <%= pkg.author.name %> (<%= pkg.author.email %>)\n" +
-			            "* Version <%= pkg.version %> (<%= grunt.template.today('yyyy-mm-dd') %>)\n" +
-			            "* \n" +
-			            "*/"
+				        " * <%= pkg.url %>\n" +
+				        " *\n" +
+				        " * Build by <%= pkg.author.name %> (<%= pkg.author.email %>)\n" +
+				        " * Version <%= pkg.version %> (<%= grunt.template.today('yyyy-mm-dd') %>)\n" +
+				        " * \n" +
+				        " */"
 			},
 
 			build: {
@@ -92,10 +86,18 @@ module.exports = function( grunt ) {
 
 		watch: {
 			compass: {
-				files: "app/styles/**/*.scss",
+				files: "source/styles/**/*.scss",
 				tasks: "compass:dev",
 				options: {
 					debounceDelay: 200
+				}
+			},
+
+			bake: {
+				files: "source/markup/**",
+				tasks: "bake:dev",
+				options: {
+					debounceDelay: 150
 				}
 			}
 		},
@@ -107,7 +109,7 @@ module.exports = function( grunt ) {
 		targethtml: {
 			build: {
 				files: {
-					"deploy/index.html": "app/index.html"
+					"deploy/index.html": "source/index.html"
 				}
 			}
 		},
@@ -125,6 +127,18 @@ module.exports = function( grunt ) {
 
 				dest: "deploy/index.html"
 			}
+		},
+
+		bake: {
+			dev: {
+				options: {
+					content: "source/content.json"
+				},
+
+				files: {
+					"source/index.html": "source/markup/base.html"
+				}
+			}
 		}
 
 	} );
@@ -137,6 +151,8 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-requirejs" );
 	grunt.loadNpmTasks( "grunt-hashres" );
 	grunt.loadNpmTasks( "grunt-targethtml" );
+	grunt.loadNpmTasks( "grunt-bake" );
 
 	grunt.registerTask( "build", [ "clean", "copy:build", "requirejs:compile", "compass:build", "concat:build", "targethtml:build", "hashres:build" ] );
+
 }

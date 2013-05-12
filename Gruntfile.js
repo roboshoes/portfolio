@@ -58,9 +58,11 @@ module.exports = function( grunt ) {
 					out: "deploy/scripts/main.js",
 					name: "main",
 					include: "requireJS",
+					inlineText: false,
 
 					paths: {
-						requireJS: "libs/require"
+						requireJS: "libs/require/require",
+						text: "libs/require/plugin.text"
 					}
 				}
 			}
@@ -94,7 +96,7 @@ module.exports = function( grunt ) {
 			},
 
 			bake: {
-				files: "source/markup/**",
+				files: [ "source/markup/**", "source/content.json" ],
 				tasks: "bake:dev",
 				options: {
 					debounceDelay: 150

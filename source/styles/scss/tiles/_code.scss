@@ -1,0 +1,21 @@
+@import "color";
+@import "modules/small-button";
+
+#code {
+	background-color: $code-background;
+	color: $code-text-color;
+
+	a {
+		color: inherit;
+		@include small-button;
+	}
+
+	span.right, span.left {
+		position: absolute;
+	}
+
+	span.right {
+		text-align: right;
+		right: 0;
+	}
+}

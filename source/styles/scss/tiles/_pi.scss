@@ -1,0 +1,33 @@
+@import "color";
+@import "modules/button";
+
+#pi {
+	background-color: $pi-background;
+	float: right;
+
+	color: $pi-text-color;
+
+	span.description a {
+		color: $pi-link-color;
+		@include small-button;
+	}
+
+	.description {
+		margin-top: 16px;
+	}
+
+	img {
+		$border: 3px solid #142349;
+
+		display: block;
+		margin-top: 13px;
+		border-top: $border;
+		border-bottom: $border;
+	}
+
+	a.url {
+		position: absolute;
+		bottom: $button-padding;
+		right: $button-padding;
+	}
+}

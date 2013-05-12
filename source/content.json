@@ -15,6 +15,14 @@
 		"subtitle": "LATEST TWEET"
 	},
 
+	"pi": {
+		"title": "PI'S EPIC JOURNEY",
+		"subtitle": "CREATING THE UNFORGETTABLE",
+		"image": "images/pi.jpg",
+		"url": "http://journey.lifeofpimovie.com/",
+		"description": "I worked on this with the incredible people at <a href=\"http://soapcreative.com/us\">Soap Creative</a>. We saw the internet likes parallex, so here you go."
+	},
+
 	"mathias": {
 		"title": "",
 		"subtitle": ""
@@ -88,8 +96,15 @@
 	"contact": {
 		"title": "CONTACT",
 		"subtitle": "HOW TO GET AHOLD OF ME",
-		"left": "mail<br>twitter<br>linkedin<br>github",
-		"right": "<a href=\"mailto:mail@mathias-paumgarten.com\">mail@mathias-paumgarten.com</a><br><a href=\"http://twitter.com/mrPaumgarten\" target=\"_blank\">@mrPaumgarten</a><br><a href=\"http://www.linkedin.com/in/mathiaspaumgarten\" target=\"_blank\">linkedin.com/in/mathiaspaumgarten</a><br><a href=\"http://www.github.com/MathiasPaumgarten\" target=\"_blank\">github.com/MathiasPaumgarten</a>"
+		"left": "mail<br>twitter<br>linkedin",
+		"right": "<a href=\"mailto:mail@mathias-paumgarten.com\">mail@mathias-paumgarten.com</a><br><a href=\"http://twitter.com/mrPaumgarten\" target=\"_blank\">@mrPaumgarten</a><br><a href=\"http://www.linkedin.com/in/mathiaspaumgarten\" target=\"_blank\">linkedin.com/in/mathiaspaumgarten</a>"
+	},
+
+	"code": {
+		"title": "CODE",
+		"subtitle": "IF YOU'RE INTO THAT KIND OF STUFF",
+		"left": "codepen<br>github",
+		"right": "<a href=\"http://codepen.io/MathiasPaumgarten\">codepen.op/MathiasPaumgarten</a><br><a href=\"http://www.github.com/MathiasPaumgarten\" target=\"_blank\">github.com/MathiasPaumgarten</a>"
 	}
 
 }

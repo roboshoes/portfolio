@@ -3,7 +3,7 @@ require.config( {
 	urlArgs: "bust=" + Date.now(),
 
 	paths: {
-		text: "libs/require/plugin.text",
+		text: "libs/require/plugin.text"
 	}
 
 } );

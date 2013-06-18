@@ -1,6 +1,5 @@
 {
 	"author": "Mathias Paumgarten",
-	"version": "1.0",
 
 	"swirl": {
 		"title": "SWIRL",
@@ -10,9 +9,12 @@
 		"description": "SWIRL is a particle effect written in ActionScript that let's you write any phrase but uses swirly particles instead of a sleak font.<br>TRY! NOW!!"
 	},
 
-	"twitter": {
-		"title": "TWITTER",
-		"subtitle": "LATEST TWEET"
+	"hair": {
+		"title": "HAIR",
+		"subtitle": "CANVAS 2D EXPERIMENT",
+		"description": "Inspired by <a target=\"_blank\" href=\"http://soulwire\">Soulwire's</a> <a target= \"_blank\" href=\"http://soulwire.co.uk/experiments/muscular-hydrostats/\">Muscular Hydrostats</a> I started playing with the Canvas API.",
+		"url": "http://mathias-paumgarten.com/lab/hair",
+		"code": "http://github.com/MathiasPaumgarten/hair"
 	},
 
 	"pi": {
@@ -28,11 +30,8 @@
 		"subtitle": ""
 	},
 
-	"resume":	{
-		"title": "RESUME",
-		"subtitle": "ME IN PDF FORMAT",
-		"url": "http://mathias-paumgarten.com/downloads/CV.pdf",
-		"description": "Download.<br>Read.<br>Judge."
+	"twitter":	{
+		"url": "http://twitter.com/mrPaumgarten"
 	},
 
 	"marblerun": {
@@ -49,6 +48,14 @@
 		"description": "Desktop Todo Application using AIR. Simple. Small. Easy.",
 		"image": "images/swidgets.jpg",
 		"url": "http://swidgets.lorenzpaulus.com/"
+	},
+
+	"spread": {
+		"title": "SPREAD",
+		"subtitle": "CSS 3D EXPERIMENT",
+		"description": "&ldquo;Sooooooooooo cool!&rdquo; - Someone on the internet",
+		"url": "http://mathias-paumgarten.com/lab/spread",
+		"code": "http://github.com/MathiasPaumgarten/spread"
 	},
 
 	"html5games": {

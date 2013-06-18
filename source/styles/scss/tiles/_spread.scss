@@ -1,0 +1,39 @@
+@import "color";
+@import "modules/small-button";
+
+#spread {
+	background-image: url( ../../images/spread.jpg );
+	background-repeat: no-repeat;
+	color: $spread-text-color;
+	position: relative;
+
+	a {
+		position: absolute;
+		bottom: $button-padding;
+	}
+
+	a.url {
+		right: $button-padding * 2 + 62px;
+	}
+
+	a.code {
+		right: $button-padding;
+	}
+
+	#spread-container {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+	}
+
+	.content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}

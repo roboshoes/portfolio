@@ -8,8 +8,4 @@ require.config( {
 
 } );
 
-require( [ "App" ], function( App ) {
-
-	var app = new App();
-
-} );
+require( [], function() {} );

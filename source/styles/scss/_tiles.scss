@@ -6,6 +6,7 @@ $inner-padding: 22px;
 $outer-margin: 8px;
 $button-padding: 8px;
 
+
 .tile {
 	margin-right: $outer-margin;
 	margin-bottom: $outer-margin;
@@ -14,20 +15,10 @@ $button-padding: 8px;
 
 	float: left;
 
-	opacity: 0;
-
 	@include transition-property( opacity, transform );
 	@include transition-duration( 1s, 0.5s );
 
 	@include apply-origin( center center center, true );
-}
-
-.tile.over {
-	@include translate3d( 0, 0, -50px );
-}
-
-.tile.under {
-	@include translate3d( 0, 0, -50px );
 }
 
 h2 {
@@ -56,9 +47,9 @@ span.description {
 }
 
 @import "tiles/swirl";
-@import "tiles/twitter";
+@import "tiles/hair";
 @import "tiles/mathias";
-@import "tiles/resume";
+@import "tiles/twitter";
 @import "tiles/marblerun";
 @import "tiles/swidgets";
 @import "tiles/html5games";
@@ -69,3 +60,4 @@ span.description {
 @import "tiles/confetti";
 @import "tiles/pi";
 @import "tiles/code";
+@import "tiles/spread";

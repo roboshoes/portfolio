@@ -1,47 +1,10 @@
 @import "color";
 @import "modules/button";
-@import "modules/small-button";
-
-$quote-padding: 15px;
-$quote-positioner: -2px;
 
 #twitter {
-	background-color: $twitter-background;
-	color: $twitter-text-color;
-
-	span.quotation {
-		font-family: "Georgia", "Times", serif;
-		font-size: 58px;
-
-		position: absolute;
-		top: 103px + $quote-positioner;
-
-		&.one { left: $inner-padding; }
-		&.two { right: $inner-padding; }
-	}
-
-	div.wrapper {
-		display: table;
-		margin-top: 21px + $quote-positioner;
-		height: 60px;
-	}
-
-	div.cell {
-		display: table-cell;
-		vertical-align: middle;
-	}
-
-	div.quote {
-		display: block;
-		line-height: 20px;
-		width: 308px - $quote-padding * 2;
-		margin-left: 42px + $quote-padding;
-
-		a {
-			color: $twitter-link-text;
-			@include small-button;
-		}
-	}
+	background-image: url( ../../images/twitter.jpg );
+	background-position: center center;
+	background-repeat: no-repeat;
 
 	a.url {
 		position: absolute;

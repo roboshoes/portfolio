@@ -134,35 +134,15 @@ header {
   height: 47px;
   width: 792px;
   margin: 0 auto 8px auto;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  -webkit-transition-timing-function: ease-out;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
 }
-/* line 40, ../scss/_basic.scss */
-header.hidden {
-  -webkit-transform: translate3d(0, -50px, 0) rotateX(50deg);
-  -moz-transform: translate3d(0, -50px, 0) rotateX(50deg);
-  -ms-transform: translate3d(0, -50px, 0) rotateX(50deg);
-  -o-transform: translate3d(0, -50px, 0) rotateX(50deg);
-  transform: translate3d(0, -50px, 0) rotateX(50deg);
-}
-/* line 44, ../scss/_basic.scss */
+/* line 36, ../scss/_basic.scss */
 header h1 {
   font-size: 18px;
   color: white;
   padding: 15px;
 }
 
-/* line 51, ../scss/_basic.scss */
+/* line 43, ../scss/_basic.scss */
 #container {
   padding-left: 8px;
   width: 800px;
@@ -212,13 +192,12 @@ header h1 {
   height: 192px;
 }
 
-/* line 9, ../scss/_tiles.scss */
+/* line 10, ../scss/_tiles.scss */
 .tile {
   margin-right: 8px;
   margin-bottom: 8px;
   position: relative;
   float: left;
-  opacity: 0;
   -webkit-transition-property: opacity, -webkit-transform;
   -moz-transition-property: opacity, -moz-transform;
   -o-transition-property: opacity, -o-transform;
@@ -234,25 +213,7 @@ header h1 {
   transform-origin: center center center;
 }
 
-/* line 25, ../scss/_tiles.scss */
-.tile.over {
-  -webkit-transform: translate3d(0, 0, -50px);
-  -moz-transform: translate3d(0, 0, -50px);
-  -ms-transform: translate3d(0, 0, -50px);
-  -o-transform: translate3d(0, 0, -50px);
-  transform: translate3d(0, 0, -50px);
-}
-
-/* line 29, ../scss/_tiles.scss */
-.tile.under {
-  -webkit-transform: translate3d(0, 0, -50px);
-  -moz-transform: translate3d(0, 0, -50px);
-  -ms-transform: translate3d(0, 0, -50px);
-  -o-transform: translate3d(0, 0, -50px);
-  transform: translate3d(0, 0, -50px);
-}
-
-/* line 33, ../scss/_tiles.scss */
+/* line 24, ../scss/_tiles.scss */
 h2 {
   font-size: 30px;
   font-width: bold;
@@ -260,7 +221,7 @@ h2 {
   padding-left: 22px;
 }
 
-/* line 41, ../scss/_tiles.scss */
+/* line 32, ../scss/_tiles.scss */
 span.subtitle {
   display: block;
   font-size: 14px;
@@ -269,7 +230,7 @@ span.subtitle {
   padding-left: 22px;
 }
 
-/* line 51, ../scss/_tiles.scss */
+/* line 42, ../scss/_tiles.scss */
 span.description {
   line-height: 20px;
   font-size: 14px;
@@ -353,47 +314,17 @@ span.description {
   color: black;
 }
 
-/* line 8, ../scss/tiles/_twitter.scss */
-#twitter {
-  background-color: #3da11a;
+/* line 5, ../scss/tiles/_hair.scss */
+#hair {
+  background-color: #cf4b4b;
+  background-image: url(../../images/hair.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
   color: white;
 }
-/* line 12, ../scss/tiles/_twitter.scss */
-#twitter span.quotation {
-  font-family: "Georgia", "Times", serif;
-  font-size: 58px;
-  position: absolute;
-  top: 101px;
-}
-/* line 19, ../scss/tiles/_twitter.scss */
-#twitter span.quotation.one {
-  left: 22px;
-}
-/* line 20, ../scss/tiles/_twitter.scss */
-#twitter span.quotation.two {
-  right: 22px;
-}
-/* line 23, ../scss/tiles/_twitter.scss */
-#twitter div.wrapper {
-  display: table;
-  margin-top: 19px;
-  height: 60px;
-}
-/* line 29, ../scss/tiles/_twitter.scss */
-#twitter div.cell {
-  display: table-cell;
-  vertical-align: middle;
-}
-/* line 34, ../scss/tiles/_twitter.scss */
-#twitter div.quote {
-  display: block;
-  line-height: 20px;
-  width: 278px;
-  margin-left: 57px;
-}
-/* line 40, ../scss/tiles/_twitter.scss */
-#twitter div.quote a {
-  color: #225410;
+/* line 12, ../scss/tiles/_hair.scss */
+#hair .description a {
+  color: #dddddd;
   text-decoration: none;
   padding: 1px;
   background-image: url(../../images/white-stripe.jpg);
@@ -409,14 +340,21 @@ span.description {
   transition-duration: 0.2s, 0.2s;
 }
 /* line 14, ../scss/modules/_small-button.scss */
-#twitter div.quote a:hover {
+#hair .description a:hover {
   background-position: 0 0;
   color: black;
 }
-/* line 46, ../scss/tiles/_twitter.scss */
-#twitter a.url {
+/* line 17, ../scss/tiles/_hair.scss */
+#hair a.button {
   position: absolute;
   bottom: 8px;
+}
+/* line 22, ../scss/tiles/_hair.scss */
+#hair a.url {
+  right: 78px;
+}
+/* line 26, ../scss/tiles/_hair.scss */
+#hair a.code {
   right: 8px;
 }
 
@@ -471,13 +409,14 @@ span.description {
   color: black;
 }
 
-/* line 4, ../scss/tiles/_resume.scss */
-#resume {
-  background-color: #2154bb;
-  color: white;
+/* line 4, ../scss/tiles/_twitter.scss */
+#twitter {
+  background-image: url(../../images/twitter.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-/* line 9, ../scss/tiles/_resume.scss */
-#resume a.url {
+/* line 9, ../scss/tiles/_twitter.scss */
+#twitter a.url {
   position: absolute;
   bottom: 8px;
   right: 8px;
@@ -887,4 +826,42 @@ span.description {
 #code span.right {
   text-align: right;
   right: 0;
+}
+
+/* line 4, ../scss/tiles/_spread.scss */
+#spread {
+  background-image: url(../../images/spread.jpg);
+  background-repeat: no-repeat;
+  color: black;
+  position: relative;
+}
+/* line 10, ../scss/tiles/_spread.scss */
+#spread a {
+  position: absolute;
+  bottom: 8px;
+}
+/* line 15, ../scss/tiles/_spread.scss */
+#spread a.url {
+  right: 78px;
+}
+/* line 19, ../scss/tiles/_spread.scss */
+#spread a.code {
+  right: 8px;
+}
+/* line 23, ../scss/tiles/_spread.scss */
+#spread #spread-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+/* line 32, ../scss/tiles/_spread.scss */
+#spread .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

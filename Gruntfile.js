@@ -141,20 +141,24 @@ module.exports = function( grunt ) {
 					"source/index.html": "source/markup/base.html"
 				}
 			}
+		},
+
+		connect: {
+			dev: {
+				options: {
+					port: 2000,
+					hostname: "*",
+					keepalive: true,
+					base: "source"
+				}
+			}
 		}
 
 	} );
 
-	grunt.loadNpmTasks( "grunt-contrib-compass" );
-	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	grunt.loadNpmTasks( "grunt-contrib-concat" );
-	grunt.loadNpmTasks( "grunt-contrib-copy" );
-	grunt.loadNpmTasks( "grunt-contrib-requirejs" );
-	grunt.loadNpmTasks( "grunt-hashres" );
-	grunt.loadNpmTasks( "grunt-targethtml" );
-	grunt.loadNpmTasks( "grunt-bake" );
+	require( "load-grunt-tasks" )( grunt );
 
+	grunt.registerTask( "default", [ "bake:dev", "compass:dev" ] );
 	grunt.registerTask( "build", [ "clean", "copy:build", "requirejs:compile", "compass:build", "concat:build", "targethtml:build", "hashres:build" ] );
 
 }

@@ -1,0 +1,38 @@
+#counselor {
+
+    background-color: $counselor-background-color;
+    color: $counselor-text-color;
+
+    div.image {
+        background-image: url( ../../images/counselor.jpg );
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: absolute;
+        top: 80px;
+        width: 100%;
+        height: 61%;
+    }
+
+    div.holder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        .subtitle {
+            margin-bottom: 270px;
+        }
+    }
+
+    span.description a {
+        color: $counselor-link-color;
+        @include small-button;
+    }
+
+    a.url {
+        position: absolute;
+        bottom: $button-padding;
+        right: $button-padding;
+    }
+}

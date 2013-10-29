@@ -112,6 +112,13 @@
 		"subtitle": "IF YOU'RE INTO THAT KIND OF STUFF",
 		"left": "codepen<br>github",
 		"right": "<a href=\"http://codepen.io/MathiasPaumgarten\">codepen.op/MathiasPaumgarten</a><br><a href=\"http://www.github.com/MathiasPaumgarten\" target=\"_blank\">github.com/MathiasPaumgarten</a>"
+	},
+
+	"counselor": {
+		"title": "THE COUNSELOR",
+		"subtitle": "MOVIE WEBSITE",
+		"url": "http://www.thecounselormovie.com/",
+		"description": "I got to work on this amazing experience together with the team at <a href=\"http://b-reel.com\" target=\"_blank\">B-Reel</a> for Fox Entertainment with a strong focus on smooth yet subtle animations."
 	}
 
 }

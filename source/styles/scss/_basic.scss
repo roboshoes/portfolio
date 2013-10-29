@@ -20,7 +20,7 @@ html, body {
 }
 
 body {
-	font-family: "Hammersmith One", "Helvetica Neue", "Arial", sans-serif;
+	font-family: "Hammersmith One", "Helvetica Neue", Arial, sans-serif;
 	background-color: $background-color;
 
 	@include perspective( 500px );

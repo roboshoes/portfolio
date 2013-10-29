@@ -30,3 +30,8 @@ $grid-size: $stage-width / 4;
 	width: $grid-size * 4 - 8px;
 	height: $grid-size - 8px;
 }
+
+.four-by-two {
+	width: $grid-size * 4 - 8px;
+	height: $grid-size * 2 - 8px;
+}

@@ -23,7 +23,7 @@ $button-padding: 8px;
 
 h2 {
 	font-size: 30px;
-	font-width: bold;
+	font-weight: bold;
 
 	padding-top: $inner-padding;
 	padding-left: $inner-padding;
@@ -61,3 +61,4 @@ span.description {
 @import "tiles/pi";
 @import "tiles/code";
 @import "tiles/spread";
+@import "tiles/counselor";

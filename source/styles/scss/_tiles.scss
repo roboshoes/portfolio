@@ -1,6 +1,3 @@
-@import "compass/css3/transition";
-@import "compass/css3/transform";
-
 
 $inner-padding: 22px;
 $outer-margin: 8px;
@@ -14,11 +11,6 @@ $button-padding: 8px;
 	position: relative;
 
 	float: left;
-
-	@include transition-property( opacity, transform );
-	@include transition-duration( 1s, 0.5s );
-
-	@include apply-origin( center center center, true );
 }
 
 h2 {

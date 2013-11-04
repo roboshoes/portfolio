@@ -105,17 +105,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 392px;
 }
 
-/* line 7, ../scss/_basic.scss */
+/* line 7, ../scss/main.scss */
 * {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 11, ../scss/_basic.scss */
+/* line 11, ../scss/main.scss */
 html {
   overflow-y: scroll;
 }
 
-/* line 15, ../scss/_basic.scss */
+/* line 15, ../scss/main.scss */
 html, body {
   width: 100%;
   height: 100%;
@@ -123,109 +123,44 @@ html, body {
   padding: 0;
 }
 
-/* line 22, ../scss/_basic.scss */
+/* line 22, ../scss/main.scss */
 body {
   font-family: "Hammersmith One", "Helvetica Neue", Arial, sans-serif;
   background-color: #3f3f3f;
-  -webkit-perspective: 500px;
-  -moz-perspective: 500px;
-  -ms-perspective: 500px;
-  -o-perspective: 500px;
-  perspective: 500px;
 }
 
-/* line 29, ../scss/_basic.scss */
+/* line 27, ../scss/main.scss */
 header {
   background-color: black;
   height: 47px;
   width: 792px;
   margin: 0 auto 8px auto;
 }
-/* line 36, ../scss/_basic.scss */
+/* line 34, ../scss/main.scss */
 header h1 {
   font-size: 18px;
   color: white;
   padding: 15px;
 }
 
-/* line 43, ../scss/_basic.scss */
+/* line 41, ../scss/main.scss */
 #container {
   padding-left: 8px;
   width: 800px;
   margin: auto;
-  -webkit-perspective: 500px;
-  -moz-perspective: 500px;
-  -ms-perspective: 500px;
-  -o-perspective: 500px;
-  perspective: 500px;
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 4, ../scss/modules/_grid.scss */
-.one-by-one {
-  width: 192px;
-  height: 192px;
-}
-
-/* line 9, ../scss/modules/_grid.scss */
-.one-by-two {
-  width: 192px;
-  height: 392px;
-}
-
-/* line 14, ../scss/modules/_grid.scss */
-.two-by-one {
-  width: 392px;
-  height: 192px;
-}
-
-/* line 19, ../scss/modules/_grid.scss */
-.two-by-two {
-  width: 392px;
-  height: 392px;
-}
-
-/* line 24, ../scss/modules/_grid.scss */
-.three-by-two {
-  width: 592px;
-  height: 392px;
-}
-
-/* line 29, ../scss/modules/_grid.scss */
-.four-by-one {
-  width: 792px;
-  height: 192px;
-}
-
-/* line 34, ../scss/modules/_grid.scss */
-.four-by-two {
-  width: 792px;
-  height: 392px;
-}
-
-/* line 10, ../scss/_tiles.scss */
+/* line 7, ../scss/_tiles.scss */
 .tile {
   margin-right: 8px;
   margin-bottom: 8px;
   position: relative;
   float: left;
-  -webkit-transition-property: opacity, -webkit-transform;
-  -moz-transition-property: opacity, -moz-transform;
-  -o-transition-property: opacity, -o-transform;
-  transition-property: opacity, transform;
-  -webkit-transition-duration: 1s, 0.5s;
-  -moz-transition-duration: 1s, 0.5s;
-  -o-transition-duration: 1s, 0.5s;
-  transition-duration: 1s, 0.5s;
-  -webkit-transform-origin: center center center;
-  -moz-transform-origin: center center center;
-  -ms-transform-origin: center center center;
-  -o-transform-origin: center center center;
-  transform-origin: center center center;
 }
 
-/* line 24, ../scss/_tiles.scss */
+/* line 16, ../scss/_tiles.scss */
 h2 {
   font-size: 30px;
   font-weight: bold;
@@ -233,7 +168,7 @@ h2 {
   padding-left: 22px;
 }
 
-/* line 32, ../scss/_tiles.scss */
+/* line 24, ../scss/_tiles.scss */
 span.subtitle {
   display: block;
   font-size: 14px;
@@ -242,7 +177,7 @@ span.subtitle {
   padding-left: 22px;
 }
 
-/* line 42, ../scss/_tiles.scss */
+/* line 34, ../scss/_tiles.scss */
 span.description {
   line-height: 20px;
   font-size: 14px;
@@ -250,7 +185,7 @@ span.description {
   margin: 22px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -271,7 +206,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -299,7 +234,7 @@ span.description {
   margin: 22px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -320,7 +255,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -394,7 +329,7 @@ span.description {
   text-shadow: rgba(0, 0, 0, 0.6) 0 0 10px, black 0 0 25px, black 0 0 30px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -415,7 +350,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -434,7 +369,7 @@ span.description {
   right: 8px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -455,7 +390,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -480,7 +415,7 @@ span.description {
   border: 4px solid white;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -501,7 +436,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -519,7 +454,7 @@ span.description {
   right: 8px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -540,7 +475,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -691,7 +626,7 @@ span.description {
   right: 8px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -712,7 +647,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;
@@ -730,7 +665,7 @@ span.description {
   right: 8px;
 }
 
-/* line 3, ../scss/modules/_button.scss */
+/* line 2, ../scss/modules/_button.scss */
 .button {
   font-size: 16px;
   color: white;
@@ -751,7 +686,7 @@ span.description {
   letter-spacing: 1px;
 }
 
-/* line 23, ../scss/modules/_button.scss */
+/* line 22, ../scss/modules/_button.scss */
 .button:hover {
   background-position: 0 -26px;
   color: black;

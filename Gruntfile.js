@@ -11,11 +11,8 @@ module.exports = function( grunt ) {
                     {
                         src: [
                             "images/**",
-                            "server/**",
                             "templates/**",
-                            "content.json",
-                            "favicon.ico",
-                            "robots.txt"
+                            "favicon.ico"
                         ],
                         dest: "deploy/",
                         cwd: "source/",

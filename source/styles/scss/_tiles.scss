@@ -9,14 +9,24 @@ $button-padding: 8px;
 	margin-bottom: $outer-margin;
 
 	position: relative;
-
+	display: none;
+	overflow: hidden;
 	float: left;
+
+	@include single-transition( all, 0.5s );
+}
+
+.tile.hidden-width {
+	width: 0;
+}
+
+.tile.hidden-height {
+	height: 0;
 }
 
 h2 {
 	font-size: 30px;
 	font-weight: bold;
-
 	padding-top: $inner-padding;
 	padding-left: $inner-padding;
 }

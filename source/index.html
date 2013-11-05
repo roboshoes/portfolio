@@ -19,6 +19,15 @@
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
 
+        <div id="loader" class="hidden">
+            <div id="loader-container">
+                <div class="one quarter"></div>
+                <div class="two quarter"></div>
+                <div class="three quarter"></div>
+                <div class="four quarter"></div>
+            </div>
+        </div>
+
         <header id="header" class="hidden">
             <h1>MATHIAS PAUMGARTEN</h1>
         </header>
@@ -203,9 +212,11 @@
         </script>
 
         <!--(if target build)>
+        <script src="scripts/main.js"></script>
         <!(endif)-->
 
         <!--(if target dev)><!-->
+        <script data-main="scripts/main" src="scripts/libs/require/require.js"></script>
         <!--<!(endif)-->
     </body>
 </html>

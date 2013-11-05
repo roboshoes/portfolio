@@ -3,9 +3,14 @@ require.config( {
 	urlArgs: "bust=" + Date.now(),
 
 	paths: {
-		text: "libs/require/plugin.text"
+        cane: "libs/cane",
+        mout: "libs/mout"
 	}
 
 } );
 
-require( [], function() {} );
+require( [ "app/app" ], function( app ) {
+
+    app();
+
+} );

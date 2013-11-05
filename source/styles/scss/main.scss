@@ -30,12 +30,19 @@ header {
     height: 47px;
     width: $stage-width - 8px;
     margin: 0 auto 8px auto;
+    display: none;
+
+    @include single-transition( all, 0.3s );
 
     h1 {
         font-size: 18px;
         color: $header-font-color;
         padding: 15px;
     }
+}
+
+header.hidden {
+    @include transform( translate( 0, -100px ) );
 }
 
 #container {
@@ -46,4 +53,5 @@ header {
 }
 
 
+@import "loader";
 @import "tiles";

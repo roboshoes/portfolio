@@ -1,3 +1,13 @@
+@import "styles/reset.scss";
+
+:root {
+    --bar-width: 70px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     margin: 0;
     padding: 0;

@@ -1,8 +1,13 @@
+.header {
+    margin-top: 30px;
+}
+
 .bar {
     background-color: white;
     display: inline-block;
     height: 19px;
-    width: 70px;
+    margin-right: 7px;
+    width: var( --bar-width );
 }
 
 .title {

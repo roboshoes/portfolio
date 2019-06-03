@@ -9,6 +9,7 @@
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "devDependencies": {
+    "@types/webfontloader": "^1.6.29",
     "autoprefixer": "^9.5.1",
     "parcel": "^1.12.3",
     "postcss-modules": "^1.4.1",
@@ -20,6 +21,7 @@
     "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "webfontloader": "^1.6.28"
   }
 }

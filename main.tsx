@@ -1,17 +1,20 @@
-import * as React from "react";
-import { render } from "react-dom";
-
-import { Brag } from "./scripts/components/brag";
+import * as WebFontLoader from "webfontloader";
+import { Renderer } from "./scripts/renderer";
 import { Header } from "./scripts/components/header";
 import { Who } from "./scripts/components/who";
 
-const App: React.FunctionComponent = () => (
-    <>
-        <Header />
-        <Who />
-        <Brag />
-    </>
-);
+WebFontLoader.load( {
+    active: init,
+    google: {
+        families: [ "Droid Sans", "Reem Kufi" ]
+    },
+} );
 
+const renderer = new Renderer();
 
-render( <App/>, document.getElementById( "root" ) );
+function init() {
+    document.body.appendChild( renderer.domElement );
+
+    renderer.add( new Header() );
+    renderer.add( new Who() );
+}

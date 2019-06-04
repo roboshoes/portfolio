@@ -12,7 +12,7 @@ export class Work extends React.Component {
     private raf = -1;
 
     state = {
-        anchor: 15
+        anchor: 0
     };
 
     constructor( props: {} ) {
@@ -31,7 +31,7 @@ export class Work extends React.Component {
                 <div className={ sharedStyles.paragraph }>
                     01 - 02 - 03 - Window Wonderland - 05
                 </div>
-                <div className={ styles.container } onMouseDown={ e => this.onMouseDown( e ) }>
+                <div className={ styles.container } onMouseDown={ this.onMouseDown }>
                     <div className={ styles.block } style={ { transform: `translateX( ${ this.state.anchor }px )` } }>
 
                     </div>
@@ -73,4 +73,14 @@ export class Work extends React.Component {
 
         cancelAnimationFrame( this.raf );
     }
+}
+
+class Picture extends React.Component<{ x: number }> {
+
+    render() {
+        return (
+            <div style={ { transform: `translateX( ${ this.props.x } )`} }></div>
+        );
+    }
+
 }

@@ -1,11 +1,12 @@
 import { bindAll } from "lodash";
 import * as React from "react";
 
-import wonderland from "../../assets/wonderland.jpg";
+import { padStart } from "lodash";
 import sharedStyles from "../../styles/shared.scss";
 import { Project, work } from "../content";
 import { ImagePayload, loadImage } from "../services/loader";
 import styles from "./work.scss";
+import { measureTextWidth } from "../services/measurement";
 
 
 class Picture {
@@ -38,12 +39,23 @@ const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( {
     </div>
 );
 
-const Tab: React.FunctionComponent<{ selected: boolean, index: number, name: string }> = ( { selected, index, name } ) => (
-    <>
-        <span>0{ index }</span>&nbsp;
-        <span className={ [ styles.tab, selected ? styles.open : "" ].join( " " ) }>{ name }</span>
-    </>
-);
+interface TabProps { selected: boolean; index: number; name: string; }
+const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
+    const [ width, setWidth ] = React.useState( 0 );
+    const content = `| ${ name }`;
+
+    React.useEffect( () => {
+        setWidth( measureTextWidth( content ) );
+    }, [ name ] );
+
+    return <>
+        <span>{ padStart( index.toString(), 2, "0" ) }</span>&nbsp;
+        <span className={ [ styles.tab, selected ? styles.open : "" ].join( " " ) }
+              style={ { width: `${ selected ? width : 0 }px` } }>
+            <span className={ styles.tabHolder } style={ { width: `${ width }px` } }>{ content }</span>
+        </span>
+    </>;
+};
 
 export class Work extends React.Component {
 

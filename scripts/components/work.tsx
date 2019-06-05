@@ -1,24 +1,57 @@
-import * as React from "react";
 import { bindAll } from "lodash";
+import * as React from "react";
 
+import wonderland from "../../assets/wonderland.jpg";
 import sharedStyles from "../../styles/shared.scss";
+import { Project, work } from "../content";
+import { ImagePayload, loadImage } from "../services/loader";
 import styles from "./work.scss";
 
+
+class Picture {
+    private image?: HTMLImageElement;
+
+    get width(): number {
+        return this.image ? this.image.width : 0;
+    }
+
+    constructor( private readonly project: Project ) {}
+
+    load(): Promise<void> {
+        return loadImage( this.project.mainImage ).then( ( payload: ImagePayload ) => {
+            this.image = payload.image;
+        } );
+    }
+}
+
+const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( { x, image } ) => (
+    <div style={ { transform: `translateX( ${ x }px )` } } className={ styles.frame }>
+        <img src={ image } className={ styles.workImage }/>
+    </div>
+);
 
 export class Work extends React.Component {
 
     private latestY = 0;
     private mouseY = 0;
     private raf = -1;
+    private pictures = work.map( project => new Picture( project ) );
 
     state = {
-        anchor: 0
+        anchor: 0,
+        totalWidth: 0,
     };
 
     constructor( props: {} ) {
         super( props );
 
         bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop" );
+
+        Promise.all( this.pictures.map( picture => picture.load() ) ).then( () => {
+            const totalWidth = this.pictures.reduce( ( previous, p ) => previous + p.width + 20 + 30 , 0 );
+
+            this.setState( { totalWidth } );
+        } );
     }
 
     render() {
@@ -32,26 +65,46 @@ export class Work extends React.Component {
                     01 - 02 - 03 - Window Wonderland - 05
                 </div>
                 <div className={ styles.container } onMouseDown={ this.onMouseDown }>
-                    <div className={ styles.block } style={ { transform: `translateX( ${ this.state.anchor }px )` } }>
+                    { this.pictures.map( ( picture: Picture, i ) =>  {
+                        const offset = this.state.anchor + this.widthUntil( i );
 
-                    </div>
+                        return <PictureOutlet x={ offset } image={ wonderland } key={ i } />
+                    } ) }
                 </div>
             </div>
         );
     }
 
+    private widthUntil( amount: number ): number {
+        let total = 0;
+
+        for ( let i = 0; i < amount; i++ ) {
+            total += this.pictures[ i ].width + 20 + 30;
+        }
+
+        return total;
+    }
+
     private loop() {
         cancelAnimationFrame( this.raf );
 
-        const delta = this.mouseY - this.latestY;
+        let delta = this.state.anchor + ( this.mouseY - this.latestY );
 
-        this.setState( { anchor: this.state.anchor + delta } );
+        while ( delta < 0 ) {
+            delta += window.innerWidth;
+        }
+
+        delta %= window.innerWidth;
+
+        this.setState( { anchor: delta } );
 
         this.raf = requestAnimationFrame( this.loop );
         this.latestY = this.mouseY;
     }
 
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
+        event.preventDefault();
+
         this.mouseY = event.pageX;
         this.latestY = event.pageX;
 
@@ -65,7 +118,7 @@ export class Work extends React.Component {
         this.mouseY = event.pageX;
     }
 
-    private onMouseUp( event: MouseEvent ) {
+    private onMouseUp() {
         window.removeEventListener( "mousemove", this.onMouseMove );
         window.removeEventListener( "mouseup", this.onMouseUp );
 
@@ -75,12 +128,3 @@ export class Work extends React.Component {
     }
 }
 
-class Picture extends React.Component<{ x: number }> {
-
-    render() {
-        return (
-            <div style={ { transform: `translateX( ${ this.props.x } )`} }></div>
-        );
-    }
-
-}

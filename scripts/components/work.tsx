@@ -19,6 +19,10 @@ class Picture {
         return this.project.mainImage;
     }
 
+    get name(): string {
+        return this.project.title;
+    }
+
     constructor( private readonly project: Project ) {}
 
     load(): Promise<void> {
@@ -40,6 +44,7 @@ export class Work extends React.Component {
     private mouseY = 0;
     private raf = -1;
     private pictures = work.map( project => new Picture( project ) );
+    private selected = 0;
 
     state = {
         anchor: 0,
@@ -61,6 +66,8 @@ export class Work extends React.Component {
     }
 
     render() {
+        let found = false;
+
         return (
             <div>
                 <div className={ sharedStyles.titleWrapper }>
@@ -68,7 +75,9 @@ export class Work extends React.Component {
                     <div className={ sharedStyles.title }>WORK</div>
                 </div>
                 <div className={ sharedStyles.paragraph }>
-                    01 - 02 - 03 - Window Wonderland - 05
+                    { this.pictures.map( ( picture, i ) => {
+                        return `${ i > 0 ? "– " : "" }0${ i + 1 } ${ i === this.selected ? picture.name : "" }`;
+                    } ) }
                 </div>
                 <div className={ styles.container } onMouseDown={ this.onMouseDown }>
                     { this.pictures.map( ( picture: Picture, i ) =>  {
@@ -76,6 +85,11 @@ export class Work extends React.Component {
 
                         if ( offset > window.innerWidth ) {
                             offset -= this.state.totalWidth;
+                        }
+
+                        if ( offset > 0 && ! found ) {
+                            this.selected = i;
+                            found = true;
                         }
 
                         return <PictureOutlet x={ offset } image={ picture.url } key={ i } />;

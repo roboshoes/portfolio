@@ -15,6 +15,10 @@ class Picture {
         return this.image ? this.image.width : 0;
     }
 
+    get url(): string {
+        return this.project.mainImage;
+    }
+
     constructor( private readonly project: Project ) {}
 
     load(): Promise<void> {
@@ -40,6 +44,7 @@ export class Work extends React.Component {
     state = {
         anchor: 0,
         totalWidth: 0,
+        startingPoint: 0,
     };
 
     constructor( props: {} ) {
@@ -49,8 +54,9 @@ export class Work extends React.Component {
 
         Promise.all( this.pictures.map( picture => picture.load() ) ).then( () => {
             const totalWidth = this.pictures.reduce( ( previous, p ) => previous + p.width + 20 + 30 , 0 );
+            const startingPoint = window.innerWidth - totalWidth;
 
-            this.setState( { totalWidth } );
+            this.setState( { totalWidth, startingPoint } );
         } );
     }
 
@@ -66,9 +72,13 @@ export class Work extends React.Component {
                 </div>
                 <div className={ styles.container } onMouseDown={ this.onMouseDown }>
                     { this.pictures.map( ( picture: Picture, i ) =>  {
-                        const offset = this.state.anchor + this.widthUntil( i );
+                        let offset = this.state.startingPoint + this.state.anchor + this.widthUntil( i );
 
-                        return <PictureOutlet x={ offset } image={ wonderland } key={ i } />
+                        if ( offset > window.innerWidth ) {
+                            offset -= this.state.totalWidth;
+                        }
+
+                        return <PictureOutlet x={ offset } image={ picture.url } key={ i } />;
                     } ) }
                 </div>
             </div>
@@ -91,10 +101,10 @@ export class Work extends React.Component {
         let delta = this.state.anchor + ( this.mouseY - this.latestY );
 
         while ( delta < 0 ) {
-            delta += window.innerWidth;
+            delta += this.state.totalWidth;
         }
 
-        delta %= window.innerWidth;
+        delta %= this.state.totalWidth;
 
         this.setState( { anchor: delta } );
 

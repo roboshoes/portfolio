@@ -38,6 +38,13 @@ const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( {
     </div>
 );
 
+const Tab: React.FunctionComponent<{ selected: boolean, index: number, name: string }> = ( { selected, index, name } ) => (
+    <>
+        <span>0{ index }</span>&nbsp;
+        <span className={ [ styles.tab, selected ? styles.open : "" ].join( " " ) }>{ name }</span>
+    </>
+);
+
 export class Work extends React.Component {
 
     private latestY = 0;
@@ -75,9 +82,14 @@ export class Work extends React.Component {
                     <div className={ sharedStyles.title }>WORK</div>
                 </div>
                 <div className={ sharedStyles.paragraph }>
-                    { this.pictures.map( ( picture, i ) => {
-                        return `${ i > 0 ? "– " : "" }0${ i + 1 } ${ i === this.selected ? picture.name : "" }`;
-                    } ) }
+                    {
+                        this.pictures.map( ( picture, i ) => {
+                            return <span key={ i }>
+                                { i > 0 ? " - " : null }
+                                <Tab  selected={ i === this.selected } index={ i + 1 } name={ picture.name } />
+                            </span>;
+                        } )
+                    }
                 </div>
                 <div className={ styles.container } onMouseDown={ this.onMouseDown }>
                     { this.pictures.map( ( picture: Picture, i ) =>  {

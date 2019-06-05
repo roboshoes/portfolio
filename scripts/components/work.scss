@@ -24,3 +24,14 @@
 .workImage {
     height: 100%;
 }
+
+.tab {
+    width: 0;
+    display: inline-block;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+.open {
+    width: 200px;
+}

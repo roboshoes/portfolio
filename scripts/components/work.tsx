@@ -42,15 +42,17 @@ const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( {
 interface TabProps { selected: boolean; index: number; name: string; }
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
     const [ width, setWidth ] = React.useState( 0 );
-    const content = `| ${ name }`;
+    const content = ` ${ name }`;
 
     React.useEffect( () => {
         setWidth( measureTextWidth( content ) );
     }, [ name ] );
 
     return <>
-        <span className={ s.tabSize }>{ padStart( index.toString(), 2, "0" ) }</span>&nbsp;
-        <span className={ classname( s.tab, s.tabSize, { open: selected } ) }
+        <span className={ classname( s.tabSize, { [ s.selected ]: selected } ) }>
+            { padStart( index.toString(), 2, "0" ) }
+        </span>&nbsp;
+        <span className={ classname( s.tab, s.tabSize, { [ s.selected ]: selected } ) }
               style={ { width: `${ selected ? width : 0 }px` } }>
             <span className={ s.tabHolder } style={ { width: `${ width }px` } }>{ content }</span>
         </span>
@@ -86,6 +88,7 @@ export class Work extends React.Component {
 
     render() {
         let found = false;
+        let width = 0;
 
         return (
             <div>
@@ -93,19 +96,21 @@ export class Work extends React.Component {
                     <div className={ ss.bar }></div>
                     <div className={ ss.title }>WORK</div>
                 </div>
-                <div className={ classname( ss.paragraph, s.tabParagraph ) }>
+                <div className={ ss.paragraph }>
                     {
                         this.pictures.map( ( picture, i ) => {
                             return <span key={ i } className={ s.tabContainer }>
                                 { i > 0 ? <>&nbsp;-&nbsp;</> : null }
-                                <Tab  selected={ i === this.selected } index={ i + 1 } name={ picture.name } />
+                                <Tab selected={ i === this.selected } index={ i + 1 } name={ picture.name } />
                             </span>;
                         } )
                     }
                 </div>
                 <div className={ s.container } onMouseDown={ this.onMouseDown }>
                     { this.pictures.map( ( picture: Picture, i ) =>  {
-                        let offset = this.state.startingPoint + this.state.anchor + this.widthUntil( i );
+                        let offset = this.state.startingPoint + this.state.anchor + width;
+
+                        width += picture.width + 20 + 30;
 
                         if ( offset > window.innerWidth ) {
                             offset -= this.state.totalWidth;
@@ -121,16 +126,6 @@ export class Work extends React.Component {
                 </div>
             </div>
         );
-    }
-
-    private widthUntil( amount: number ): number {
-        let total = 0;
-
-        for ( let i = 0; i < amount; i++ ) {
-            total += this.pictures[ i ].width + 20 + 30;
-        }
-
-        return total;
     }
 
     private loop() {

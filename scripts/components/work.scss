@@ -38,10 +38,6 @@
     transition: all 0.4s ease-in-out;
 }
 
-.tabParagraph {
-
-}
-
 .tabContainer {
     display: inline-flex;
     flex-direction: row;
@@ -59,8 +55,9 @@
     left: 0;
     position: absolute;
     top: 0;
+    color: white;
 }
 
-.open {
-    width: 200px;
+.selected {
+    color: white;
 }

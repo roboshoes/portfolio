@@ -1,12 +1,12 @@
-import { bindAll } from "lodash";
+import classname from "classnames";
+import { bindAll, padStart } from "lodash";
 import * as React from "react";
 
-import { padStart } from "lodash";
-import sharedStyles from "../../styles/shared.scss";
+import ss from "../../styles/shared.scss";
 import { Project, work } from "../content";
 import { ImagePayload, loadImage } from "../services/loader";
-import styles from "./work.scss";
 import { measureTextWidth } from "../services/measurement";
+import s from "./work.scss";
 
 
 class Picture {
@@ -34,8 +34,8 @@ class Picture {
 }
 
 const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( { x, image } ) => (
-    <div style={ { transform: `translateX( ${ x }px )` } } className={ styles.frame }>
-        <img src={ image } className={ styles.workImage }/>
+    <div style={ { transform: `translateX( ${ x }px )` } } className={ s.frame }>
+        <img src={ image } className={ s.workImage }/>
     </div>
 );
 
@@ -49,10 +49,10 @@ const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => 
     }, [ name ] );
 
     return <>
-        <span>{ padStart( index.toString(), 2, "0" ) }</span>&nbsp;
-        <span className={ [ styles.tab, selected ? styles.open : "" ].join( " " ) }
+        <span className={ s.tabSize }>{ padStart( index.toString(), 2, "0" ) }</span>&nbsp;
+        <span className={ classname( s.tab, s.tabSize, { open: selected } ) }
               style={ { width: `${ selected ? width : 0 }px` } }>
-            <span className={ styles.tabHolder } style={ { width: `${ width }px` } }>{ content }</span>
+            <span className={ s.tabHolder } style={ { width: `${ width }px` } }>{ content }</span>
         </span>
     </>;
 };
@@ -89,11 +89,11 @@ export class Work extends React.Component {
 
         return (
             <div>
-                <div className={ sharedStyles.titleWrapper }>
-                    <div className={ sharedStyles.bar }></div>
-                    <div className={ sharedStyles.title }>WORK</div>
+                <div className={ ss.titleWrapper }>
+                    <div className={ ss.bar }></div>
+                    <div className={ ss.title }>WORK</div>
                 </div>
-                <div className={ sharedStyles.paragraph }>
+                <div className={ ss.paragraph }>
                     {
                         this.pictures.map( ( picture, i ) => {
                             return <span key={ i }>
@@ -103,7 +103,7 @@ export class Work extends React.Component {
                         } )
                     }
                 </div>
-                <div className={ styles.container } onMouseDown={ this.onMouseDown }>
+                <div className={ s.container } onMouseDown={ this.onMouseDown }>
                     { this.pictures.map( ( picture: Picture, i ) =>  {
                         let offset = this.state.startingPoint + this.state.anchor + this.widthUntil( i );
 

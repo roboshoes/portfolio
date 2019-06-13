@@ -93,11 +93,11 @@ export class Work extends React.Component {
                     <div className={ ss.bar }></div>
                     <div className={ ss.title }>WORK</div>
                 </div>
-                <div className={ ss.paragraph }>
+                <div className={ classname( ss.paragraph, s.tabParagraph ) }>
                     {
                         this.pictures.map( ( picture, i ) => {
-                            return <span key={ i }>
-                                { i > 0 ? " - " : null }
+                            return <span key={ i } className={ s.tabContainer }>
+                                { i > 0 ? <>&nbsp;-&nbsp;</> : null }
                                 <Tab  selected={ i === this.selected } index={ i + 1 } name={ picture.name } />
                             </span>;
                         } )

@@ -32,11 +32,27 @@
 }
 
 .tab {
-    height: 20px;
+    height: 30px;
     overflow: hidden;
     position: relative;
     transition: all 0.4s ease-in-out;
-    width: 0;
+}
+
+.tabParagraph {
+
+}
+
+.tabContainer {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.tabHolder {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
 }
 
 .tabHolder {

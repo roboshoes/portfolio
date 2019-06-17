@@ -12,5 +12,5 @@ export function measureTextWidth( text: string ): number {
 
     document.body.removeChild( element );
 
-    return Math.ceil( width );
+    return Math.ceil( width ) + 3;
 }

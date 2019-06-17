@@ -1,7 +1,7 @@
 import classname from "classnames";
 import { bindAll, padStart } from "lodash";
 import * as React from "react";
-import { TweenLite } from "gsap";
+import { TweenLite, Power3 } from "gsap";
 
 import ss from "../../styles/shared.scss";
 import { Project, work } from "../content";
@@ -63,6 +63,7 @@ export class Work extends React.Component {
 
     private latestY = 0;
     private mouseY = 0;
+    private speed = 0;
     private raf = -1;
     private pictures = work.map( project => new Picture( project ) );
     private selected = 0;
@@ -76,7 +77,7 @@ export class Work extends React.Component {
     constructor( props: {} ) {
         super( props );
 
-        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop" );
+        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset" );
 
         Promise.all( this.pictures.map( picture => picture.load() ) ).then( () => {
             const totalWidth = this.pictures.reduce( ( previous, p ) => previous + p.width + 20 + 30 , 0 );
@@ -139,6 +140,8 @@ export class Work extends React.Component {
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
         event.preventDefault();
 
+        TweenLite.killTweensOf( this );
+
         this.mouseY = event.pageX;
         this.latestY = event.pageX;
 
@@ -158,13 +161,17 @@ export class Work extends React.Component {
         window.removeEventListener( "mousemove", this.onMouseMove );
         window.removeEventListener( "mouseup", this.onMouseUp );
 
-        TweenLite.to( this, 2.6, { mouseY: this.mouseY + 100, onUpdate: () => {
-            this.setOffset();
-        } } );
+        TweenLite.to( this, 1, {
+            mouseY: this.mouseY + this.speed * 20,
+            onUpdate: this.setOffset,
+            ease: Power3.easeOut,
+        } );
     }
 
     private setOffset() {
-        let delta = this.state.anchor + ( this.mouseY - this.latestY );
+        this.speed = this.mouseY - this.latestY;
+
+        let delta = this.state.anchor + this.speed;
 
         while ( delta < 0 ) {
             delta += this.state.totalWidth;

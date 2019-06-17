@@ -4,7 +4,7 @@ import * as React from "react";
 
 import ss from "../../styles/shared.scss";
 import { Project, work } from "../content";
-import { ImagePayload, loadImage } from "../services/loader";
+import { loadImage } from "../services/loader";
 import { measureTextWidth } from "../services/measurement";
 import s from "./work.scss";
 
@@ -26,10 +26,9 @@ class Picture {
 
     constructor( private readonly project: Project ) {}
 
-    load(): Promise<void> {
-        return loadImage( this.project.mainImage ).then( ( payload: ImagePayload ) => {
-            this.image = payload.image;
-        } );
+    async load(): Promise<void> {
+        const payload = await loadImage( this.project.mainImage );
+        this.image = payload.image;
     }
 }
 

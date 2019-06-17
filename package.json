@@ -9,19 +9,19 @@
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "devDependencies": {
-    "@types/lodash": "^4.14.133",
-    "autoprefixer": "^9.5.1",
+    "@types/lodash": "^4.14.134",
+    "autoprefixer": "^9.6.0",
     "classname": "0.0.0",
     "lodash": "^4.17.11",
     "parcel": "^1.12.3",
     "postcss-modules": "^1.4.1",
-    "sass": "^1.20.1",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
+    "sass": "^1.21.0",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "@types/classnames": "^2.2.8",
-    "@types/react": "^16.8.18",
+    "@types/react": "^16.8.20",
     "@types/react-dom": "^16.8.4",
     "classnames": "^2.2.6",
     "react": "^16.8.6",

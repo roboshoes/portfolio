@@ -1,6 +1,7 @@
 import classname from "classnames";
 import { bindAll, padStart } from "lodash";
 import * as React from "react";
+import { TweenLite } from "gsap";
 
 import ss from "../../styles/shared.scss";
 import { Project, work } from "../content";
@@ -41,7 +42,7 @@ const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( {
 interface TabProps { selected: boolean; index: number; name: string; }
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
     const [ width, setWidth ] = React.useState( 0 );
-    const content = ` ${ name }`;
+    const content = `${ name }`;
 
     React.useEffect( () => {
         setWidth( measureTextWidth( content ) );
@@ -130,18 +131,9 @@ export class Work extends React.Component {
     private loop() {
         cancelAnimationFrame( this.raf );
 
-        let delta = this.state.anchor + ( this.mouseY - this.latestY );
-
-        while ( delta < 0 ) {
-            delta += this.state.totalWidth;
-        }
-
-        delta %= this.state.totalWidth;
-
-        this.setState( { anchor: delta } );
+        this.setOffset();
 
         this.raf = requestAnimationFrame( this.loop );
-        this.latestY = this.mouseY;
     }
 
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
@@ -161,12 +153,28 @@ export class Work extends React.Component {
     }
 
     private onMouseUp() {
+        cancelAnimationFrame( this.raf );
+
         window.removeEventListener( "mousemove", this.onMouseMove );
         window.removeEventListener( "mouseup", this.onMouseUp );
 
-        this.latestY = 0;
+        TweenLite.to( this, 2.6, { mouseY: this.mouseY + 100, onUpdate: () => {
+            this.setOffset();
+        } } );
+    }
 
-        cancelAnimationFrame( this.raf );
+    private setOffset() {
+        let delta = this.state.anchor + ( this.mouseY - this.latestY );
+
+        while ( delta < 0 ) {
+            delta += this.state.totalWidth;
+        }
+
+        delta %= this.state.totalWidth;
+
+        this.setState( { anchor: delta } );
+
+        this.latestY = this.mouseY;
     }
 }
 

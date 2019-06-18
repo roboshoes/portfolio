@@ -1,4 +1,4 @@
-import classname from "classnames";
+import classnames from "classnames";
 import { bindAll, padStart } from "lodash";
 import * as React from "react";
 import { TweenLite, Power3 } from "gsap";
@@ -49,10 +49,10 @@ const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => 
     }, [ name ] );
 
     return <>
-        <span className={ classname( s.tabSize, { [ s.selected ]: selected } ) }>
+        <span className={ classnames( s.tabSize, { [ s.selected ]: selected } ) }>
             { padStart( index.toString(), 2, "0" ) }
         </span>&nbsp;
-        <span className={ classname( s.tab, s.tabSize, { [ s.selected ]: selected } ) }
+        <span className={ classnames( s.tab, s.tabSize, { [ s.selected ]: selected } ) }
               style={ { width: `${ selected ? width : 0 }px` } }>
             <span className={ s.tabHolder } style={ { width: `${ width }px` } }>{ content }</span>
         </span>
@@ -97,7 +97,7 @@ export class Work extends React.Component {
                     <div className={ ss.bar }></div>
                     <div className={ ss.title }>WORK</div>
                 </div>
-                <div className={ ss.paragraph }>
+                <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
                     {
                         this.pictures.map( ( picture, i ) => {
                             return <span key={ i } className={ s.tabContainer }>

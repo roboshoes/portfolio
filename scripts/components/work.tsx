@@ -79,12 +79,13 @@ export class Work extends React.Component {
 
         bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset" );
 
-        Promise.all( this.pictures.map( picture => picture.load() ) ).then( () => {
-            const totalWidth = this.pictures.reduce( ( previous, p ) => previous + p.width + 20 + 30 , 0 );
-            const startingPoint = window.innerWidth - totalWidth;
+        Promise.all( this.pictures.map( picture => picture.load() ) )
+            .then( () => {
+                const totalWidth = this.pictures.reduce( ( previous, p ) => previous + p.width + 20 + 30 , 0 );
+                const startingPoint = window.innerWidth - totalWidth;
 
-            this.setState( { totalWidth, startingPoint } );
-        } );
+                this.setState( { totalWidth, startingPoint } );
+            } );
     }
 
     render() {

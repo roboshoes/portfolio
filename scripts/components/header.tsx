@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import styles from "./header.scss";
+import s from "./header.scss";
 
 export const Header: React.FunctionComponent = () => (
-    <header className={ styles.header }>
-        <span className={ styles.bar }></span>
-        <span className={ styles.title }>MATHIAS PAUMGARTEN</span>
+    <header className={ s.header }>
+        <span className={ s.bar }></span>
+        <span className={ s.title }>MATHIAS PAUMGARTEN</span>
     </header>
 );

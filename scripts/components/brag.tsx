@@ -1,34 +1,35 @@
 import * as React from "react";
+import classnames from "classnames";
 
-import sharedStyles from "../../styles/shared.scss";
-import styles from "./brag.scss";
+import ss from "../../styles/shared.scss";
+import s from "./brag.scss";
 
 export const Brag: React.FunctionComponent = () => (
     <div>
-        <div className={ sharedStyles.titleWrapper }>
-            <div className={ sharedStyles.bar }></div>
-            <div className={ sharedStyles.title }>HUMBLE BRAG</div>
+        <div className={ ss.titleWrapper }>
+            <div className={ ss.bar }></div>
+            <div className={ ss.title }>HUMBLE BRAG</div>
         </div>
-        <div className={ sharedStyles.paragraph }>
+        <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
             Awards
 
             <ul>
-                <li className={ styles.item }>FWA</li>
-                <li className={ styles.item }>Awwward</li>
-                <li className={ styles.item }>Weeby's</li>
-                <li className={ styles.item }>Mozilla Game Award</li>
+                <li className={ s.item }>FWA</li>
+                <li className={ s.item }>Awwward</li>
+                <li className={ s.item }>Weeby's</li>
+                <li className={ s.item }>Mozilla Game Award</li>
             </ul>
 
             Patents
 
             <ul>
-                <li className={ styles.item }>Systems and methods for interactive video generation and rendering</li>
-                <li className={ styles.item }>Public Defense</li>
+                <li className={ s.item }>Systems and methods for interactive video generation and rendering</li>
+                <li className={ s.item }>Public Defense</li>
             </ul>
 
             Publications
 
-            <ul><li className={ styles.item }>HTML5 Games Most Wanted</li></ul>
+            <ul><li className={ s.item }>HTML5 Games Most Wanted</li></ul>
         </div>
     </div>
 );

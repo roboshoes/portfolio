@@ -2,13 +2,12 @@ import * as React from "react";
 
 import styles from "../../styles/shared.scss";
 import { Text } from "./text";
+import { Title } from "./title";
 
 export const Who: React.FunctionComponent = () => (
     <div>
-        <div className={ styles.titleWrapper }>
-            <div className={ styles.bar }></div>
-            <div className={ styles.title }>WHO</div>
-        </div>
+        <Title value="WHO" />
+
         <div className={ styles.textWrapper }>
             <Text text={
                 `Mathias Paumgarten is a freelance, award winning creative developer. He wrote this short

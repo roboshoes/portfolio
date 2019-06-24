@@ -8,6 +8,7 @@ import { Project, work } from "../content";
 import { loadImage } from "../services/loader";
 import { measureTextWidth } from "../services/measurement";
 import s from "./work.scss";
+import { setRoute } from "../services/router";
 
 
 class Picture {
@@ -34,7 +35,7 @@ class Picture {
 }
 
 const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( { x, image } ) => (
-    <div style={ { transform: `translateX( ${ x }px )` } } className={ s.frame }>
+    <div style={ { transform: `translateX( ${ x }px )` } } className={ s.frame } onClick={ () => setRoute( "/work" ) }>
         <img src={ image } className={ s.workImage }/>
     </div>
 );

@@ -7,6 +7,7 @@ import { Who } from "./scripts/components/who";
 import { Contact } from "./scripts/components/contact";
 import { Work } from "./scripts/components/work";
 import { onRoute } from "./scripts/services/router";
+import { Detail } from "./scripts/components/detail";
 
 const App: React.FunctionComponent = () => (
     <>
@@ -15,6 +16,7 @@ const App: React.FunctionComponent = () => (
         <Work />
         <Brag />
         <Contact />
+        <Detail />
     </>
 );
 

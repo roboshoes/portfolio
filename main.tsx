@@ -6,21 +6,18 @@ import { Header } from "./scripts/components/header";
 import { Who } from "./scripts/components/who";
 import { Contact } from "./scripts/components/contact";
 import { Work } from "./scripts/components/work";
-import { onRoute } from "./scripts/services/router";
 import { Detail } from "./scripts/components/detail";
+import ss from "./styles/shared.scss";
 
 const App: React.FunctionComponent = () => (
-    <>
+    <div className={ ss.site }>
         <Header />
         <Who />
         <Work />
         <Brag />
         <Contact />
         <Detail />
-    </>
+    </div>
 );
-
-onRoute( "hello there" );
-
 
 render( <App/>, document.getElementById( "root" ) );

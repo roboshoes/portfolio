@@ -1,14 +1,15 @@
 import * as React from "react";
 
-import styles from "../../styles/shared.scss";
+import ss from "../../styles/shared.scss";
 import { Text } from "./text";
 import { Title } from "./title";
+import { Wrapper } from "./wrapper";
 
-export const Who: React.FunctionComponent = () => (
-    <div>
+export const Who: React.FunctionComponent = () => {
+    return <Wrapper>
         <Title value="WHO" />
 
-        <div className={ styles.textWrapper }>
+        <div className={ ss.textWrapper }>
             <Text text={
                 `Mathias Paumgarten is a freelance, award winning creative developer. He wrote this short
                 bio in thrid person to appear serious and professional, but make no mistake. It’s mearly
@@ -20,5 +21,5 @@ export const Who: React.FunctionComponent = () => (
                 dabbeled with the best of Silicon Valley working as creative engineer at Google. Lusting
                 for a wider spectrum of partnerships, he decided to become a freelancer.` } />
         </div>
-    </div>
-);
+    </Wrapper>;
+};

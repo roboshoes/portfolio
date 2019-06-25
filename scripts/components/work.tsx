@@ -9,6 +9,7 @@ import { loadImage } from "../services/loader";
 import { measureTextWidth } from "../services/measurement";
 import s from "./work.scss";
 import { setRoute } from "../services/router";
+import { Wrapper } from "./wrapper";
 
 
 class Picture {
@@ -94,7 +95,7 @@ export class Work extends React.Component {
         let width = 0;
 
         return (
-            <div>
+            <Wrapper>
                 <div className={ ss.titleWrapper }>
                     <div className={ ss.bar }></div>
                     <div className={ ss.title }>WORK</div>
@@ -127,7 +128,7 @@ export class Work extends React.Component {
                         return <PictureOutlet x={ offset } image={ picture.url } key={ i } />;
                     } ) }
                 </div>
-            </div>
+            </Wrapper>
         );
     }
 

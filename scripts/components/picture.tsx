@@ -29,8 +29,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
         let y = 0;
 
         if ( this.props.selected ) {
-            x = 20;
-            y = -300;
+            x = 77;
+            y = -325;
         }
 
         return (

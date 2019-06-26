@@ -38,11 +38,10 @@
 .hidden {
     opacity: 0.2;
     transform: translateZ( -10px );
-    filter: blur( 1px );
 }
 
 .site {
-    overflow-x: hidden;
+    overflow: hidden;
     perspective: 300px;
     transform-origin: top left;
     transform-style: preserve-3d;

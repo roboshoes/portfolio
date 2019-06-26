@@ -2,9 +2,10 @@ import classnames from "classnames";
 import * as React from "react";
 
 import ss from "../../styles/shared.scss";
+import { Wrapper } from "./wrapper";
 
 export const Contact: React.FunctionComponent = () => (
-    <div>
+    <Wrapper>
         <div className={ ss.titleWrapper }>
             <div className={ ss.bar }></div>
             <div className={ ss.title }>CONTACT</div>
@@ -18,5 +19,5 @@ export const Contact: React.FunctionComponent = () => (
             If you need a PDF form of this, to hand it to the old founder of the agency you work at,
             I also have a Resume.
         </div>
-    </div>
+    </Wrapper>
 );

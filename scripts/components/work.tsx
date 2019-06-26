@@ -5,10 +5,11 @@ import * as React from "react";
 
 import ss from "../../styles/shared.scss";
 import { work } from "../content";
+import { Picture } from "../models/picture";
 import { measureTextWidth } from "../services/measurement";
 import { getRoute, observeRoute } from "../services/router";
 import { DETAIL_ROUTE } from "./detail";
-import { Picture, PictureOutlet } from "./picture";
+import { PictureOutlet } from "./picture-outlet";
 import s from "./work.scss";
 import { Wrapper } from "./wrapper";
 

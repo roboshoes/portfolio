@@ -1,9 +1,5 @@
 import wonderland from "../assets/wonderland.jpg";
-
-export interface Project {
-    mainImage: string;
-    title: string;
-}
+import { Project } from "./models/project";
 
 export const work: Project[] = [
     {

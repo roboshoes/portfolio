@@ -1,37 +1,10 @@
 import classnames from "classnames";
 import * as React from "react";
 
-import { Project } from "../content";
-import { loadImage } from "../services/loader";
 import { setRoute } from "../services/router";
-import s from "./picture.scss";
+import s from "./picture-outlet.scss";
+import { Picture } from "../models/picture";
 
-export class Picture {
-    private image?: HTMLImageElement;
-
-    get width(): number {
-        return this.image ? this.image.width : 0;
-    }
-
-    get height(): number {
-        return this.image ? this.image.height : 0;
-    }
-
-    get url(): string {
-        return this.project.mainImage;
-    }
-
-    get name(): string {
-        return this.project.title;
-    }
-
-    constructor( private readonly project: Project ) {}
-
-    async load(): Promise<void> {
-        const payload = await loadImage( this.project.mainImage );
-        this.image = payload.image;
-    }
-}
 
 interface PictureOutletProps {
     x: number;
@@ -44,6 +17,7 @@ interface PictureOutletProps {
 export class PictureOutlet extends React.Component<PictureOutletProps> {
 
     private mouseDown = Infinity;
+    private mousePosition = { x: -1, y: -1 };
     private animated = false;
 
     componentWillReceiveProps( nextProps: PictureOutletProps ) {
@@ -76,8 +50,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
         return (
             <div style={ styles }
                  className={ classnames( s.frame, { [ s.animate ]: this.animated } ) }
-                 onMouseDown={ () => this.onMouseDown()  }
-                 onMouseUp={ () => this.onMouseUp() }>
+                 onMouseDown={ e => this.onMouseDown( e )  }
+                 onMouseUp={ e => this.onMouseUp( e ) }>
                 <img src={ this.props.picture.url } className={ s.workImage }/>
             </div>
         );
@@ -90,12 +64,18 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
         return height * scale;
     }
 
-    private onMouseDown() {
+    private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
         this.mouseDown = Date.now();
+        this.mousePosition.x = event.pageX;
+        this.mousePosition.y = event.pageY;
     }
 
-    private onMouseUp() {
-        if ( Date.now() - this.mouseDown < 100 ) {
+    private onMouseUp( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
+        const x = event.pageX - this.mousePosition.x;
+        const y = event.pageY - this.mousePosition.y;
+        const distance = Math.sqrt( x * x + y * y );
+
+        if ( Date.now() - this.mouseDown < 100 && distance < 5 ) {
             setRoute( `/work/${ this.props.index }` );
         }
     }

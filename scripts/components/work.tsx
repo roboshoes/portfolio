@@ -11,6 +11,7 @@ import { PictureOutlet } from "./picture";
 import s from "./work.scss";
 import { observeRoute, getRoute } from "../services/router";
 import { DETAIL_ROUTE } from "./detail";
+import { Wrapper } from "./wrapper";
 
 
 class Picture {
@@ -116,20 +117,23 @@ export class Work extends React.Component<{}, WorkState> {
 
         return (
             <div>
-                <div className={ ss.titleWrapper }>
-                    <div className={ ss.bar }></div>
-                    <div className={ ss.title }>WORK</div>
-                </div>
-                <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
-                    {
-                        this.pictures.map( ( picture, i ) => {
-                            return <span key={ i } className={ s.tabContainer }>
-                                { i > 0 ? <>&nbsp;-&nbsp;</> : null }
-                                <Tab selected={ i === this.focused } index={ i + 1 } name={ picture.name } />
-                            </span>;
-                        } )
-                    }
-                </div>
+                <Wrapper>
+                    <div className={ ss.titleWrapper }>
+                        <div className={ ss.bar }></div>
+                        <div className={ ss.title }>WORK</div>
+                    </div>
+                    <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
+                        {
+                            this.pictures.map( ( picture, i ) => {
+                                return <span key={ i } className={ s.tabContainer }>
+                                    { i > 0 ? <>&nbsp;-&nbsp;</> : null }
+                                    <Tab selected={ i === this.focused } index={ i + 1 } name={ picture.name } />
+                                </span>;
+                            } )
+                        }
+                    </div>
+                </Wrapper>
+
                 <div className={ s.container } onMouseDown={ this.onMouseDown }>
                     { this.pictures.map( ( picture: Picture, i ) =>  {
                         let offset = this.state.startingPoint + this.state.anchor + width;
@@ -149,6 +153,7 @@ export class Work extends React.Component<{}, WorkState> {
                                               image={ picture.url }
                                               key={ i }
                                               index={ i }
+                                              hidden={ this.state.selection > -1 }
                                               selected={ this.state.selection === i } />;
                     } ) }
                 </div>

@@ -9,6 +9,7 @@ interface PictureOutletProps {
     image: string;
     index: number;
     selected: boolean;
+    hidden: boolean;
 }
 
 export class PictureOutlet extends React.Component<PictureOutletProps> {
@@ -17,9 +18,9 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
     private animated = false;
 
     componentWillReceiveProps( nextProps: PictureOutletProps ) {
-        if ( nextProps.selected && this.props.selected === false ) {
+        if ( nextProps.selected || nextProps.hidden ) {
             this.animated = true;
-        } else if ( nextProps.selected === false && this.props.selected ) {
+        } else if ( this.animated && ! nextProps.hidden && ! nextProps.selected ) {
             setTimeout( () => this.animated = false, 50 );
         }
     }
@@ -31,6 +32,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
         if ( this.props.selected ) {
             x = 77;
             y = -325;
+        } else if ( this.props.hidden ) {
+            x = Math.sign( this.props.x - window.innerWidth / 2 ) * window.innerWidth;
         }
 
         return (

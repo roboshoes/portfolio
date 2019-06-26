@@ -1,15 +1,16 @@
 import classnames from "classnames";
+import { Power3, TweenLite } from "gsap";
 import { bindAll, padStart } from "lodash";
 import * as React from "react";
-import { TweenLite, Power3 } from "gsap";
 
 import ss from "../../styles/shared.scss";
 import { Project, work } from "../content";
 import { loadImage } from "../services/loader";
 import { measureTextWidth } from "../services/measurement";
+import { PictureOutlet } from "./picture";
 import s from "./work.scss";
-import { setRoute } from "../services/router";
-import { Wrapper } from "./wrapper";
+import { observeRoute, getRoute } from "../services/router";
+import { DETAIL_ROUTE } from "./detail";
 
 
 class Picture {
@@ -35,12 +36,6 @@ class Picture {
     }
 }
 
-const PictureOutlet: React.FunctionComponent<{ x: number, image: string }> = ( { x, image } ) => (
-    <div style={ { transform: `translateX( ${ x }px )` } } className={ s.frame } onClick={ () => setRoute( "/work" ) }>
-        <img src={ image } className={ s.workImage }/>
-    </div>
-);
-
 interface TabProps { selected: boolean; index: number; name: string; }
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
     const [ width, setWidth ] = React.useState( 0 );
@@ -61,19 +56,27 @@ const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => 
     </>;
 };
 
-export class Work extends React.Component {
+interface WorkState {
+    anchor: number;
+    totalWidth: number;
+    startingPoint: number;
+    selection: number;
+}
+
+export class Work extends React.Component<{}, WorkState> {
 
     private latestY = 0;
     private mouseY = 0;
     private speed = 0;
     private raf = -1;
     private pictures = work.map( project => new Picture( project ) );
-    private selected = 0;
+    private focused = 0;
 
-    state = {
+    state: WorkState = {
         anchor: 0,
         totalWidth: 0,
         startingPoint: 0,
+        selection: -1,
     };
 
     constructor( props: {} ) {
@@ -90,12 +93,29 @@ export class Work extends React.Component {
             } );
     }
 
+    componentDidMount() {
+        observeRoute( DETAIL_ROUTE ).subscribe( ( on: boolean ) => {
+            if ( on ) {
+                const id = getRoute().split( "/" )[ 2 ];
+
+                if ( id ) {
+                    const index = parseInt( id, 10 );
+                    this.setState( { selection: index } );
+                } else {
+                    this.setState( { selection: -1 } );
+                }
+            } else {
+                this.setState( { selection: -1 } );
+            }
+        } );
+    }
+
     render() {
         let found = false;
         let width = 0;
 
         return (
-            <Wrapper>
+            <div>
                 <div className={ ss.titleWrapper }>
                     <div className={ ss.bar }></div>
                     <div className={ ss.title }>WORK</div>
@@ -105,7 +125,7 @@ export class Work extends React.Component {
                         this.pictures.map( ( picture, i ) => {
                             return <span key={ i } className={ s.tabContainer }>
                                 { i > 0 ? <>&nbsp;-&nbsp;</> : null }
-                                <Tab selected={ i === this.selected } index={ i + 1 } name={ picture.name } />
+                                <Tab selected={ i === this.focused } index={ i + 1 } name={ picture.name } />
                             </span>;
                         } )
                     }
@@ -121,14 +141,18 @@ export class Work extends React.Component {
                         }
 
                         if ( offset > 0 && ! found ) {
-                            this.selected = i;
+                            this.focused = i;
                             found = true;
                         }
 
-                        return <PictureOutlet x={ offset } image={ picture.url } key={ i } />;
+                        return <PictureOutlet x={ offset }
+                                              image={ picture.url }
+                                              key={ i }
+                                              index={ i }
+                                              selected={ this.state.selection === i } />;
                     } ) }
                 </div>
-            </Wrapper>
+            </div>
         );
     }
 

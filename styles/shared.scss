@@ -42,6 +42,7 @@
 }
 
 .site {
+    overflow-x: hidden;
     perspective: 300px;
     transform-origin: top left;
     transform-style: preserve-3d;

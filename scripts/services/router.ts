@@ -26,6 +26,10 @@ export function setRoute( value: string ) {
     resolveRoute();
 }
 
+export function getRoute(): string {
+    return window.location.pathname;
+}
+
 function resolveRoute() {
     route.next( window.location.pathname );
 }

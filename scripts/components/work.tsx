@@ -4,38 +4,14 @@ import { bindAll, padStart } from "lodash";
 import * as React from "react";
 
 import ss from "../../styles/shared.scss";
-import { Project, work } from "../content";
-import { loadImage } from "../services/loader";
+import { work } from "../content";
 import { measureTextWidth } from "../services/measurement";
-import { PictureOutlet } from "./picture";
-import s from "./work.scss";
-import { observeRoute, getRoute } from "../services/router";
+import { getRoute, observeRoute } from "../services/router";
 import { DETAIL_ROUTE } from "./detail";
+import { Picture, PictureOutlet } from "./picture";
+import s from "./work.scss";
 import { Wrapper } from "./wrapper";
 
-
-class Picture {
-    private image?: HTMLImageElement;
-
-    get width(): number {
-        return this.image ? this.image.width : 0;
-    }
-
-    get url(): string {
-        return this.project.mainImage;
-    }
-
-    get name(): string {
-        return this.project.title;
-    }
-
-    constructor( private readonly project: Project ) {}
-
-    async load(): Promise<void> {
-        const payload = await loadImage( this.project.mainImage );
-        this.image = payload.image;
-    }
-}
 
 interface TabProps { selected: boolean; index: number; name: string; }
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
@@ -150,9 +126,9 @@ export class Work extends React.Component<{}, WorkState> {
                         }
 
                         return <PictureOutlet x={ offset }
-                                              image={ picture.url }
                                               key={ i }
                                               index={ i }
+                                              picture={ picture }
                                               hidden={ this.state.selection > -1 }
                                               selected={ this.state.selection === i } />;
                     } ) }

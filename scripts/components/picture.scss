@@ -10,5 +10,8 @@
 }
 
 .animate {
-    transition: transform 0.7s cubic-bezier( 0.67, 0, 0.18, 1 );
+    transition:
+        transform 0.7s cubic-bezier( 0.67, 0, 0.18, 1 ),
+        height 0.4s ease-in-out,
+        width 0.4s ease-in-out;
 }

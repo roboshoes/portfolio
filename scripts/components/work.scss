@@ -26,6 +26,16 @@
     transition: all 0.4s ease-in-out;
 }
 
+.tabCover {
+    background-color: white;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: width 0.5s 0.3s ease-in-out;
+    width: calc( 100% - 1px );
+}
+
 .tabContainer {
     display: inline-flex;
     flex-direction: row;
@@ -48,4 +58,8 @@
 
 .selected {
     color: white;
+
+    .tabCover {
+        width: 0;
+    }
 }

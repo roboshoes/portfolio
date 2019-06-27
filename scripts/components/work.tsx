@@ -31,6 +31,7 @@ const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => 
         <span className={ classnames( s.tab, s.tabSize, { [ s.selected ]: selected } ) }
               style={ { width: `${ selected ? width : 0 }px` } }>
             <span className={ s.tabHolder } style={ { width: `${ width }px` } }>{ content }</span>
+            <span className={ s.tabCover }></span>
         </span>
     </>;
 };

@@ -1,4 +1,7 @@
 {
+  "linterOptions": {
+    "exclude": [ "node_modules/**" ]
+  },
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,

@@ -13,6 +13,7 @@ import { PictureOutlet } from "./picture-outlet";
 import s from "./work.scss";
 import { Wrapper } from "./wrapper";
 
+const IMAGE_PADDING = 50;
 
 interface TabProps { selected: boolean; index: number; name: string; }
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
@@ -64,7 +65,10 @@ export class Work extends React.Component<{}, WorkState> {
 
         Promise.all( this.pictures.map( picture => picture.load() ) )
             .then( () => {
-                const totalWidth = this.pictures.reduce( ( previous, p ) => previous + p.width + 20 + 30 , 0 );
+                const totalWidth = this.pictures.reduce( ( previous, p ) => {
+                    return previous + p.width + 20 + IMAGE_PADDING;
+                }, 0 );
+
                 const startingPoint = window.innerWidth - totalWidth;
 
                 this.setState( { totalWidth, startingPoint } );
@@ -115,7 +119,7 @@ export class Work extends React.Component<{}, WorkState> {
                     { this.pictures.map( ( picture: Picture, i ) =>  {
                         let offset = this.state.startingPoint + this.state.anchor + width;
 
-                        width += picture.width + 20 + 30;
+                        width += picture.width + 20 + IMAGE_PADDING;
 
                         if ( offset > window.innerWidth ) {
                             offset -= this.state.totalWidth;

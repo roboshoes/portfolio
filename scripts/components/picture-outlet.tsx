@@ -52,7 +52,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
                  className={ classnames( s.frame, { [ s.animate ]: this.animated } ) }
                  onMouseDown={ e => this.onMouseDown( e )  }
                  onMouseUp={ e => this.onMouseUp( e ) }>
-                <img src={ this.props.picture.url } className={ s.workImage }/>
+                <img src={ this.props.picture.url } className={ s.workImage } />
+                <div className={ s.tag }>{ this.props.picture.name }</div>
             </div>
         );
     }

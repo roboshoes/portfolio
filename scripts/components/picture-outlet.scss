@@ -23,9 +23,15 @@
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0.5px;
+    overflow: hidden;
     padding: 5px 10px 0 10px;
     position: absolute;
     right: 1px;
     transform-origin: bottom right;
     transform: rotate( 90deg );
+    transition: transform 0.5s;
+}
+
+.tag.hideTag {
+    transform: rotate( 90deg ) rotateX( 90deg );
 }

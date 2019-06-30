@@ -23,7 +23,7 @@ export class Detail extends React.Component {
                 <div className={ s.imageContainer }></div>
                 <div className={ s.textContainer }>
                     <h2 className={ ss.title }>TABEL</h2>
-                    <div className={ ss.paragraph }>
+                    <div className={ s.text }>
                         Here are some little details of the shabloings
                     </div>
                 </div>

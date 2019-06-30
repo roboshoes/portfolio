@@ -7,11 +7,20 @@
 }
 
 .bar {
-    background-color: white;
     display: inline-block;
     height: 3px;
-    width: var( --bar-width );
     margin-right: 7px;
+    position: relative;
+    width: var( --bar-width );
+}
+
+.bar::after {
+    background-color: white;
+    content: " ";
+    height: 100%;
+    left: -40px;
+    position: absolute;
+    width: calc( 100% + 40px );
 }
 
 .title {

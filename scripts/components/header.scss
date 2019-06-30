@@ -3,11 +3,21 @@
 }
 
 .bar {
-    background-color: white;
     display: inline-block;
     height: 19px;
     margin-right: 7px;
+    position: relative;
     width: var( --bar-width );
+}
+
+.bar::after {
+    background-color: white;
+    content: "  ";
+    height: 100%;
+    left: -40px;
+    position: absolute;
+    top: 0;
+    width: calc( 100% + 40px );
 }
 
 .title {

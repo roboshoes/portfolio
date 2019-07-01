@@ -35,3 +35,21 @@
 .tag.hideTag {
     transform: rotate( 90deg ) rotateX( 90deg );
 }
+
+.close {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    left: 0;
+    padding: 5px 10px 0 10px;
+    position: absolute;
+    top: -16px;
+    transform-origin: bottom center;
+    transition: transform 0.5s;
+}
+
+.close.hideTag {
+    transform: rotateX( 90deg );
+}

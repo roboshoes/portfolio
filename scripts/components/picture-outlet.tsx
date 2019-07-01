@@ -1,9 +1,9 @@
 import classnames from "classnames";
 import * as React from "react";
 
+import { Picture } from "../models/picture";
 import { setRoute } from "../services/router";
 import s from "./picture-outlet.scss";
-import { Picture } from "../models/picture";
 
 
 interface PictureOutletProps {
@@ -57,6 +57,11 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
 
                 <div className={ classnames( s.tag, { [ s.hideTag ]: this.props.selected } ) }>
                     { this.props.picture.name }
+                </div>
+
+                <div className={ classnames( s.close, { [ s.hideTag ]: !this.props.selected } ) }
+                     onClick={ () => setRoute( "/" ) }>
+                    Close
                 </div>
             </div>
         );

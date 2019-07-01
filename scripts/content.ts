@@ -3,23 +3,28 @@ import { Project } from "./models/project";
 
 export const work: Project[] = [
     {
-        mainImage: wonderland,
         title: "Winter Wonderland",
+        mainImage: wonderland,
+        images: [ wonderland ],
     },
     {
-        mainImage: wonderland,
         title: "Tabel",
+        mainImage: wonderland,
+        images: [],
     },
     {
-        mainImage: wonderland,
         title: "Shopping Insights",
+        mainImage: wonderland,
+        images: [],
     },
     {
-        mainImage: wonderland,
         title: "Alien Artifact",
+        mainImage: wonderland,
+        images: [],
     },
     {
-        mainImage: wonderland,
         title: "Google Cloud + Nasa FDL",
+        mainImage: wonderland,
+        images: [],
     }
 ];

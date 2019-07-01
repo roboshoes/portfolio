@@ -72,7 +72,7 @@ export class Work extends React.Component<{}, WorkState> {
 
                 const startingPoint = window.innerWidth - totalWidth;
 
-                this.setState( { totalWidth, startingPoint } );
+                this.setState( { totalWidth, startingPoint, anchor: totalWidth - window.innerWidth + 77 } );
             } );
     }
 
@@ -126,7 +126,7 @@ export class Work extends React.Component<{}, WorkState> {
                             offset -= this.state.totalWidth;
                         }
 
-                        if ( offset > 0 && ! found ) {
+                        if ( offset > 70 && ! found ) {
                             this.focused = i;
                             found = true;
                         }
@@ -175,11 +175,13 @@ export class Work extends React.Component<{}, WorkState> {
         window.removeEventListener( "mousemove", this.onMouseMove );
         window.removeEventListener( "mouseup", this.onMouseUp );
 
-        TweenLite.to( this, 1, {
-            mouseY: this.mouseY + this.speed * 20,
-            onUpdate: this.setOffset,
-            ease: Power3.easeOut,
-        } );
+        if ( Math.abs( this.speed ) > 1 ) {
+            TweenLite.to( this, 1, {
+                mouseY: this.mouseY + this.speed * 20,
+                onUpdate: this.setOffset,
+                ease: Power3.easeOut,
+            } );
+        }
     }
 
     private setOffset() {

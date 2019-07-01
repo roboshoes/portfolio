@@ -3,6 +3,7 @@ import * as React from "react";
 
 import { Picture } from "../models/picture";
 import { setRoute } from "../services/router";
+import { ImageList } from "./picture-list";
 import s from "./picture-outlet.scss";
 
 
@@ -31,6 +32,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
     render() {
         let x = this.props.x;
         let y = 0;
+        const halfWidth = window.innerWidth / 2 - 77 - 20;
 
         if ( this.props.selected ) {
             x = 77;
@@ -44,7 +46,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
         };
 
         if ( this.props.selected ) {
-            styles.height = this.getImageHeightForWidth( window.innerWidth / 2 - 77 - 20 );
+            styles.height = this.getImageHeightForWidth( halfWidth );
         }
 
         return (
@@ -53,7 +55,18 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
                  onMouseDown={ e => this.onMouseDown( e )  }
                  onMouseUp={ e => this.onMouseUp( e ) }>
 
-                <img src={ this.props.picture.url } className={ s.workImage } />
+                {
+                    this.props.selected ?
+                        <div className={ s.imageList }>
+                            <ImageList images={ this.props.picture.images }
+                                       top={ ( styles.height || 0 ) as number + 20 }
+                                       width={ halfWidth } />
+                        </div> : null
+                }
+
+                <span className={ s.border }>
+                    <img src={ this.props.picture.url } className={ s.workImage } />
+                </span>
 
                 <div className={ classnames( s.tag, { [ s.hideTag ]: this.props.selected } ) }>
                     { this.props.picture.name }
@@ -67,11 +80,11 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
         );
     }
 
-    private getImageHeightForWidth( targetWidth: number ): number {
+    private getImageHeightForWidth( targetWidth: number ): number | undefined {
         const { width, height } = this.props.picture;
         const scale = targetWidth / width;
 
-        return height * scale;
+        return ( height * scale ) || undefined;
     }
 
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {

@@ -20,6 +20,10 @@ export class Picture {
         return this.project.title;
     }
 
+    get images(): string[] {
+        return this.project.images;
+    }
+
     constructor( private readonly project: Project ) {}
 
     async load(): Promise<void> {

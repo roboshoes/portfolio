@@ -5,7 +5,7 @@ export const work: Project[] = [
     {
         title: "Winter Wonderland",
         mainImage: wonderland,
-        images: [ wonderland ],
+        images: [ wonderland, wonderland ],
     },
     {
         title: "Tabel",

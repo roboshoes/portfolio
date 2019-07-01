@@ -12,3 +12,7 @@ export function loadImage( url: string ): Promise<ImagePayload> {
         };
     } );
 }
+
+export function loadImages( urls: string[] ): Promise<ImagePayload[]> {
+    return Promise.all( urls.map( url => loadImage( url ) ) );
+}

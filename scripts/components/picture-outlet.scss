@@ -1,8 +1,13 @@
 .frame {
+    height: 100%;
+    position: absolute;
+}
+
+.border {
     background-color: white;
+    display: block;
     height: 100%;
     padding: 10px;
-    position: absolute;
 }
 
 .workImage {
@@ -52,4 +57,12 @@
 
 .close.hideTag {
     transform: rotateX( 90deg );
+}
+
+.imageList {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
 }

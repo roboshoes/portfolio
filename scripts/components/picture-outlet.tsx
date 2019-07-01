@@ -15,17 +15,29 @@ interface PictureOutletProps {
     picture: Picture;
 }
 
-export class PictureOutlet extends React.Component<PictureOutletProps> {
+interface PictureOutletState {
+    collapse: boolean;
+}
+
+export class PictureOutlet extends React.Component<PictureOutletProps, PictureOutletState> {
 
     private mouseDown = Infinity;
     private mousePosition = { x: -1, y: -1 };
     private animated = false;
 
+    state: PictureOutletState = {
+        collapse: false,
+    };
+
     componentWillReceiveProps( nextProps: PictureOutletProps ) {
         if ( nextProps.selected || nextProps.hidden ) {
             this.animated = true;
+            this.setState( { collapse: false } );
         } else if ( this.animated && ! nextProps.hidden && ! nextProps.selected ) {
+            this.setState( { collapse: true } );
+
             setTimeout( () => this.animated = false, 50 );
+            setTimeout( () => this.setState( { collapse: false } ), 1000 );
         }
     }
 
@@ -56,11 +68,12 @@ export class PictureOutlet extends React.Component<PictureOutletProps> {
                  onMouseUp={ e => this.onMouseUp( e ) }>
 
                 {
-                    this.props.selected ?
+                    this.props.selected || this.state.collapse ?
                         <div className={ s.imageList }>
                             <ImageList images={ this.props.picture.images }
                                        top={ ( styles.height || 0 ) as number + 20 }
-                                       width={ halfWidth } />
+                                       width={ halfWidth }
+                                       collapse={ this.state.collapse } />
                         </div> : null
                 }
 

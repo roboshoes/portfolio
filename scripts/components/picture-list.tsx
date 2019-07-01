@@ -13,6 +13,7 @@ interface ImageListProps {
     images: string[];
     width: number;
     top: number;
+    collapse: boolean;
 }
 
 interface SizedImage {
@@ -47,15 +48,17 @@ export class ImageList extends React.Component<ImageListProps, ImageListState> {
     }
 
     render() {
+        const hidden = this.state.hidden || this.props.collapse;
+
         let offset = 0;
 
         return (
-            <div className={ classnames( s.wrapper, { [ s.hidden ]: this.state.hidden } ) }
-                 style={ { top: this.state.hidden ? 0 : this.props.top } }>
+            <div className={ classnames( s.wrapper, { [ s.hidden ]: hidden } ) }
+                 style={ { top: hidden ? 0 : this.props.top } }>
                 {
                     this.state.images.map( ( payload: SizedImage, i: number ) => {
-                        const y = this.state.hidden ? 0 : offset;
-                        const z = this.state.hidden ? -100 - ( i * 50 ) : 0;
+                        const y = hidden ? 0 : offset;
+                        const z = hidden ? -100 - ( i * 50 ) : 0;
 
                         offset += payload.height + 20;
 

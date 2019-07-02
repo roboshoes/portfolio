@@ -20,7 +20,13 @@
 
 .textContainer {
     padding-top: 100px;
+    padding-right: 100px;
     flex: 50% 1 1;
+}
+
+.contentWrapper {
+    max-width: 600px;
+    display: inline-block;
 }
 
 .text {

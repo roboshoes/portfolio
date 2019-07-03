@@ -2,6 +2,7 @@
 
 :root {
     --bar-width: 70px;
+    --background-color: #0F0F0F;
 }
 
 * {
@@ -16,7 +17,7 @@ html, body {
 }
 
 body {
-    background-color: #0F0F0F;
+    background-color: var( --background-color );
     color: white;
     font-family: "Droid Sans", serif;
 }

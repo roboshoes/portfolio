@@ -8,6 +8,7 @@ import s from "./text.scss";
 
 interface TextProps {
     text: string;
+    delay?: number;
 }
 
 interface Line {
@@ -42,6 +43,9 @@ export class Text extends React.Component<TextProps> {
             const lines: Line[] = times( amount, () => ( { begin: 0, end: 0 }  as Line ) );
             const timeline = this.createTimeline( lines, width );
 
+            context.fillStyle = backgroundColor;
+            context.fillRect( 0, 0, width, height );
+
             timeline.eventCallback( "onUpdate", () => {
                 context.clearRect( 0, 0, width, height );
 
@@ -54,7 +58,7 @@ export class Text extends React.Component<TextProps> {
                 } );
             } );
 
-            timeline.play();
+            setTimeout( () => timeline.play(), this.props.delay || 0 );
         }
     }
 

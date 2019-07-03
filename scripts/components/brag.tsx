@@ -3,14 +3,13 @@ import * as React from "react";
 
 import ss from "../../styles/shared.scss";
 import s from "./brag.scss";
+import { Title } from "./title";
 import { Wrapper } from "./wrapper";
 
 export const Brag: React.FunctionComponent = () => (
     <Wrapper>
-        <div className={ ss.titleWrapper }>
-            <div className={ ss.bar }></div>
-            <div className={ ss.title }>HUMBLE BRAG</div>
-        </div>
+        <Title value="HUMBLE BRAG" />
+
         <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
             Awards
 

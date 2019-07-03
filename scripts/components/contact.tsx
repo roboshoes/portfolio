@@ -2,14 +2,13 @@ import classnames from "classnames";
 import * as React from "react";
 
 import ss from "../../styles/shared.scss";
+import { Title } from "./title";
 import { Wrapper } from "./wrapper";
 
 export const Contact: React.FunctionComponent = () => (
     <Wrapper>
-        <div className={ ss.titleWrapper }>
-            <div className={ ss.bar }></div>
-            <div className={ ss.title }>CONTACT</div>
-        </div>
+        <Title value="CONTACT" />
+
         <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
             Let’s get in touch. There is a whole spectrum from the least personal of following me on
             social media, such as Instagram, Twitter, Codepen to a more personal note at

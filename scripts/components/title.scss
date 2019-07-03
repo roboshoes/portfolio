@@ -1,0 +1,24 @@
+.title {
+    span {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+    }
+
+    span:after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 100%;
+        height: 100%;
+        background-color: var( --background-color );
+        transition: left 0.7s 0.5s;
+    }
+}
+
+.before {
+    span:after {
+        left: 0;
+    }
+}

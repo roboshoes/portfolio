@@ -13,6 +13,7 @@ import { PictureOutlet } from "./picture-outlet";
 import s from "./work.scss";
 import { Wrapper } from "./wrapper";
 import { Title } from "./title";
+import { Buffer } from "./buffer";
 
 const IMAGE_PADDING = 50;
 
@@ -114,6 +115,8 @@ export class Work extends React.Component<{}, WorkState> {
                         }
                     </div>
                 </Wrapper>
+
+                <Buffer />
 
                 <div className={ s.container } onMouseDown={ this.onMouseDown }>
                     { this.state.totalWidth > 0 ? this.pictures.map( ( picture: Picture, i ) =>  {

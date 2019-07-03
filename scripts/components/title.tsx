@@ -17,7 +17,9 @@ export class Title extends React.Component<{ value: string }> {
         return <div className={ classnames( s.titleWrapper, { [ s.before ]: this.state.hidden } ) }>
             <div className={ s.bar }></div>
             <div className={ classnames( s.title,  { [ s.before ]: this.state.hidden } ) }>
-                { this.props.value.split( "" ).map( ( char, i ) => <span key={ i }>{ char }</span> ) }
+                { this.props.value.split( "" ).map( ( char, i ) => {
+                    return <span key={ i }>{ char === " " ? "\u00a0\u00a0" : char }</span>;
+                } ) }
             </div>
         </div>;
     }

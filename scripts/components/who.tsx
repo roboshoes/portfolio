@@ -4,6 +4,7 @@ import ss from "../../styles/shared.scss";
 import { Text } from "./text";
 import { Title } from "./title";
 import { Wrapper } from "./wrapper";
+import { Buffer } from "./buffer";
 
 export const Who: React.FunctionComponent = () => {
     return <Wrapper>
@@ -15,6 +16,8 @@ export const Who: React.FunctionComponent = () => {
                 bio in thrid person to appear serious and professional, but make no mistake. It’s mearly
                 a facade to the playful and  at times inappropriate coder that was born and raised in
                 Austria, and currently lives in Oakland California.` } />
+
+            <Buffer />
 
             <Text delay={ 550 } text={
                 `After years of working at world class Agencies such as B-Reel, Firstborn and others he

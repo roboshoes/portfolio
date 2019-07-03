@@ -7,7 +7,7 @@ import ss from "../../styles/shared.scss";
 import s from "./text.scss";
 
 interface TextProps {
-    text: string;
+    text?: string;
     delay?: number;
 }
 
@@ -64,7 +64,7 @@ export class Text extends React.Component<TextProps> {
 
     render() {
         return <div ref={ this.parentRef } className={ classnames( s.parent, ss.paragraph ) }>
-            { this.props.text }
+            { this.props.text || this.props.children }
             <canvas ref={ this.canvasRef } className={ s.canvas }></canvas>
         </div>;
     }

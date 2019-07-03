@@ -12,6 +12,7 @@ import { DETAIL_ROUTE } from "./detail";
 import { PictureOutlet } from "./picture-outlet";
 import s from "./work.scss";
 import { Wrapper } from "./wrapper";
+import { Title } from "./title";
 
 const IMAGE_PADDING = 50;
 
@@ -100,10 +101,8 @@ export class Work extends React.Component<{}, WorkState> {
         return (
             <div>
                 <Wrapper>
-                    <div className={ ss.titleWrapper }>
-                        <div className={ ss.bar }></div>
-                        <div className={ ss.title }>WORK</div>
-                    </div>
+                    <Title value="WORK" />
+
                     <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
                         {
                             this.pictures.map( ( picture, i ) => {

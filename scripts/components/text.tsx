@@ -40,7 +40,7 @@ export class Text extends React.Component<TextProps> {
 
             const amount = height / 24;
             const lines: Line[] = times( amount, () => ( { begin: 0, end: 0 }  as Line ) );
-            const timeline = this.createLinesTimeline( lines, width );
+            const timeline = this.createTimeline( lines, width );
 
             timeline.eventCallback( "onUpdate", () => {
                 context.clearRect( 0, 0, width, height );
@@ -65,7 +65,7 @@ export class Text extends React.Component<TextProps> {
         </div>;
     }
 
-    private createLinesTimeline( lines: Line[], width: number ): TimelineMax {
+    private createTimeline( lines: Line[], width: number ): TimelineMax {
         const timeline = new TimelineMax( { paused: true, autoRemoveChildren: true } );
 
         lines.forEach( ( line: Line, i: number ) => {

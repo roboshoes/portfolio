@@ -18,6 +18,7 @@ interface PictureOutletProps {
 interface PictureOutletState {
     collapse: boolean;
     before: boolean;
+    idle: boolean;
 }
 
 export class PictureOutlet extends React.Component<PictureOutletProps, PictureOutletState> {
@@ -29,6 +30,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     state: PictureOutletState = {
         collapse: false,
         before: true,
+        idle: false,
     };
 
     componentWillReceiveProps( nextProps: PictureOutletProps ) {
@@ -44,7 +46,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     }
 
     componentDidMount() {
-        setTimeout( () => this.setState( { before: false } ), 100 );
+        setTimeout( () => this.setState( { before: false } ), 300 );
+        setTimeout( () => this.setState( { idle: true } ), 1000 );
     }
 
     render() {
@@ -67,9 +70,17 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
             styles.height = this.getImageHeightForWidth( halfWidth );
         }
 
+        let frameWidth: number | undefined;
+        let framePadding: number | undefined;
+
+        if ( ! this.state.idle ) {
+            frameWidth = this.state.before ? 0 : ( this.getImageWidthForHeight( 500 - 20 ) || 0 ) + 20;
+            framePadding = this.state.before ? 0 : 10;
+        }
+
         return (
             <div style={ styles }
-                 className={ classnames( s.frame, { [ s.animate ]: this.animated } ) }
+                 className={ classnames( s.frame, { [ s.animate ]: this.animated, [ s.before ]: this.state.before } ) }
                  onMouseDown={ e => this.onMouseDown( e )  }
                  onMouseUp={ e => this.onMouseUp( e ) }>
 
@@ -83,11 +94,11 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
                         </div> : null
                 }
 
-                <span className={ s.border }>
+                <span className={ s.border } style={ { width: frameWidth, padding: framePadding } }>
                     <img src={ this.props.picture.url } className={ s.workImage } />
                 </span>
 
-                <div className={ classnames( s.tag, { [ s.hideTag ]: this.props.selected } ) }>
+                <div className={ classnames( s.tag, { [ s.hideTag ]: this.props.selected || this.state.before } ) }>
                     { this.props.picture.name }
                 </div>
 

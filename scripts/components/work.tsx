@@ -116,7 +116,7 @@ export class Work extends React.Component<{}, WorkState> {
                 </Wrapper>
 
                 <div className={ s.container } onMouseDown={ this.onMouseDown }>
-                    { this.pictures.map( ( picture: Picture, i ) =>  {
+                    { this.state.totalWidth > 0 ? this.pictures.map( ( picture: Picture, i ) =>  {
                         let offset = this.state.startingPoint + this.state.anchor + width;
 
                         width += picture.width + 20 + IMAGE_PADDING;
@@ -136,7 +136,7 @@ export class Work extends React.Component<{}, WorkState> {
                                               picture={ picture }
                                               hidden={ this.state.selection > -1 }
                                               selected={ this.state.selection === i } />;
-                    } ) }
+                    } ) : null }
                 </div>
             </div>
         );

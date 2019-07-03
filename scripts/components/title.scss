@@ -1,4 +1,33 @@
+.titleWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.bar {
+    display: inline-block;
+    height: 3px;
+    margin-right: 7px;
+    position: relative;
+    width: var( --bar-width );
+}
+
+.bar::after {
+    background-color: white;
+    content: " ";
+    height: 100%;
+    left: -40px;
+    position: absolute;
+    width: calc( 100% + 40px );
+    transition: width 0.3s;
+}
+
 .title {
+    font-family: "Reem Kufi", sans-serif;
+    font-size: 16px;
+
     span {
         display: inline-block;
         position: relative;
@@ -18,6 +47,10 @@
 }
 
 .before {
+    .bar::after {
+        width: 0;
+    }
+
     span:after {
         left: 0;
     }

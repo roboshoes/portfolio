@@ -17,6 +17,7 @@ interface PictureOutletProps {
 
 interface PictureOutletState {
     collapse: boolean;
+    before: boolean;
 }
 
 export class PictureOutlet extends React.Component<PictureOutletProps, PictureOutletState> {
@@ -27,6 +28,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
 
     state: PictureOutletState = {
         collapse: false,
+        before: true,
     };
 
     componentWillReceiveProps( nextProps: PictureOutletProps ) {
@@ -39,6 +41,10 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
             setTimeout( () => this.animated = false, 50 );
             setTimeout( () => this.setState( { collapse: false } ), 1000 );
         }
+    }
+
+    componentDidMount() {
+        setTimeout( () => this.setState( { before: false } ), 100 );
     }
 
     render() {
@@ -98,6 +104,13 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
         const scale = targetWidth / width;
 
         return ( height * scale ) || undefined;
+    }
+
+    private getImageWidthForHeight( targetHeight: number ): number | undefined {
+        const { width, height } = this.props.picture;
+        const scale = targetHeight / height;
+
+        return ( width * scale ) || undefined;
     }
 
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {

@@ -39,7 +39,7 @@ export class Text extends React.Component<TextProps> {
             const width = canvas.width = size.width;
             const height = canvas.height = size.height;
 
-            const amount = height / 24;
+            const amount = Math.ceil( height / 24 );
             const lines: Line[] = times( amount, () => ( { begin: 0, end: 0 }  as Line ) );
             const timeline = this.createTimeline( lines, width );
 

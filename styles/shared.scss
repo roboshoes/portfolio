@@ -10,12 +10,12 @@
 
 .hidable {
     transition: all 0.3s;
-    z-index: -1;
     position: relative;
     width: 670px;
 }
 
 .hidden {
+    z-index: -1;
     opacity: 0.2;
     transform: translateZ( -10px );
 }

@@ -17,9 +17,15 @@ import { Buffer } from "./buffer";
 
 const IMAGE_PADDING = 50;
 const IMAGE_HEIGHT = 480;
+const WINDOW_PADDING = 77;
 
-interface TabProps { selected: boolean; index: number; name: string; }
-const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
+interface TabProps {
+    selected: boolean;
+    index: number;
+    name: string;
+    onSelected: ( id: number ) => void;
+}
+const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name, onSelected } ) => {
     const [ width, setWidth ] = React.useState( 0 );
     const content = `${ name }`;
 
@@ -28,7 +34,8 @@ const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => 
     }, [ name ] );
 
     return <>
-        <span className={ classnames( s.tabSize, { [ s.selected ]: selected } ) }>
+        <span className={ classnames( s.tabSize, { [ s.selected ]: selected } ) }
+              onClick={ () => onSelected( index - 1 ) }>
             { padStart( index.toString(), 2, "0" ) }
         </span>&nbsp;
         <span className={ classnames( s.tab, s.tabSize, { [ s.selected ]: selected } ) }
@@ -69,7 +76,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
     constructor( props: WorkProps ) {
         super( props );
 
-        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset" );
+        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset", "onSelect" );
 
         Promise.all( this.pictures.map( picture => picture.load() ) )
             .then( () => {
@@ -79,7 +86,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
                 const startingPoint = window.innerWidth - totalWidth;
 
-                this.setState( { totalWidth, startingPoint, anchor: totalWidth - window.innerWidth + 77 } );
+                this.setState( { totalWidth, startingPoint, anchor: totalWidth - window.innerWidth + WINDOW_PADDING } );
             } );
     }
 
@@ -114,7 +121,10 @@ export class Work extends React.Component<WorkProps, WorkState> {
                             this.pictures.map( ( picture, i ) => {
                                 return <span key={ i } className={ s.tabContainer }>
                                     { i > 0 ? <>&nbsp;-&nbsp;</> : null }
-                                    <Tab selected={ i === this.focused } index={ i + 1 } name={ picture.name } />
+                                    <Tab selected={ i === this.focused }
+                                         index={ i + 1 }
+                                         name={ picture.name }
+                                         onSelected={ this.onSelect } />
                                 </span>;
                             } )
                         }
@@ -159,6 +169,31 @@ export class Work extends React.Component<WorkProps, WorkState> {
         this.raf = requestAnimationFrame( this.loop );
     }
 
+    private onSelect( id: number ) {
+        let width = 0;
+
+        for ( let i = 0; i < id; i++ ) {
+            const picture = this.pictures[ i ];
+            width += this.imageWidthForHeight( picture, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
+        }
+
+        let target = this.state.totalWidth - window.innerWidth - width + WINDOW_PADDING;
+
+        const targetWithOffset = target + this.state.totalWidth;
+        const object = { anchor: this.state.anchor };
+
+        // Since all cards are in a carousel, the shourtest way could be by overshooting the full
+        // length and coming back around. If so we offset the target by one full rotation.
+        if ( Math.abs( target - this.state.anchor ) >
+             Math.abs( targetWithOffset - this.state.anchor ) ) {
+            target = targetWithOffset;
+        }
+
+        TweenLite.to( object, 0.5, { anchor: target, onUpdate: () => {
+            this.setState( { anchor: this.overflowAnchor( object.anchor ) } );
+        } } );
+    }
+
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
         event.preventDefault();
 
@@ -195,17 +230,23 @@ export class Work extends React.Component<WorkProps, WorkState> {
     private setOffset() {
         this.speed = this.mouseY - this.latestY;
 
-        let delta = this.state.anchor + this.speed;
+        this.setState( { anchor: this.overflowAnchor( this.state.anchor + this.speed ) } );
 
+        this.latestY = this.mouseY;
+    }
+
+    /**
+     * Makes sure that the anchor position given lays within the carousel. The method corrects the
+     * value by overflowing in both directions.
+     */
+    private overflowAnchor( delta: number ): number {
         while ( delta < 0 ) {
             delta += this.state.totalWidth;
         }
 
         delta %= this.state.totalWidth;
 
-        this.setState( { anchor: delta } );
-
-        this.latestY = this.mouseY;
+        return delta;
     }
 
     private imageWidthForHeight( image: Picture, height: number ): number {

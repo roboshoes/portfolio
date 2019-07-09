@@ -58,10 +58,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
         if ( this.props.selected ) {
 
             const height: number = Math.min( this.getImageHeightForWidth( halfWidth - 77 ) || 0, 500 );
-            const width: number = this.getImageWidthForHeight( height ) || 0;
-            const x = halfWidth;
 
-            styles.transform = `translate( calc( ${ x }px - 100% - 20px ), -325px )`;
+            styles.transform = `translate( calc( 50vw - 100% - 20px ), -325px )`;
             styles.height = height;
 
         } else if ( this.props.hidden ) {

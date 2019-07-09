@@ -16,6 +16,7 @@ import { Title } from "./title";
 import { Buffer } from "./buffer";
 
 const IMAGE_PADDING = 50;
+const IMAGE_HEIGHT = 480;
 
 interface TabProps { selected: boolean; index: number; name: string; }
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name } ) => {
@@ -45,7 +46,11 @@ interface WorkState {
     selection: number;
 }
 
-export class Work extends React.Component<{}, WorkState> {
+interface WorkProps {
+    delay: number;
+}
+
+export class Work extends React.Component<WorkProps, WorkState> {
 
     private latestY = 0;
     private mouseY = 0;
@@ -61,7 +66,7 @@ export class Work extends React.Component<{}, WorkState> {
         selection: -1,
     };
 
-    constructor( props: {} ) {
+    constructor( props: WorkProps ) {
         super( props );
 
         bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset" );
@@ -69,7 +74,7 @@ export class Work extends React.Component<{}, WorkState> {
         Promise.all( this.pictures.map( picture => picture.load() ) )
             .then( () => {
                 const totalWidth = this.pictures.reduce( ( previous, p ) => {
-                    return previous + p.width + 20 + IMAGE_PADDING;
+                    return previous + this.imageWidthForHeight( p, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
                 }, 0 );
 
                 const startingPoint = window.innerWidth - totalWidth;
@@ -102,7 +107,7 @@ export class Work extends React.Component<{}, WorkState> {
         return (
             <div>
                 <Wrapper>
-                    <Title value="WORK" />
+                    <Title value="WORK" delay={ this.props.delay } />
 
                     <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
                         {
@@ -122,7 +127,7 @@ export class Work extends React.Component<{}, WorkState> {
                     { this.state.totalWidth > 0 ? this.pictures.map( ( picture: Picture, i ) =>  {
                         let offset = this.state.startingPoint + this.state.anchor + width;
 
-                        width += picture.width + 20 + IMAGE_PADDING;
+                        width += this.imageWidthForHeight( picture, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
 
                         if ( offset > window.innerWidth ) {
                             offset -= this.state.totalWidth;
@@ -136,6 +141,7 @@ export class Work extends React.Component<{}, WorkState> {
                         return <PictureOutlet x={ offset }
                                               key={ i }
                                               index={ i }
+                                              delay={ this.props.delay }
                                               picture={ picture }
                                               hidden={ this.state.selection > -1 }
                                               selected={ this.state.selection === i } />;
@@ -200,6 +206,10 @@ export class Work extends React.Component<{}, WorkState> {
         this.setState( { anchor: delta } );
 
         this.latestY = this.mouseY;
+    }
+
+    private imageWidthForHeight( image: Picture, height: number ): number {
+        return image.width * ( height / image.height );
     }
 }
 

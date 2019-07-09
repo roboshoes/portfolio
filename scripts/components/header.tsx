@@ -5,14 +5,14 @@ import s from "./header.scss";
 import { Wrapper } from "./wrapper";
 
 
-export class Header extends React.Component {
+export class Header extends React.Component<{ delay: number }> {
 
     state = {
         hidden: true,
     };
 
     componentDidMount() {
-        setTimeout( () => this.setState( { hidden: false  } ), 100 );
+        setTimeout( () => this.setState( { hidden: false  } ), this.props.delay );
     }
 
     render() {

@@ -13,6 +13,7 @@ interface PictureOutletProps {
     selected: boolean;
     hidden: boolean;
     picture: Picture;
+    delay: number;
 }
 
 interface PictureOutletState {
@@ -46,8 +47,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     }
 
     componentDidMount() {
-        setTimeout( () => this.setState( { before: false } ), 300 );
-        setTimeout( () => this.setState( { idle: true } ), 1000 );
+        setTimeout( () => this.setState( { before: false } ), this.props.delay + 300 );
+        setTimeout( () => this.setState( { idle: true } ), this.props.delay + 1000 );
     }
 
     render() {

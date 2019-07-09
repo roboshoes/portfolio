@@ -1,23 +1,30 @@
 import * as React from "react";
 import { render } from "react-dom";
+import * as Webfont from "webfontloader";
 
 import { Brag } from "./scripts/components/brag";
+import { Contact } from "./scripts/components/contact";
+import { Detail } from "./scripts/components/detail";
 import { Header } from "./scripts/components/header";
 import { Who } from "./scripts/components/who";
-import { Contact } from "./scripts/components/contact";
 import { Work } from "./scripts/components/work";
-import { Detail } from "./scripts/components/detail";
 import ss from "./styles/shared.scss";
 
 const App: React.FunctionComponent = () => (
     <div className={ ss.site }>
-        <Header />
-        <Who />
-        <Work />
-        <Brag />
-        <Contact />
+        <Header delay={ 200 } />
+        <Who delay={ 400 } />
+        <Work delay={ 600 } />
+        <Brag delay={ 1000 }/>
+        <Contact delay={ 1200 }/>
         <Detail />
     </div>
 );
 
-render( <App/>, document.getElementById( "root" ) );
+Webfont.load( {
+    active: () => render( <App/>, document.getElementById( "root" ) ),
+    google: {
+        families: [ "Reem Kufi", "Droid Sans" ]
+    },
+} );
+

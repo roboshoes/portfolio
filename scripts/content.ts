@@ -1,4 +1,9 @@
-import wonderland from "../assets/wonderland.jpg";
+import tabelDetail from "../assets/tabel/detail.png";
+import tabelHero from "../assets/tabel/hero.png";
+import toonamiHero from "../assets/toonami/hero.png";
+import wonderland from "../assets/wonderland/wonderland.jpg";
+import pinglrHero from "../assets/pinglr/hero.png";
+import surfgayHero from "../assets/surfgay/hero.png";
 import { Project } from "./models/project";
 
 export const work: Project[] = [
@@ -9,12 +14,12 @@ export const work: Project[] = [
     },
     {
         title: "Tabel",
-        mainImage: wonderland,
-        images: [],
+        mainImage: tabelHero,
+        images: [ tabelDetail ],
     },
     {
-        title: "Shopping Insights",
-        mainImage: wonderland,
+        title: "Toonami",
+        mainImage: toonamiHero,
         images: [],
     },
     {
@@ -23,8 +28,13 @@ export const work: Project[] = [
         images: [],
     },
     {
-        title: "Google Cloud + Nasa FDL",
-        mainImage: wonderland,
+        title: "Pinglr",
+        mainImage: pinglrHero,
+        images: [],
+    },
+    {
+        title: "Surfspot or Gaybar",
+        mainImage: surfgayHero,
         images: [],
     }
 ];

@@ -7,12 +7,12 @@ import { Title } from "./title";
 import { Wrapper } from "./wrapper";
 import { Text } from "./text";
 
-export const Brag: React.FunctionComponent = () => (
+export const Brag: React.FunctionComponent<{ delay: number }> = ( { delay } ) => (
     <Wrapper>
-        <Title value="HUMBLE BRAG" />
+        <Title value="HUMBLE BRAG" delay={ delay } />
 
             <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
-                <Text>
+                <Text delay={ delay + 200 }>
                     Awards
 
                     <ul>

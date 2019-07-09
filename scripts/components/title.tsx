@@ -3,14 +3,14 @@ import classnames from "classnames";
 
 import s from "./title.scss";
 
-export class Title extends React.Component<{ value: string }> {
+export class Title extends React.Component<{ value: string, delay?: number }> {
 
     state = {
         hidden: true,
     };
 
     componentDidMount() {
-        setTimeout( () => this.setState( { hidden: false  } ), 100 );
+        setTimeout( () => this.setState( { hidden: false  } ), this.props.delay || 100 );
     }
 
     render() {

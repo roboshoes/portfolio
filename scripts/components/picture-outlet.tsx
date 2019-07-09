@@ -52,23 +52,27 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     }
 
     render() {
-        let x = this.props.x;
-        let y = 0;
-        const halfWidth = window.innerWidth / 2 - 77 - 20;
+        const halfWidth = window.innerWidth / 2;
+        const styles: React.CSSProperties = {};
 
         if ( this.props.selected ) {
-            x = 77;
-            y = -325;
+
+            const height: number = Math.min( this.getImageHeightForWidth( halfWidth - 77 ) || 0, 500 );
+            const width: number = this.getImageWidthForHeight( height ) || 0;
+            const x = halfWidth;
+
+            styles.transform = `translate( calc( ${ x }px - 100% - 20px ), -325px )`;
+            styles.height = height;
+
         } else if ( this.props.hidden ) {
-            x = Math.sign( this.props.x - window.innerWidth / 2 ) * window.innerWidth;
-        }
 
-        const styles: React.CSSProperties = {
-            transform: `translate( ${ x }px, ${ y }px )`,
-        };
+            const x = Math.sign( this.props.x - window.innerWidth / 2 ) * window.innerWidth;
+            styles.transform = `translate( ${ x }px, 0 )`;
 
-        if ( this.props.selected ) {
-            styles.height = this.getImageHeightForWidth( halfWidth );
+        } else {
+
+            styles.transform = `translate( ${ this.props.x }px, 0 )`;
+
         }
 
         let frameWidth: number | undefined;
@@ -103,7 +107,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
                     { this.props.picture.name }
                 </div>
 
-                <div className={ classnames( s.close, { [ s.hideTag ]: !this.props.selected } ) }
+                <div className={ classnames( s.close, { [ s.hideTag ]: ! this.props.selected || this.state.before } ) }
                      onClick={ () => setRoute( "/" ) }>
                     Close
                 </div>

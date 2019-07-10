@@ -57,6 +57,15 @@ interface WorkProps {
     delay: number;
 }
 
+function sort<T>( array: T[], compareFn: ( a: T, b: T ) => number ): T[] {
+    const indeces = array.map( ( x: T, i: number ) => ( { element: x, index: i } ) );
+
+    return indeces.sort( ( a, b ) => {
+        const result = compareFn( a.element, b.element );
+        return result === 0 ? a.index - b.index : result;
+    } ).map( x => x.element );
+}
+
 export class Work extends React.Component<WorkProps, WorkState> {
 
     private latestY = 0;
@@ -108,10 +117,9 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     render() {
-        let found = false;
         let width = 0;
 
-        const sizes: Array<{ x: number, width: number, percentage: number }> = [];
+        const sizes: Array<{ x: number, percentage: number, index: number }> = [];
 
         const layout = this.pictures.map( ( picture: Picture, i ) =>  {
             const imageWidth = this.imageWidthForHeight( picture, IMAGE_HEIGHT );
@@ -124,25 +132,24 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 offset -= this.state.totalWidth;
             }
 
-            if ( offset > 70 && ! found ) {
-                this.focused = i;
-                found = true;
-            }
-
             let percentage = 1;
 
             if ( offset < 0 ) {
-                const left = width + offset;
-                percentage = left > 0 ? left / width : 0;
-            } else if ( offset > window.innerWidth - width ) {
+                const left = imageWidth + offset;
+                percentage = left > 0 ? left / imageWidth : 0;
+            } else if ( offset > window.innerWidth - imageWidth ) {
                 const left = window.innerWidth - offset;
-                percentage = left > 0 ? left / width : 0;
+                percentage = left > 0 ? left / imageWidth : 0;
+            } else if ( offset > window.innerWidth ) {
+                percentage = 0;
+            } else if ( offset < - imageWidth ) {
+                percentage = 0;
             }
 
             sizes.push( {
                 x: offset,
-                width,
                 percentage,
+                index: i
             } );
 
             return <PictureOutlet x={ offset }
@@ -153,6 +160,11 @@ export class Work extends React.Component<WorkProps, WorkState> {
                                   hidden={ this.state.selection > -1 }
                                   selected={ this.state.selection === i } />;
         } );
+
+        let sorted = sort( sizes, ( a, b ) => a.x - b.x );
+        sorted = sort( sorted, ( a, b ) => b.percentage - a.percentage );
+
+        this.focused = sorted[ 0 ].index;
 
         return (
             <div>

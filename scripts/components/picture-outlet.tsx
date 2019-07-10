@@ -14,6 +14,7 @@ interface PictureOutletProps {
     hidden: boolean;
     picture: Picture;
     delay: number;
+    focused?: boolean;
 }
 
 interface PictureOutletState {
@@ -99,7 +100,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
                 }
 
                 <span className={ s.border } style={ { width: frameWidth, padding: framePadding } }>
-                    <img src={ this.props.picture.url } className={ s.workImage } />
+                    <img src={ this.props.picture.url }
+                         className={ classnames( s.workImage, { [ s.focused ]: this.props.focused } ) } />
                 </span>
 
                 <div className={ classnames( s.tag, { [ s.hideTag ]: this.props.selected || this.state.before } ) }>

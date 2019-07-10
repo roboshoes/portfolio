@@ -6,6 +6,7 @@ import s from "./detail.scss";
 import ss from "../../styles/shared.scss";
 import { Text } from "./text";
 import { work } from "../content";
+import { Buffer } from "./buffer";
 
 export const DETAIL_ROUTE = /^\/work(?:\/.*)?$/;
 
@@ -53,6 +54,9 @@ export class Detail extends React.Component {
                     {
                         this.state.open ? <div className={ s.contentWrapper }>
                             <h2 className={ ss.title }>TABEL</h2>
+
+                            <Buffer />
+
                             <div className={ s.text }>
                                 { this.state.text ? <Text>{ this.state.text }</Text> : null }
                             </div>

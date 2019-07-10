@@ -6,18 +6,25 @@ import * as React from "react";
 import ss from "../../styles/shared.scss";
 import { work } from "../content";
 import { Picture } from "../models/picture";
+import { stableSort } from "../services/array";
 import { measureTextWidth } from "../services/measurement";
 import { getRoute, observeRoute } from "../services/router";
+import { Buffer } from "./buffer";
 import { DETAIL_ROUTE } from "./detail";
 import { PictureOutlet } from "./picture-outlet";
+import { Title } from "./title";
 import s from "./work.scss";
 import { Wrapper } from "./wrapper";
-import { Title } from "./title";
-import { Buffer } from "./buffer";
 
 const IMAGE_PADDING = 50;
 const IMAGE_HEIGHT = 480;
 const WINDOW_PADDING = 77;
+
+interface TileSize {
+    x: number;
+    percentage: number;
+    index: number;
+}
 
 interface TabProps {
     selected: boolean;
@@ -25,6 +32,7 @@ interface TabProps {
     name: string;
     onSelected: ( id: number ) => void;
 }
+
 const Tab: React.FunctionComponent<TabProps> = ( { selected, index, name, onSelected } ) => {
     const [ width, setWidth ] = React.useState( 0 );
     const content = `${ name }`;
@@ -55,15 +63,6 @@ interface WorkState {
 
 interface WorkProps {
     delay: number;
-}
-
-function sort<T>( array: T[], compareFn: ( a: T, b: T ) => number ): T[] {
-    const indeces = array.map( ( x: T, i: number ) => ( { element: x, index: i } ) );
-
-    return indeces.sort( ( a, b ) => {
-        const result = compareFn( a.element, b.element );
-        return result === 0 ? a.index - b.index : result;
-    } ).map( x => x.element );
 }
 
 export class Work extends React.Component<WorkProps, WorkState> {
@@ -117,54 +116,9 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     render() {
-        let width = 0;
+        const [ layout, sizes ] = this.renderTiles();
 
-        const sizes: Array<{ x: number, percentage: number, index: number }> = [];
-
-        const layout = this.pictures.map( ( picture: Picture, i ) =>  {
-            const imageWidth = this.imageWidthForHeight( picture, IMAGE_HEIGHT );
-
-            let offset = this.state.startingPoint + this.state.anchor + width;
-
-            width += imageWidth + 20 + IMAGE_PADDING;
-
-            if ( offset > window.innerWidth ) {
-                offset -= this.state.totalWidth;
-            }
-
-            let percentage = 1;
-
-            if ( offset < 0 ) {
-                const left = imageWidth + offset;
-                percentage = left > 0 ? left / imageWidth : 0;
-            } else if ( offset > window.innerWidth - imageWidth ) {
-                const left = window.innerWidth - offset;
-                percentage = left > 0 ? left / imageWidth : 0;
-            } else if ( offset > window.innerWidth ) {
-                percentage = 0;
-            } else if ( offset < - imageWidth ) {
-                percentage = 0;
-            }
-
-            sizes.push( {
-                x: offset,
-                percentage,
-                index: i
-            } );
-
-            return <PictureOutlet x={ offset }
-                                  key={ i }
-                                  index={ i }
-                                  delay={ this.props.delay }
-                                  picture={ picture }
-                                  hidden={ this.state.selection > -1 }
-                                  selected={ this.state.selection === i } />;
-        } );
-
-        let sorted = sort( sizes, ( a, b ) => a.x - b.x );
-        sorted = sort( sorted, ( a, b ) => b.percentage - a.percentage );
-
-        this.focused = sorted[ 0 ].index;
+        this.focused = this.calculateFocus( sizes );
 
         return (
             <div>
@@ -193,6 +147,52 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 </div>
             </div>
         );
+    }
+
+    private renderTiles(): [ JSX.Element[], TileSize[] ] {
+        const sizes: TileSize[] = [];
+        let width = 0;
+
+        const layout = this.pictures.map( ( picture: Picture, i ) =>  {
+            const imageWidth = this.imageWidthForHeight( picture, IMAGE_HEIGHT );
+            let offset = this.state.startingPoint + this.state.anchor + width;
+            let percentage = 1;
+
+            width += imageWidth + 20 + IMAGE_PADDING;
+
+            if ( offset > window.innerWidth ) {
+                offset -= this.state.totalWidth;
+            }
+
+            if ( offset < 0 ) {
+                const left = imageWidth + offset;
+                percentage = left > 0 ? left / imageWidth : 0;
+            } else if ( offset > window.innerWidth - imageWidth ) {
+                const left = window.innerWidth - offset;
+                percentage = left > 0 ? left / imageWidth : 0;
+            } else if ( offset > window.innerWidth ) {
+                percentage = 0;
+            } else if ( offset < - imageWidth ) {
+                percentage = 0;
+            }
+
+            sizes.push( {
+                x: offset,
+                percentage,
+                index: i
+            } );
+
+            return <PictureOutlet x={ offset }
+                                  key={ i }
+                                  index={ i }
+                                  focused={ i === this.focused }
+                                  delay={ this.props.delay }
+                                  picture={ picture }
+                                  hidden={ this.state.selection > -1 }
+                                  selected={ this.state.selection === i } />;
+        } );
+
+        return [ layout, sizes ];
     }
 
     private loop() {
@@ -289,6 +289,13 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
     private imageWidthForHeight( image: Picture, height: number ): number {
         return image.width * ( height / image.height );
+    }
+
+    private calculateFocus( array: TileSize[] ): number {
+        array = stableSort( array, ( a, b ) => a.x - b.x );
+        array = stableSort( array, ( a, b ) => b.percentage - a.percentage );
+
+        return array[ 0 ].index;
     }
 }
 

@@ -12,7 +12,6 @@
     overflow: hidden;
 }
 
-
 .before {
     .border {
         width: 0px;
@@ -21,6 +20,11 @@
 
 .workImage {
     height: 100%;
+    filter: grayscale(100%);
+}
+
+.workImage.focused {
+    filter: none;
 }
 
 .animate {

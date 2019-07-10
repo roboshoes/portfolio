@@ -64,7 +64,8 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
 
         } else if ( this.props.hidden ) {
 
-            const x = Math.sign( this.props.x - window.innerWidth / 2 ) * window.innerWidth;
+            const width = this.getImageWidthForHeight( 500 - 20 ) || 0;
+            const x = Math.sign( this.props.x + width / 2 - window.innerWidth / 2 ) * window.innerWidth;
             styles.transform = `translate( ${ x }px, 0 )`;
 
         } else {

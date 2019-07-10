@@ -111,6 +111,49 @@ export class Work extends React.Component<WorkProps, WorkState> {
         let found = false;
         let width = 0;
 
+        const sizes: Array<{ x: number, width: number, percentage: number }> = [];
+
+        const layout = this.pictures.map( ( picture: Picture, i ) =>  {
+            const imageWidth = this.imageWidthForHeight( picture, IMAGE_HEIGHT );
+
+            let offset = this.state.startingPoint + this.state.anchor + width;
+
+            width += imageWidth + 20 + IMAGE_PADDING;
+
+            if ( offset > window.innerWidth ) {
+                offset -= this.state.totalWidth;
+            }
+
+            if ( offset > 70 && ! found ) {
+                this.focused = i;
+                found = true;
+            }
+
+            let percentage = 1;
+
+            if ( offset < 0 ) {
+                const left = width + offset;
+                percentage = left > 0 ? left / width : 0;
+            } else if ( offset > window.innerWidth - width ) {
+                const left = window.innerWidth - offset;
+                percentage = left > 0 ? left / width : 0;
+            }
+
+            sizes.push( {
+                x: offset,
+                width,
+                percentage,
+            } );
+
+            return <PictureOutlet x={ offset }
+                                  key={ i }
+                                  index={ i }
+                                  delay={ this.props.delay }
+                                  picture={ picture }
+                                  hidden={ this.state.selection > -1 }
+                                  selected={ this.state.selection === i } />;
+        } );
+
         return (
             <div>
                 <Wrapper>
@@ -134,28 +177,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 <Buffer />
 
                 <div className={ s.container } onMouseDown={ this.onMouseDown }>
-                    { this.state.totalWidth > 0 ? this.pictures.map( ( picture: Picture, i ) =>  {
-                        let offset = this.state.startingPoint + this.state.anchor + width;
-
-                        width += this.imageWidthForHeight( picture, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
-
-                        if ( offset > window.innerWidth ) {
-                            offset -= this.state.totalWidth;
-                        }
-
-                        if ( offset > 70 && ! found ) {
-                            this.focused = i;
-                            found = true;
-                        }
-
-                        return <PictureOutlet x={ offset }
-                                              key={ i }
-                                              index={ i }
-                                              delay={ this.props.delay }
-                                              picture={ picture }
-                                              hidden={ this.state.selection > -1 }
-                                              selected={ this.state.selection === i } />;
-                    } ) : null }
+                    { this.state.totalWidth > 0 ? layout : null }
                 </div>
             </div>
         );
@@ -195,6 +217,10 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
+        if ( this.state.selection > -1 ) {
+            return;
+        }
+
         event.preventDefault();
 
         TweenLite.killTweensOf( this );

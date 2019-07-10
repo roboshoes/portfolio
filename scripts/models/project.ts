@@ -2,5 +2,5 @@ export interface Project {
     mainImage: string;
     title: string;
     images: string[];
-    description: string;
+    description: string | JSX.Element;
 }

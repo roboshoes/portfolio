@@ -101,9 +101,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
 
                 <span className={ s.border } style={ { width: frameWidth, padding: framePadding } }>
                     <img src={ this.props.picture.url }
-                         className={
-                             classnames( s.workImage, { [ s.focused ]: this.props.focused || this.props.selected } )
-                         } />
+                         className={ s.workImage } />
                 </span>
 
                 <div className={ classnames( s.tag, { [ s.hideTag ]: this.props.selected || this.state.before } ) }>

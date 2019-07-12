@@ -1,27 +1,17 @@
 .wrapper {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 50%;
     display: none;
-    pointer-events: none;
+    padding-top: 100px;
+    padding-right: 300px;
 }
 
 .open {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-}
-
-.imageContainer {
-    flex: 50% 1 1;
-    pointer-events: none;
-}
-
-.textContainer {
-    padding-top: 100px;
-    padding-right: 300px;
-    flex: 50% 1 1;
 }
 
 .contentWrapper {

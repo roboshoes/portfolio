@@ -74,8 +74,8 @@ export class Text extends React.Component<TextProps> {
 
         lines.forEach( ( line: Line, i: number ) => {
             const offset = random( 0.2, 0.4, true );
-            timeline.to( line, 0.9, { end: width, ease: Power3.easeOut }, i * 0.05 + offset );
-            timeline.to( line, 0.8, { begin: width, ease: Power2.easeInOut }, 0.2 + i * 0.03 + offset );
+            timeline.to( line, 1.0, { end: width, ease: Power2.easeInOut }, i * 0.05 + offset );
+            timeline.to( line, 1.4, { begin: width, ease: Power2.easeInOut }, 0.2 + i * 0.03 + offset );
         } );
 
         return timeline;

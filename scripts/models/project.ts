@@ -3,4 +3,5 @@ export interface Project {
     title: string;
     images: string[];
     description: string | JSX.Element;
+    buttons?: { [ key: string ]: string; };
 }

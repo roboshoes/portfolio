@@ -7,22 +7,35 @@ import ss from "../../styles/shared.scss";
 import { Text } from "./text";
 import { work } from "../content";
 import { Buffer } from "./buffer";
+import { Button } from "./button";
 
 export const DETAIL_ROUTE = /^\/work(?:\/.*)?$/;
 
-export class Detail extends React.Component {
+interface ButtonDetail {
+    name: string;
+    link: string;
+}
+
+interface DetailState {
+    open: boolean;
+    text: string | JSX.Element;
+    buttons: ButtonDetail[];
+}
+
+export class Detail extends React.Component<{}, DetailState> {
 
     private timeout = -1;
 
-    state = {
+    state: DetailState = {
         open: false,
         text: "",
+        buttons: [],
     };
 
     componentWillUnmount() {
         clearTimeout( this.timeout );
 
-        this.setState( { text: "" } );
+        this.setState( { text: "", buttons: [] } );
     }
 
     componentDidMount() {
@@ -38,8 +51,19 @@ export class Detail extends React.Component {
                     const project = work[ index ];
 
                     this.timeout = setTimeout( () => {
-                        this.setState( { text: project.description } );
-                        console.log( project.description );
+                        const state: Pick<DetailState, "text" | "buttons"> = {
+                            text: project.description,
+                            buttons: []
+                        };
+
+                        if ( project.buttons ) {
+                            state.buttons = Object.keys( project.buttons ).map<ButtonDetail>( label => ( {
+                                name: label,
+                                link: project.buttons![ label ],
+                            } ) );
+                        }
+
+                        this.setState( state );
                     }, 500 );
                 }
             }
@@ -49,20 +73,23 @@ export class Detail extends React.Component {
     render() {
         return (
             <div className={ classnames( s.wrapper, { [ s.open ]: this.state.open } ) }>
-                <div className={ s.imageContainer }></div>
-                <div className={ s.textContainer }>
-                    {
-                        this.state.open ? <div className={ s.contentWrapper }>
-                            <h2 className={ ss.title }>TABEL</h2>
+                {
+                    this.state.open ? <div className={ s.contentWrapper }>
+                        <h2 className={ ss.title }>TABEL</h2>
 
-                            <Buffer />
+                        <Buffer />
 
-                            <div className={ s.text }>
-                                { this.state.text ? <Text>{ this.state.text }</Text> : null }
-                            </div>
-                        </div> : null
-                    }
-                </div>
+                        <div className={ s.text }>
+                            { this.state.text ? <Text>{ this.state.text }</Text> : null }
+                        </div>
+
+                        <Buffer height={ 30 } />
+
+                        { this.state.buttons.map( ( button: ButtonDetail, i ) => {
+                            return <Button key={ i } name={ button.name } link={ button.link } />;
+                        } ) }
+                    </div> : null
+                }
             </div>
         );
     }

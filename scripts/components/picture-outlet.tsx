@@ -141,7 +141,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
         const y = event.pageY - this.mousePosition.y;
         const distance = Math.sqrt( x * x + y * y );
 
-        if ( Date.now() - this.mouseDown < 100 && distance < 5 ) {
+        if ( Date.now() - this.mouseDown < 200 && distance < 5 ) {
             setRoute( `/work/${ this.props.index }` );
         }
     }

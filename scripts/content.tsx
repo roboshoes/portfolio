@@ -23,6 +23,9 @@ export const work: Project[] = [
             For a full immersion it also provides a 360 VR view with authentic street sounds to
             truely experience the celebratory spirit.
         </>,
+        buttons: {
+            "LAUNCH PROJECT": "https://windowwonderland.withgoogle.com"
+        }
     },
     {
         title: "Tabel",

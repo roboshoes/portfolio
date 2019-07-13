@@ -9,12 +9,18 @@ interface ButtonProps {
 
 export class Button extends React.Component<ButtonProps> {
 
+    private timeout = -1;
+
     state = {
         before: true,
     };
 
     componentDidMount() {
-        setTimeout( () => this.setState( { before: false } ), 1000 );
+        this.timeout = setTimeout( () => this.setState( { before: false } ), 1000 );
+    }
+
+    componentWillUnmount() {
+        clearTimeout( this.timeout );
     }
 
     render() {

@@ -85,20 +85,15 @@ export class Work extends React.Component<WorkProps, WorkState> {
         super( props );
 
         bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset", "onSelect" );
-
-        Promise.all( this.pictures.map( picture => picture.load() ) )
-            .then( () => {
-                const totalWidth = this.pictures.reduce( ( previous, p ) => {
-                    return previous + this.imageWidthForHeight( p, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
-                }, 0 );
-
-                const startingPoint = window.innerWidth - totalWidth;
-
-                this.setState( { totalWidth, startingPoint, anchor: totalWidth - window.innerWidth + WINDOW_PADDING } );
-            } );
     }
 
     componentDidMount() {
+        Promise.all( this.pictures.map( picture => picture.load() ) )
+            .then( () => this.calculateOffsets( true ) )
+            .then( () => {
+                window.addEventListener( "resize", () => this.calculateOffsets() );
+            } );
+
         observeRoute( DETAIL_ROUTE ).subscribe( ( on: boolean ) => {
             if ( on ) {
                 const id = getRoute().split( "/" )[ 2 ];
@@ -147,6 +142,23 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 </div>
             </div>
         );
+    }
+
+    private calculateOffsets( reset = false ) {
+        const totalWidth = this.pictures.reduce( ( previous, p ) => {
+            return previous + this.imageWidthForHeight( p, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
+        }, 0 );
+
+        const startingPoint = window.innerWidth - totalWidth;
+
+        this.setState( { totalWidth, startingPoint } );
+
+        if ( reset ) {
+            this.setState( {
+                anchor: totalWidth - window.innerWidth + WINDOW_PADDING
+            } );
+        }
+
     }
 
     private renderTiles(): [ JSX.Element[], TileSize[] ] {

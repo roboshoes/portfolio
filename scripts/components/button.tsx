@@ -24,8 +24,10 @@ export class Button extends React.Component<ButtonProps> {
     }
 
     render() {
-        return <div className={ classnames( s.button, { [ s.before ]: this.state.before } ) }>
-            <a target="_blank" href={ this.props.link }>{ this.props.name }</a>
-        </div>;
+        return <a className={ classnames( s.button, { [ s.before ]: this.state.before } ) }
+                  target="_blank"
+                  href={ this.props.link }>
+            <span >{ this.props.name }</span>
+        </a>;
     }
 }

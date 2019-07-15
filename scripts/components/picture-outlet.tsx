@@ -28,6 +28,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     private mouseDown = Infinity;
     private mousePosition = { x: -1, y: -1 };
     private animated = false;
+    private selected = false;
 
     state: PictureOutletState = {
         collapse: false,
@@ -38,12 +39,17 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     componentWillReceiveProps( nextProps: PictureOutletProps ) {
         if ( nextProps.selected || nextProps.hidden ) {
             this.animated = true;
+            this.selected = nextProps.selected;
             this.setState( { collapse: false } );
         } else if ( this.animated && ! nextProps.hidden && ! nextProps.selected ) {
-            this.setState( { collapse: true } );
+            if ( this.selected ) {
+                this.setState( { collapse: true } );
+            }
 
             setTimeout( () => this.animated = false, 50 );
             setTimeout( () => this.setState( { collapse: false } ), 1000 );
+
+            this.selected = false;
         }
     }
 

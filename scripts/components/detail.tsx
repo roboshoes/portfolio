@@ -18,6 +18,7 @@ interface ButtonDetail {
 
 interface DetailState {
     open: boolean;
+    title: string;
     text: string | JSX.Element;
     buttons: ButtonDetail[];
 }
@@ -29,13 +30,12 @@ export class Detail extends React.Component<{}, DetailState> {
     state: DetailState = {
         open: false,
         text: "",
+        title: "",
         buttons: [],
     };
 
     componentWillUnmount() {
         clearTimeout( this.timeout );
-
-        this.setState( { text: "", buttons: [] } );
     }
 
     componentDidMount() {
@@ -50,10 +50,12 @@ export class Detail extends React.Component<{}, DetailState> {
                     const index = parseInt( id, 10 );
                     const project = work[ index ];
 
+                    this.setState( { title: project.title } );
+
                     this.timeout = setTimeout( () => {
                         const state: Pick<DetailState, "text" | "buttons"> = {
                             text: project.description,
-                            buttons: []
+                            buttons: [],
                         };
 
                         if ( project.buttons ) {
@@ -66,6 +68,8 @@ export class Detail extends React.Component<{}, DetailState> {
                         this.setState( state );
                     }, 500 );
                 }
+            } else {
+                this.setState( { text: "", buttons: [], title: "" } );
             }
         } );
     }
@@ -75,7 +79,7 @@ export class Detail extends React.Component<{}, DetailState> {
             <div className={ classnames( s.wrapper, { [ s.open ]: this.state.open } ) }>
                 {
                     this.state.open ? <div className={ s.contentWrapper }>
-                        <h2 className={ ss.title }>TABEL</h2>
+                        <h2 className={ ss.title }>{ this.state.title }</h2>
 
                         <Buffer />
 
@@ -86,7 +90,9 @@ export class Detail extends React.Component<{}, DetailState> {
                         <Buffer height={ 30 } />
 
                         { this.state.buttons.map( ( button: ButtonDetail, i ) => {
-                            return <Button key={ i } name={ button.name } link={ button.link } />;
+                            return <div key={ i } className={ s.buttonWrapper }>
+                                <Button name={ button.name } link={ button.link } />
+                            </div>;
                         } ) }
                     </div> : null
                 }

@@ -1,14 +1,26 @@
 import tabelDetail from "../assets/tabel/detail.png";
 import tabelHero from "../assets/tabel/hero.png";
 import toonamiHero from "../assets/toonami/hero.png";
+import toonamiDetail from "../assets/toonami/alarm-slow-cropped.gif";
 import wonderlandHero from "../assets/wonderland/hero.png";
 import wonderlandDetail from "../assets/wonderland/detail.jpg";
 import pinglrHero from "../assets/pinglr/hero.png";
 import surfgayHero from "../assets/surfgay/hero.png";
+import earthHero from "../assets/earthstudio/hero.jpg";
+import earthDetail from "../assets/earthstudio/detail.jpg";
+import nasaHero from "../assets/nasa/hero.png";
+import nasaDetail1 from "../assets/nasa/detail-1.png";
+import nasaDetail2 from "../assets/nasa/detail-2.png";
 import { Project } from "./models/project";
 import * as React from "react";
 
 export const work: Project[] = [
+    {
+        title: "NASA FLD + Google Cloud",
+        mainImage: nasaHero,
+        images: [ nasaDetail1, nasaDetail2 ],
+        description: "",
+    },
     {
         title: "Winter Wonderland",
         mainImage: wonderlandHero,
@@ -39,11 +51,29 @@ export const work: Project[] = [
             the short movie. By looking at different characters, the viewer can choose which
             storyline to follow and which to ignore.
         </>,
+        buttons: {
+            "LAUNCH PROJECT": "https://tabel.withgoogle.com"
+        }
+    },
+    {
+        title: "Google Earth Studio",
+        mainImage: earthHero,
+        images: [ earthDetail ],
+        description: <>
+            Let the world tell your story.
+            <br/><br/>
+            Earth Studio is an animation tool for Google Earth’s satellite and 3D imagery.
+            Being built fully in the browser it requires no installs.
+            <br/><br/>
+            We built a simple interface that allows the user use all of google earth as footage
+            for animated films. In addition a set of simple Quickstarts allow you to provide a few
+            simple inputs to generate a full animation.
+        </>
     },
     {
         title: "Toonami",
         mainImage: toonamiHero,
-        images: [],
+        images: [ toonamiDetail ],
         description: <>
             Toonami's mobile application for Android and iOS was made out of almost entirely
             procedurally generated graphics using the web's canvas 2D API. Toonami is a part of
@@ -85,6 +115,10 @@ export const work: Project[] = [
             <br/><br/>
             Check it out. The app is in beta.
         </>,
+        buttons: {
+            "WATCH IT": "https://www.youtube.com/watch?v=sajO0H8Xe44",
+            "DOWNLOAD": "https://play.google.com/store/apps/details?id=biz.pinglr.Pinglr"
+        }
     },
     {
         title: "Surfspot or Gaybar",
@@ -97,5 +131,8 @@ export const work: Project[] = [
             We put that hypothesis to the test by creating a little game that let's you guess if the
             given name is a gaybar or a surfspot.
         </>,
+        buttons: {
+            "LAUNCH PROJECT": "http://surfspot-or-gaybar.robosho.es/"
+        }
     }
 ];

@@ -23,20 +23,25 @@ interface SizedImage {
 }
 
 export class ImageList extends React.Component<ImageListProps, ImageListState> {
+
     state = {
         hidden: true,
         images: [],
     };
+
+    private images: ImagePayload[] = [];
 
     constructor( props: ImageListProps ) {
         super( props );
 
         loadImages( props.images ).then( ( images: ImagePayload[] ) => {
 
+            this.images = images;
+
             const sizedImages = images.map<SizedImage>( payload => ( {
                 url: payload.url,
                 width: this.props.width,
-                height: this.calculateHeight( this.props.width, payload.image ),
+                height: this.calculateHeight( this.props.width - 40, payload.image ),
             } ) );
 
             this.setState( { images: sizedImages } );
@@ -45,6 +50,18 @@ export class ImageList extends React.Component<ImageListProps, ImageListState> {
                 this.setState( { hidden: false } );
             }, 200 );
         } );
+    }
+
+    componentWillReceiveProps( nextProps: ImageListProps ) {
+        if ( nextProps.width && this.images.length > 0 ) {
+            const sizedImages = this.images.map<SizedImage>( payload => ( {
+                url: payload.url,
+                width: this.props.width,
+                height: this.calculateHeight( this.props.width - 40, payload.image ),
+            } ) );
+
+            this.setState( { images: sizedImages } );
+        }
     }
 
     render() {
@@ -60,7 +77,7 @@ export class ImageList extends React.Component<ImageListProps, ImageListState> {
                         const y = hidden ? 0 : offset;
                         const z = hidden ? -100 - ( i * 50 ) : 0;
 
-                        offset += payload.height + 20;
+                        offset += payload.height;
 
                     return <img className={ classnames( s.image, s[ "image" + i ] ) }
                                 src={ payload.url }

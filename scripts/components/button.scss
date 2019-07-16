@@ -30,6 +30,21 @@
     transition: width 0.4s 0.2s ease-in-out;
 }
 
+.button::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba( 255, 255, 255, 0.2 );
+    transition: width 0.3s cubic-bezier( 0.55, 0, 0, 1 );
+}
+
+.button:hover::before {
+    width: 100%;
+}
+
 .button.before::after {
     width: 100%;
 }

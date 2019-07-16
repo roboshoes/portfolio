@@ -21,8 +21,14 @@
 }
 
 .site {
-    overflow: hidden;
     perspective: 300px;
     transform-origin: top left;
     transform-style: preserve-3d;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

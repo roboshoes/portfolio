@@ -143,6 +143,10 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     }
 
     private onMouseUp( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
+        if ( this.props.selected ) {
+            return;
+        }
+
         const x = event.pageX - this.mousePosition.x;
         const y = event.pageY - this.mousePosition.y;
         const distance = Math.sqrt( x * x + y * y );

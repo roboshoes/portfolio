@@ -68,7 +68,10 @@ export const work: Project[] = [
             We built a simple interface that allows the user use all of google earth as footage
             for animated films. In addition a set of simple Quickstarts allow you to provide a few
             simple inputs to generate a full animation.
-        </>
+        </>,
+        buttons: {
+            "LAUNCH PROJECT": "https://earth.google.com/studio"
+        }
     },
     {
         title: "Toonami",

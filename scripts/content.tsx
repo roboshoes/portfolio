@@ -16,7 +16,7 @@ import * as React from "react";
 
 export const work: Project[] = [
     {
-        title: "NASA FLD + Google Cloud",
+        title: "NASA FDL + Google Cloud",
         mainImage: nasaHero,
         images: [ nasaDetail1, nasaDetail2 ],
         description: "",

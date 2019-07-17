@@ -66,7 +66,7 @@ export class Detail extends React.Component<{}, DetailState> {
                         }
 
                         this.setState( state );
-                    }, 500 );
+                    }, 800 );
                 }
             } else {
                 this.setState( { text: "", buttons: [], title: "" } );

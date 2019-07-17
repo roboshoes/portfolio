@@ -51,7 +51,7 @@ class Animation {
     private timeScale = 1;
 
     set slowMo( value: boolean ) {
-        TweenLite.to( this, 0.5, { timeScale: value ? 0.1 : 1, onUpdate: () => {
+        TweenLite.to( this, 0.8, { timeScale: value ? 0.15 : 1, ease: Power2.easeInOut, onUpdate: () => {
             this.lines.forEach( line => line.timeScale = this.timeScale );
         } } );
     }

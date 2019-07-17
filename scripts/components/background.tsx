@@ -20,7 +20,7 @@ class Line {
     private t = 0;
     private speed = random( 0.001, 0.006, true );
 
-    private readonly BLOCK_AMOUNT = random( 3, 12, false );
+    private readonly BLOCK_AMOUNT = random( 3, 8, false );
     private readonly MAX_BLOCK_SIZE = window.innerWidth / this.BLOCK_AMOUNT;
 
     constructor( public y: number, public height: number ) {
@@ -59,17 +59,18 @@ class Animation {
     constructor( private canvas: HTMLCanvasElement ) {
         this.context = canvas.getContext( "2d" )!;
         this.context.fillStyle = "rgb( 30, 30, 30 )";
-
         this.render = this.render.bind( this );
 
+        const makeSize = this.sizeGenerator( 5, 50, false );
+
         let y = 0;
-        let size = random( 10, 30, false );
+        let size = makeSize();
 
         while ( y < window.innerHeight ) {
             const line = new Line( y, size - 2 );
 
             y += size;
-            size = random( 10, 30, false );
+            size = makeSize();
 
             this.lines.push( line );
         }
@@ -88,6 +89,10 @@ class Animation {
 
     stop() {
         cancelAnimationFrame( this.raf );
+    }
+
+    private sizeGenerator( min: number, max: number, float: Boolean ): () => number  {
+        return () => random( min, max, float );
     }
 }
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import s from "./background.scss";
-import { times, random } from "lodash";
+import { times, random, NumericDictionary } from "lodash";
 import { onRoute, observeRoute } from "../services/router";
 import { DETAIL_ROUTE } from "./detail";
 import { TweenLite, Power2 } from "gsap";
@@ -11,7 +11,11 @@ interface Block {
     offset: number;
     size: number;
     pulses: number;
-}
+    startRepetition: number;
+    startOffset: number;
+    endRepetition: number;
+    endOffset: number;
+ }
 
 class Line {
     public timeScale = 1;
@@ -24,23 +28,37 @@ class Line {
     private readonly MAX_BLOCK_SIZE = window.innerWidth / this.BLOCK_AMOUNT;
 
     constructor( public y: number, public height: number ) {
-        this.blocks = times<Block>( this.BLOCK_AMOUNT, i => ( {
+        this.blocks = times( this.BLOCK_AMOUNT, i => ( {
             offset: ( i / this.BLOCK_AMOUNT ) * window.innerWidth,
             size: random( 0.8, true ),
             pulses: random( 1, 10, false ),
+            startRepetition: random( 1, 3 ),
+            startOffset: Math.random(),
+            endRepetition: random( 1, 3 ),
+            endOffset: Math.random(),
          } ) );
     }
 
     render( context: CanvasRenderingContext2D ) {
         const t = this.t = ( this.t + this.speed * this.timeScale ) % 1;
 
-        this.blocks.forEach( block => {
+        for ( let i = 0; i < this.BLOCK_AMOUNT; i++ ) {
+            const block = this.blocks[ i ];
             const x = ( block.offset + t * window.innerWidth ) % window.innerWidth;
-            const sizeOffset = ( Power2.easeOut.getRatio( Math.sin( TAU * block.pulses * t ) + 1 ) / 2 ) *
-                ( this.MAX_BLOCK_SIZE * block.size );
 
-            context.fillRect( x - sizeOffset / 2, this.y, sizeOffset, this.height * this.timeScale );
-        } );
+            const start = this.sineLoop( ( block.startRepetition * t + block.startOffset ) % 1 ) *
+                this.MAX_BLOCK_SIZE / 2 * block.size;
+            const end = this.MAX_BLOCK_SIZE - this.sineLoop( ( block.endRepetition * t + block.endOffset ) % 1 ) *
+                ( this.MAX_BLOCK_SIZE / 2 ) * block.size;
+
+            const size = Math.abs( end - start );
+
+            context.fillRect( x + Math.min( start, end ), this.y, size, this.height * this.timeScale );
+        }
+    }
+
+    private sineLoop( t: number ): number {
+        return Math.sin( TAU * t );
     }
 }
 

@@ -59,7 +59,7 @@ export class Text extends React.Component<TextProps> {
             } );
 
             timeline.eventCallback( "onComplete", () => {
-
+                canvas.width = canvas.height = 1;
             } );
 
             setTimeout( () => timeline.play(), this.props.delay || 0 );

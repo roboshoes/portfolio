@@ -1,12 +1,12 @@
 import { Linear, TweenLite } from "gsap";
 import { random, times } from "lodash";
 import * as React from "react";
+import { BehaviorSubject } from "rxjs";
 
+import { Color } from "../services/color";
 import { observeRoute } from "../services/router";
 import s from "./background.scss";
 import { DETAIL_ROUTE } from "./detail";
-import { BehaviorSubject } from "rxjs";
-import { Color, rgbToHsl, hslToCss } from "../services/color";
 
 const TAU = Math.PI * 2;
 
@@ -31,17 +31,23 @@ class Line {
     private speed = random( 0.001, 0.006, true );
 
     private readonly BLOCK_AMOUNT = random( 3, 8, false );
-    private readonly MAX_BLOCK_SIZE = window.innerWidth / this.BLOCK_AMOUNT;
+    private maxBlockSize = window.innerWidth / this.BLOCK_AMOUNT;
+    private fullWidth = window.innerWidth + this.maxBlockSize;
 
     constructor( public y: number, public height: number ) {
         this.blocks = times( this.BLOCK_AMOUNT, i => ( {
-            offset: ( i / this.BLOCK_AMOUNT ) * window.innerWidth,
+            offset: ( i / this.BLOCK_AMOUNT ) + 1,
             size: random( 0.8, true ),
             startRepetition: random( 1, 4 ),
             startOffset: Math.random(),
             endRepetition: random( 1, 4 ),
             endOffset: Math.random(),
-         } ) );
+        } ) );
+
+        window.addEventListener( "resize", () => {
+            this.maxBlockSize = window.innerWidth / this.BLOCK_AMOUNT;
+            this.fullWidth = window.innerWidth + this.maxBlockSize;
+        } );
     }
 
     render( context: CanvasRenderingContext2D ) {
@@ -49,12 +55,13 @@ class Line {
 
         for ( let i = 0; i < this.BLOCK_AMOUNT; i++ ) {
             const block = this.blocks[ i ];
-            const x = ( block.offset + t * window.innerWidth ) % window.innerWidth;
+            const offset = block.offset * this.fullWidth;
+            const x = ( ( offset + t * this.fullWidth ) % this.fullWidth ) - this.maxBlockSize;
 
             const start = this.sineLoop( ( block.startRepetition * t + block.startOffset ) % 1 ) *
-                this.MAX_BLOCK_SIZE / 2 * block.size;
-            const end = this.MAX_BLOCK_SIZE - this.sineLoop( ( block.endRepetition * t + block.endOffset ) % 1 ) *
-                ( this.MAX_BLOCK_SIZE / 2 ) * block.size;
+                this.maxBlockSize / 2 * block.size;
+            const end = this.maxBlockSize - this.sineLoop( ( block.endRepetition * t + block.endOffset ) % 1 ) *
+                ( this.maxBlockSize / 2 ) * block.size;
 
             const size = Math.abs( end - start );
 
@@ -81,7 +88,7 @@ class Animation {
     }
 
     constructor( private canvas: HTMLCanvasElement ) {
-        this.fillStyle = `rgb( 30, 30, 30 )`;
+        this.fillStyle = `rgb( ${ defaultBackground.join( "," ) } )`;
         this.context = canvas.getContext( "2d" )!;
         this.render = this.render.bind( this );
 
@@ -103,6 +110,7 @@ class Animation {
     render() {
         this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height );
         this.context.fillStyle = this.fillStyle;
+
         this.lines.forEach( line => line.render( this.context ) );
 
         requestAnimationFrame( this.render );
@@ -138,6 +146,11 @@ export class Background extends React.Component {
 
             observeRoute( DETAIL_ROUTE ).subscribe( ( on: boolean ) => {
                 this.animation!.slowMo = on;
+            } );
+
+            window.addEventListener( "resize", () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             } );
         }
     }

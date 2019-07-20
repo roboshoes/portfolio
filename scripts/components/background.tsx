@@ -1,16 +1,22 @@
+import { Linear, TweenLite } from "gsap";
+import { random, times } from "lodash";
 import * as React from "react";
+
+import { observeRoute } from "../services/router";
 import s from "./background.scss";
-import { times, random, NumericDictionary } from "lodash";
-import { onRoute, observeRoute } from "../services/router";
 import { DETAIL_ROUTE } from "./detail";
-import { TweenLite, Power2 } from "gsap";
+import { BehaviorSubject } from "rxjs";
+import { Color, rgbToHsl, hslToCss } from "../services/color";
 
 const TAU = Math.PI * 2;
+
+export const defaultBackground: Color = [ 20, 20, 20 ];
+
+export const backgroundColor = new BehaviorSubject<Color>( defaultBackground );
 
 interface Block {
     offset: number;
     size: number;
-    pulses: number;
     startRepetition: number;
     startOffset: number;
     endRepetition: number;
@@ -31,10 +37,9 @@ class Line {
         this.blocks = times( this.BLOCK_AMOUNT, i => ( {
             offset: ( i / this.BLOCK_AMOUNT ) * window.innerWidth,
             size: random( 0.8, true ),
-            pulses: random( 1, 10, false ),
-            startRepetition: random( 1, 3 ),
+            startRepetition: random( 1, 4 ),
             startOffset: Math.random(),
-            endRepetition: random( 1, 3 ),
+            endRepetition: random( 1, 4 ),
             endOffset: Math.random(),
          } ) );
     }
@@ -67,16 +72,17 @@ class Animation {
     private lines: Line[] = [];
     private raf = -1;
     private timeScale = 1;
+    private fillStyle: string;
 
     set slowMo( value: boolean ) {
-        TweenLite.to( this, 0.8, { timeScale: value ? 0.15 : 1, ease: Power2.easeInOut, onUpdate: () => {
+        TweenLite.to( this, 0.8, { timeScale: value ? 0.15 : 1, ease: Linear.ease, onUpdate: () => {
             this.lines.forEach( line => line.timeScale = this.timeScale );
         } } );
     }
 
     constructor( private canvas: HTMLCanvasElement ) {
+        this.fillStyle = `rgb( 30, 30, 30 )`;
         this.context = canvas.getContext( "2d" )!;
-        this.context.fillStyle = "rgb( 30, 30, 30 )";
         this.render = this.render.bind( this );
 
         const makeSize = this.sizeGenerator( 5, 50, false );
@@ -85,7 +91,7 @@ class Animation {
         let size = makeSize();
 
         while ( y < window.innerHeight ) {
-            const line = new Line( y, size - 2 );
+            const line = new Line( y, size - Math.random() * size / 2 );
 
             y += size;
             size = makeSize();
@@ -96,6 +102,7 @@ class Animation {
 
     render() {
         this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height );
+        this.context.fillStyle = this.fillStyle;
         this.lines.forEach( line => line.render( this.context ) );
 
         requestAnimationFrame( this.render );
@@ -145,7 +152,3 @@ export class Background extends React.Component {
         return <canvas className={ s.canvas } ref={ this.canvasRef }></canvas>;
     }
 }
-
-
-
-

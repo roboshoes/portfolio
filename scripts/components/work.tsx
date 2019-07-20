@@ -9,6 +9,7 @@ import { Picture } from "../models/picture";
 import { stableSort } from "../services/array";
 import { measureTextWidth } from "../services/measurement";
 import { getRoute, observeRoute } from "../services/router";
+import { backgroundColor, defaultBackground } from "./background";
 import { Buffer } from "./buffer";
 import { DETAIL_ROUTE } from "./detail";
 import { PictureOutlet } from "./picture-outlet";
@@ -101,11 +102,14 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 if ( id ) {
                     const index = parseInt( id, 10 );
                     this.setState( { selection: index } );
+                    backgroundColor.next( this.pictures[ index ].color );
                 } else {
                     this.setState( { selection: -1 } );
+                    backgroundColor.next( defaultBackground );
                 }
             } else {
                 this.setState( { selection: -1 } );
+                backgroundColor.next( defaultBackground );
             }
         } );
     }

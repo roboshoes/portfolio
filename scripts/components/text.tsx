@@ -58,6 +58,10 @@ export class Text extends React.Component<TextProps> {
                 } );
             } );
 
+            timeline.eventCallback( "onComplete", () => {
+
+            } );
+
             setTimeout( () => timeline.play(), this.props.delay || 0 );
         }
     }

@@ -1,4 +1,4 @@
-import { Linear, TweenLite } from "gsap";
+import { Linear, TweenLite, Power3 } from "gsap";
 import { random, times } from "lodash";
 import * as React from "react";
 import { BehaviorSubject } from "rxjs";
@@ -21,6 +21,7 @@ interface Block {
     startOffset: number;
     endRepetition: number;
     endOffset: number;
+    t: number;
  }
 
 class Line {
@@ -42,6 +43,7 @@ class Line {
             startOffset: Math.random(),
             endRepetition: random( 1, 4 ),
             endOffset: Math.random(),
+            t: 0,
         } ) );
 
         window.addEventListener( "resize", () => {
@@ -65,8 +67,18 @@ class Line {
 
             const size = Math.abs( end - start );
 
-            context.fillRect( x + Math.min( start, end ), this.y, size, this.height * this.timeScale );
+            context.fillRect( x + Math.min( start, end ), this.y, size * block.t, this.height * this.timeScale );
         }
+    }
+
+    animteIn() {
+        this.blocks.forEach( block => {
+            TweenLite.to( block, random( 1, 4, true ), {
+                t: 1,
+                delay: random( 3, 9, true ),
+                ease: Power3.easeIn
+            } );
+        } );
     }
 
     private sineLoop( t: number ): number {
@@ -124,6 +136,10 @@ class Animation {
         cancelAnimationFrame( this.raf );
     }
 
+    animateIn() {
+        this.lines.forEach( line => line.animteIn() );
+    }
+
     private sizeGenerator( min: number, max: number, float: Boolean ): () => number  {
         return () => random( min, max, float );
     }
@@ -152,6 +168,8 @@ export class Background extends React.Component {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             } );
+
+            setTimeout( () => this.animation!.animateIn(), 1000 );
         }
     }
 

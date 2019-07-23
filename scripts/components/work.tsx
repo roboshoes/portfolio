@@ -60,6 +60,7 @@ interface WorkState {
     totalWidth: number;
     startingPoint: number;
     selection: number;
+    tabHidden: boolean;
 }
 
 interface WorkProps {
@@ -80,6 +81,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
         totalWidth: 0,
         startingPoint: 0,
         selection: -1,
+        tabHidden: true,
     };
 
     constructor( props: WorkProps ) {
@@ -112,6 +114,10 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 backgroundColor.next( defaultBackground );
             }
         } );
+
+        setTimeout( () => {
+            this.setState( { tabHidden: false  } );
+        }, this.props.delay );
     }
 
     render() {
@@ -124,7 +130,12 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 <Wrapper>
                     <Title value="WORK" delay={ this.props.delay } />
 
-                    <div className={ classnames( ss.paragraph, ss.textWrapper ) }>
+                    <div className={ classnames(
+                        ss.paragraph,
+                        ss.textWrapper,
+                        s.tabAnimation,
+                        { [s.tabHidden]: this.state.tabHidden }
+                    ) }>
                         {
                             this.pictures.map( ( picture, i ) => {
                                 return <span key={ i } className={ s.tabContainer }>

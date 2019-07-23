@@ -64,3 +64,22 @@
         width: 0;
     }
 }
+
+.tabAnimation {
+    position: relative;
+}
+
+.tabAnimation:after {
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background-color: var( --background-color );
+    transition: width 0.8s 1.0s ease-in-out;
+}
+
+.tabAnimation.tabHidden:after {
+    width: 100%;
+}

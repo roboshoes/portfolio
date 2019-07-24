@@ -34,7 +34,7 @@ export class Text extends React.Component<TextProps> {
             const context = canvas.getContext( "2d" )!;
             const size = this.parentRef.current.getBoundingClientRect();
             const backgroundColor = "#0F0F0F";
-            const foregroundColor = "white";
+            const foregroundColor = "#8A8A8A";
 
             const width = canvas.width = size.width;
             const height = canvas.height = size.height;

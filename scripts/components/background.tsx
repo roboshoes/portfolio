@@ -12,8 +12,6 @@ const TAU = Math.PI * 2;
 
 export const defaultBackground: Color = [ 20, 20, 20 ];
 
-export const backgroundColor = new BehaviorSubject<Color>( defaultBackground );
-
 interface Block {
     offset: number;
     size: number;

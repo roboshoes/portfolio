@@ -3,6 +3,7 @@ import * as React from "react";
 
 import { ImagePayload, loadImages } from "../services/loader";
 import s from "./picture-list.scss";
+import { DETAIL_TOP_PADDING, detailMinHeight } from "./detail";
 
 interface ImageListState {
     images: SizedImage[];
@@ -69,22 +70,26 @@ export class ImageList extends React.Component<ImageListProps, ImageListState> {
 
         let offset = 0;
 
+        const images: JSX.Element[] = this.state.images.map( ( payload: SizedImage, i: number ) => {
+            const y = hidden ? 0 : offset;
+            const z = hidden ? -100 - ( i * 50 ) : 0;
+
+            offset += payload.height;
+
+            return <img className={ classnames( s.image, s[ "image" + i ] ) }
+                        src={ payload.url }
+                        key={ i }
+                        style={ { transform: `translate3d( 0, ${ y }px, ${ z }px )` } } />;
+        } );
+
+        if ( ! hidden ) {
+            detailMinHeight.next( offset + this.props.top + DETAIL_TOP_PADDING );
+        }
+
         return (
             <div className={ classnames( s.wrapper, { [ s.hidden ]: hidden } ) }
                  style={ { top: hidden ? 0 : this.props.top } }>
-                {
-                    this.state.images.map( ( payload: SizedImage, i: number ) => {
-                        const y = hidden ? 0 : offset;
-                        const z = hidden ? -100 - ( i * 50 ) : 0;
-
-                        offset += payload.height;
-
-                    return <img className={ classnames( s.image, s[ "image" + i ] ) }
-                                src={ payload.url }
-                                key={ i }
-                                style={ { transform: `translate3d( 0, ${ y }px, ${ z }px )` } } />;
-                    } )
-                }
+                { images }
             </div>
         );
     }

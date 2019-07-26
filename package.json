@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html",
-    "deploy": "rm -rf dist && npm run build && cp app.yaml dist/ gcloud app deploy dist --project=mathias-paumgarten"
+    "deploy": "rm -rf dist && npm run build && cp app.yaml dist/ && gcloud app deploy dist --project=mathias-paumgarten"
   },
   "author": "Mathias Paumgarten",
   "license": "MIT",

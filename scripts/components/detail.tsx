@@ -1,15 +1,18 @@
 import classnames from "classnames";
 import * as React from "react";
+import { BehaviorSubject } from "rxjs";
 
-import { observeRoute, getRoute } from "../services/router";
-import s from "./detail.scss";
 import ss from "../../styles/shared.scss";
-import { Text } from "./text";
 import { work } from "../content";
+import { getRoute, observeRoute } from "../services/router";
 import { Buffer } from "./buffer";
 import { Button } from "./button";
+import s from "./detail.scss";
+import { Text } from "./text";
 
 export const DETAIL_ROUTE = /^\/work(?:\/.*)?$/;
+
+export const DETAIL_TOP_PADDING = 100;
 
 interface ButtonDetail {
     name: string;
@@ -23,9 +26,12 @@ interface DetailState {
     buttons: ButtonDetail[];
 }
 
+export const detailMinHeight = new BehaviorSubject<number>( 0 );
+
 export class Detail extends React.Component<{}, DetailState> {
 
     private timeout = -1;
+    private ref = React.createRef<HTMLDivElement>();
 
     state: DetailState = {
         open: false,
@@ -39,6 +45,8 @@ export class Detail extends React.Component<{}, DetailState> {
     }
 
     componentDidMount() {
+        detailMinHeight.subscribe( value => this.ref.current!.style.minHeight = value + "px" );
+
         observeRoute( DETAIL_ROUTE ).subscribe( on => {
             this.setState( { open: on } );
 
@@ -70,13 +78,14 @@ export class Detail extends React.Component<{}, DetailState> {
                 }
             } else {
                 this.setState( { text: "", buttons: [], title: "" } );
+                detailMinHeight.next( 0 );
             }
         } );
     }
 
     render() {
         return (
-            <div className={ classnames( s.wrapper, { [ s.open ]: this.state.open } ) }>
+            <div className={ classnames( s.wrapper, { [ s.open ]: this.state.open } ) } ref={ this.ref }>
                 {
                     this.state.open ? <div className={ s.contentWrapper }>
                         <h2 className={ ss.title }>{ this.state.title }</h2>

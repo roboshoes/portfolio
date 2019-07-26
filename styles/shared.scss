@@ -9,7 +9,7 @@
 }
 
 .hidable {
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier( 0.74, 0.01, 0.21, 0.99 );
     position: relative;
     width: 670px;
 }

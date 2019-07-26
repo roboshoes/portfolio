@@ -1,8 +1,13 @@
 @import "styles/reset.scss";
+@import "styles/mixins.scss";
 
 :root {
     --bar-width: 70px;
     --background-color: #0F0F0F;
+
+    @include mobile {
+        --bar-width: 20px;
+    }
 }
 
 * {

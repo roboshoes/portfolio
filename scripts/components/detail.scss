@@ -1,11 +1,17 @@
+@import "../../styles/mixins.scss";
+
 .wrapper {
     position: fixed;
     top: 0;
     right: 0;
     width: 50%;
     display: none;
-    padding-top: 100px;
-    padding-right: 300px;
+    padding: 100px 300px 0 0;
+
+    @include mobile {
+        width: 100%;
+        padding: 100px 20px;
+    }
 }
 
 .open {

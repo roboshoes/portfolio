@@ -11,6 +11,10 @@ import earthDetail from "../assets/earthstudio/detail.jpg";
 import nasaHero from "../assets/nasa/hero.png";
 import nasaDetail1 from "../assets/nasa/detail-1.png";
 import nasaDetail2 from "../assets/nasa/detail-2.png";
+import alienHero from "../assets/alien/hero.jpg";
+import alienDetail1 from "../assets/alien/detail-1.jpg";
+import alienDetail2 from "../assets/alien/detail-2.jpg";
+import alienDetail3 from "../assets/alien/detail-3.jpg";
 import { Project } from "./models/project";
 import * as React from "react";
 
@@ -87,8 +91,8 @@ export const work: Project[] = [
     },
     {
         title: "Alien Artifact",
-        mainImage: wonderlandHero,
-        images: [],
+        mainImage: alienHero,
+        images: [ alienDetail1, alienDetail2, alienDetail3 ],
         description: <>
             Alien was a mini game developed to highlight the new technology hidden in the
             Google Tango. One of the first hand held AR devices it includes sensores and software

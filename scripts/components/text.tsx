@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { Power2, Power3, TimelineMax } from "gsap";
+import { Power2, TimelineMax } from "gsap";
 import { random, times } from "lodash";
 import * as React from "react";
 

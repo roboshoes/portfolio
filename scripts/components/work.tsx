@@ -87,7 +87,16 @@ export class Work extends React.Component<WorkProps, WorkState> {
     constructor( props: WorkProps ) {
         super( props );
 
-        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "onMouseOver", "onMouseOut", "loop", "setOffset", "onSelect" );
+        bindAll( this,
+            "onMouseDown",
+            "onMouseMove",
+            "onMouseUp",
+            "onMouseOver",
+            "onMouseOut",
+            "loop",
+            "setOffset",
+            "onSelect",
+        );
     }
 
     componentDidMount() {
@@ -104,6 +113,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 if ( id ) {
                     const index = parseInt( id, 10 );
                     this.setState( { selection: index } );
+                    Mouse.mode = "cursor";
                 } else {
                     this.setState( { selection: -1 } );
                 }
@@ -113,12 +123,12 @@ export class Work extends React.Component<WorkProps, WorkState> {
         } );
 
         setTimeout( () => {
-            this.setState( { tabHidden: false  } );
+            this.setState( { tabHidden: false } );
         }, this.props.delay );
     }
 
     render() {
-        const [ layout, sizes ] = this.renderTiles();
+        const [layout, sizes] = this.renderTiles();
 
         this.focused = this.calculateFocus( sizes );
 
@@ -149,7 +159,10 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
                 <Buffer />
 
-                <div className={ s.container } onMouseDown={ this.onMouseDown } onMouseOver={ this.onMouseOver } onMouseOut={ this.onMouseOut }>
+                <div className={ s.container }
+                     onMouseDown={ this.onMouseDown }
+                     onMouseOver={ this.onMouseOver }
+                     onMouseOut={ this.onMouseOut }>
                     { this.state.totalWidth > 0 ? layout : null }
                 </div>
             </div>
@@ -177,7 +190,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
         const sizes: TileSize[] = [];
         let width = 0;
 
-        const layout = this.pictures.map( ( picture: Picture, i ) =>  {
+        const layout = this.pictures.map( ( picture: Picture, i ) => {
             const imageWidth = this.imageWidthForHeight( picture, IMAGE_HEIGHT );
             let offset = this.state.startingPoint + this.state.anchor + width;
             let percentage = 1;
@@ -247,9 +260,12 @@ export class Work extends React.Component<WorkProps, WorkState> {
             target = targetWithOffset;
         }
 
-        TweenLite.to( object, 0.5, { anchor: target, onUpdate: () => {
-            this.setState( { anchor: this.overflowAnchor( object.anchor ) } );
-        } } );
+        TweenLite.to( object, 0.5, {
+            anchor: target,
+            onUpdate: () => {
+                this.setState( { anchor: this.overflowAnchor( object.anchor ) } );
+            }
+        } );
     }
 
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
@@ -292,7 +308,9 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     private onMouseOver() {
-        Mouse.mode = "drag";
+        if ( this.state.selection === -1 ) {
+            Mouse.mode = "drag";
+        }
     }
 
     private onMouseOut() {

@@ -26,6 +26,7 @@
     height: 30px;
     transform: translate( calc( 50px - 50% ), calc( 50px - 50% ) ) rotate( 45deg );
     transition: all 0.3s;
+    transition: opacity 0.3s;
     width: 30px;
 }
 
@@ -35,7 +36,8 @@
     font-size: 14px;
 }
 
-.wrapper.mouseDown {
+.wrapper.mouseDown,
+.wrapper.cursor {
     .center {
         border-radius: 100%;
         height: 10px;
@@ -47,4 +49,12 @@
         height: 35px;
         width: 35px;
     }
+}
+
+.wrapper.cursor .centerFrame {
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
 }

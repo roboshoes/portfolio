@@ -11,6 +11,7 @@ import { measureTextWidth } from "../services/measurement";
 import { getRoute, observeRoute } from "../services/router";
 import { Buffer } from "./buffer";
 import { DETAIL_ROUTE } from "./detail";
+import { Mouse } from "./mouse";
 import { PictureOutlet } from "./picture-outlet";
 import { Title } from "./title";
 import s from "./work.scss";
@@ -86,7 +87,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
     constructor( props: WorkProps ) {
         super( props );
 
-        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "loop", "setOffset", "onSelect" );
+        bindAll( this, "onMouseDown", "onMouseMove", "onMouseUp", "onMouseOver", "onMouseOut", "loop", "setOffset", "onSelect" );
     }
 
     componentDidMount() {
@@ -148,7 +149,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
                 <Buffer />
 
-                <div className={ s.container } onMouseDown={ this.onMouseDown }>
+                <div className={ s.container } onMouseDown={ this.onMouseDown } onMouseOver={ this.onMouseOver } onMouseOut={ this.onMouseOut }>
                     { this.state.totalWidth > 0 ? layout : null }
                 </div>
             </div>
@@ -266,6 +267,8 @@ export class Work extends React.Component<WorkProps, WorkState> {
         window.addEventListener( "mousemove", this.onMouseMove );
         window.addEventListener( "mouseup", this.onMouseUp );
 
+        Mouse.instructionsVisible = false;
+
         this.loop();
     }
 
@@ -286,6 +289,14 @@ export class Work extends React.Component<WorkProps, WorkState> {
                 ease: Power3.easeOut,
             } );
         }
+    }
+
+    private onMouseOver() {
+        Mouse.mode = "drag";
+    }
+
+    private onMouseOut() {
+        Mouse.mode = "cursor";
     }
 
     private setOffset() {

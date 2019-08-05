@@ -25,6 +25,7 @@ html, body {
 body {
     background-color: var( --background-color );
     color: white;
+    cursor: none;
     font-family: "Droid Sans", serif;
     transition: background-color 0.8s;
 }

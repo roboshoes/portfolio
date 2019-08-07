@@ -20,13 +20,13 @@ export class Mouse extends React.Component<{}, MouseState> {
     static set instructionsVisible( value: boolean ) { Mouse.instructionsEvent.next( value ); }
 
     private static modeEvent = new BehaviorSubject<MouseMode>( "cursor" );
-    private static instructionsEvent = new BehaviorSubject<boolean>( true );
+    private static instructionsEvent = new BehaviorSubject<boolean>( false );
 
     private wrapperRef = React.createRef<HTMLDivElement>();
 
     state = {
         isMouseDown: false,
-        instructions: true,
+        instructions: false,
         mode: "cursor" as MouseMode,
     };
 

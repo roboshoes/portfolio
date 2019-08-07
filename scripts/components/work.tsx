@@ -18,8 +18,10 @@ import s from "./work.scss";
 import { Wrapper } from "./wrapper";
 
 const IMAGE_PADDING = 50;
-const IMAGE_HEIGHT = 480;
 const WINDOW_PADDING = 77;
+
+const IMAGE_HEIGHT_DESKTOP = 480;
+const IMAGE_HEIGHT_MOBILE = 300;
 
 interface TileSize {
     x: number;
@@ -70,11 +72,13 @@ interface WorkProps {
 export class Work extends React.Component<WorkProps, WorkState> {
 
     private latestY = 0;
-    private mouseY = 0;
+    private mouseX = 0;
     private speed = 0;
     private raf = -1;
+    private isMobile = false;
     private pictures = work.map( project => new Picture( project ) );
     private focused = 0;
+    private imageHeight = IMAGE_HEIGHT_DESKTOP;
 
     state: WorkState = {
         anchor: 0,
@@ -88,14 +92,16 @@ export class Work extends React.Component<WorkProps, WorkState> {
         super( props );
 
         bindAll( this,
+            "loop",
             "onMouseDown",
             "onMouseMove",
-            "onMouseUp",
-            "onMouseOver",
             "onMouseOut",
-            "loop",
-            "setOffset",
+            "onMouseOver",
+            "onMouseUp",
             "onSelect",
+            "onTouchStart",
+            "onTouchMove",
+            "setOffset",
         );
     }
 
@@ -128,7 +134,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     render() {
-        const [layout, sizes] = this.renderTiles();
+        const [ layout, sizes ] = this.renderTiles();
 
         this.focused = this.calculateFocus( sizes );
 
@@ -146,7 +152,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
                         {
                             this.pictures.map( ( picture, i ) => {
                                 return <span key={ i } className={ s.tabContainer }>
-                                    { i > 0 ? <>&nbsp;-&nbsp;</> : null }
+                                    { i > 0 && !this.isMobile ? <>&nbsp;-&nbsp;</> : null }
                                     <Tab selected={ i === this.focused }
                                          index={ i + 1 }
                                          name={ picture.name }
@@ -161,6 +167,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
                 <div className={ s.container }
                      onMouseDown={ this.onMouseDown }
+                     onTouchStart={ this.onTouchStart }
                      onMouseOver={ this.onMouseOver }
                      onMouseOut={ this.onMouseOut }>
                     { this.state.totalWidth > 0 ? layout : null }
@@ -170,8 +177,11 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     private calculateOffsets( reset = false ) {
+        this.isMobile = window.innerWidth < 500;
+        this.imageHeight = this.isMobile ? IMAGE_HEIGHT_MOBILE : IMAGE_HEIGHT_DESKTOP;
+
         const totalWidth = this.pictures.reduce( ( previous, p ) => {
-            return previous + this.imageWidthForHeight( p, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
+            return previous + this.imageWidthForHeight( p, this.imageHeight ) + 20 + IMAGE_PADDING;
         }, 0 );
 
         const startingPoint = window.innerWidth - totalWidth;
@@ -191,7 +201,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
         let width = 0;
 
         const layout = this.pictures.map( ( picture: Picture, i ) => {
-            const imageWidth = this.imageWidthForHeight( picture, IMAGE_HEIGHT );
+            const imageWidth = this.imageWidthForHeight( picture, this.imageHeight );
             let offset = this.state.startingPoint + this.state.anchor + width;
             let percentage = 1;
 
@@ -245,7 +255,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
         for ( let i = 0; i < id; i++ ) {
             const picture = this.pictures[ i ];
-            width += this.imageWidthForHeight( picture, IMAGE_HEIGHT ) + 20 + IMAGE_PADDING;
+            width += this.imageWidthForHeight( picture, this.imageHeight ) + 20 + IMAGE_PADDING;
         }
 
         let target = this.state.totalWidth - window.innerWidth - width + WINDOW_PADDING;
@@ -268,20 +278,34 @@ export class Work extends React.Component<WorkProps, WorkState> {
         } );
     }
 
+    private onTouchStart( event: React.TouchEvent<HTMLDivElement> ) {
+        event.stopPropagation();
+        // event.preventDefault();
+
+        this.startMove( event.touches[ 0 ].pageX );
+    }
+
     private onMouseDown( event: React.MouseEvent<HTMLDivElement, MouseEvent> ) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        this.startMove( event.pageX );
+    }
+
+    private startMove( x: number ) {
         if ( this.state.selection > -1 ) {
             return;
         }
 
-        event.preventDefault();
-
         TweenLite.killTweensOf( this );
 
-        this.mouseY = event.pageX;
-        this.latestY = event.pageX;
+        this.mouseX = x;
+        this.latestY = x;
 
         window.addEventListener( "mousemove", this.onMouseMove );
+        window.addEventListener( "touchmove", this.onTouchMove );
         window.addEventListener( "mouseup", this.onMouseUp );
+        window.addEventListener( "touchend", this.onMouseUp );
 
         Mouse.instructionsVisible = false;
 
@@ -289,18 +313,25 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     private onMouseMove( event: MouseEvent ) {
-        this.mouseY = event.pageX;
+        this.mouseX = event.pageX;
+    }
+
+    private onTouchMove( event: TouchEvent ) {
+        this.mouseX = event.touches[ 0 ].pageX;
     }
 
     private onMouseUp() {
         cancelAnimationFrame( this.raf );
 
         window.removeEventListener( "mousemove", this.onMouseMove );
+        window.removeEventListener( "touchmove", this.onTouchMove );
         window.removeEventListener( "mouseup", this.onMouseUp );
+        window.removeEventListener( "touchend", this.onMouseUp );
 
-        if ( Math.abs( this.speed ) > 1 ) {
+
+        if ( Math.abs( this.speed ) > 0.5 ) {
             TweenLite.to( this, 1, {
-                mouseY: this.mouseY + this.speed * 20,
+                mouseX: this.mouseX + this.speed * 20,
                 onUpdate: this.setOffset,
                 ease: Power3.easeOut,
             } );
@@ -318,11 +349,11 @@ export class Work extends React.Component<WorkProps, WorkState> {
     }
 
     private setOffset() {
-        this.speed = this.mouseY - this.latestY;
+        this.speed = this.mouseX - this.latestY;
 
         this.setState( { anchor: this.overflowAnchor( this.state.anchor + this.speed ) } );
 
-        this.latestY = this.mouseY;
+        this.latestY = this.mouseX;
     }
 
     /**

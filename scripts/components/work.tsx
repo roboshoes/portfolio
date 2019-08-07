@@ -18,7 +18,9 @@ import s from "./work.scss";
 import { Wrapper } from "./wrapper";
 
 const IMAGE_PADDING = 50;
-const WINDOW_PADDING = 77;
+
+const WINDOW_PADDING_DESKTOP = 77;
+const WINDOW_PADDING_MOBILE = 27;
 
 const IMAGE_HEIGHT_DESKTOP = 480;
 const IMAGE_HEIGHT_MOBILE = 300;
@@ -79,6 +81,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
     private pictures = work.map( project => new Picture( project ) );
     private focused = 0;
     private imageHeight = IMAGE_HEIGHT_DESKTOP;
+    private windowPadding = WINDOW_PADDING_DESKTOP;
 
     state: WorkState = {
         anchor: 0,
@@ -178,7 +181,9 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
     private calculateOffsets( reset = false ) {
         this.isMobile = window.innerWidth < 500;
+
         this.imageHeight = this.isMobile ? IMAGE_HEIGHT_MOBILE : IMAGE_HEIGHT_DESKTOP;
+        this.windowPadding = this.isMobile ? WINDOW_PADDING_MOBILE : WINDOW_PADDING_DESKTOP;
 
         const totalWidth = this.pictures.reduce( ( previous, p ) => {
             return previous + this.imageWidthForHeight( p, this.imageHeight ) + 20 + IMAGE_PADDING;
@@ -190,10 +195,9 @@ export class Work extends React.Component<WorkProps, WorkState> {
 
         if ( reset ) {
             this.setState( {
-                anchor: totalWidth - window.innerWidth + WINDOW_PADDING
+                anchor: totalWidth - window.innerWidth + this.windowPadding
             } );
         }
-
     }
 
     private renderTiles(): [ JSX.Element[], TileSize[] ] {
@@ -258,7 +262,7 @@ export class Work extends React.Component<WorkProps, WorkState> {
             width += this.imageWidthForHeight( picture, this.imageHeight ) + 20 + IMAGE_PADDING;
         }
 
-        let target = this.state.totalWidth - window.innerWidth - width + WINDOW_PADDING;
+        let target = this.state.totalWidth - window.innerWidth - width + this.windowPadding;
 
         const targetWithOffset = target + this.state.totalWidth;
         const object = { anchor: this.state.anchor };

@@ -22,8 +22,8 @@ const IMAGE_PADDING = 50;
 const WINDOW_PADDING_DESKTOP = 77;
 const WINDOW_PADDING_MOBILE = 27;
 
-const IMAGE_HEIGHT_DESKTOP = 480;
-const IMAGE_HEIGHT_MOBILE = 300;
+export const IMAGE_HEIGHT_DESKTOP = 480;
+export const IMAGE_HEIGHT_MOBILE = 300;
 
 interface TileSize {
     x: number;

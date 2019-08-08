@@ -5,6 +5,7 @@ import { Picture } from "../models/picture";
 import { setRoute } from "../services/router";
 import { ImageList } from "./picture-list";
 import s from "./picture-outlet.scss";
+import { IMAGE_HEIGHT_DESKTOP } from "./work";
 
 
 interface PictureOutletProps {
@@ -29,6 +30,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     private mousePosition = { x: -1, y: -1 };
     private animated = false;
     private selected = false;
+    private isMobile = window.innerWidth < 500;
 
     state: PictureOutletState = {
         collapse: false,
@@ -56,6 +58,10 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
     componentDidMount() {
         setTimeout( () => this.setState( { before: false } ), this.props.delay + 300 );
         setTimeout( () => this.setState( { idle: true } ), this.props.delay + 1000 );
+
+        window.addEventListener( "resize", () => {
+            this.isMobile = window.innerWidth < 500;
+        } );
     }
 
     render() {
@@ -64,15 +70,18 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
 
         if ( this.props.selected ) {
 
-            const height: number = Math.min( this.getImageHeightForWidth( halfWidth - 77 ) || 0, 500 );
+            const width = this.isMobile ? window.innerWidth - 50 : halfWidth - 77;
+            const height: number = Math.min( this.getImageHeightForWidth( width ) || 0, 500 );
 
-            styles.transform = `translate( calc( 50vw - 100% - 20px ), -325px )`;
             styles.height = height;
+            styles.transform = this.isMobile ?
+                `translate( 25px, -500px )` :
+                `translate( calc( 50vw - 100% - 20px ), -325px )`;
 
         } else if ( this.props.hidden ) {
 
-            const width = this.getImageWidthForHeight( 500 - 20 ) || 0;
-            const x = Math.sign( this.props.x + width / 2 - window.innerWidth / 2 ) * window.innerWidth;
+            const width = this.getImageWidthForHeight( IMAGE_HEIGHT_DESKTOP ) || 0;
+            const x = Math.sign( this.props.x + width / 2 - window.innerWidth / 2 ) > 0 ? window.innerWidth : - width;
             styles.transform = `translate( ${ x }px, 0 )`;
 
         } else {
@@ -85,7 +94,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
         let framePadding: number | undefined;
 
         if ( ! this.state.idle ) {
-            frameWidth = this.state.before ? 0 : ( this.getImageWidthForHeight( 500 - 20 ) || 0 ) + 20;
+            frameWidth = this.state.before ? 0 : ( this.getImageWidthForHeight( IMAGE_HEIGHT_DESKTOP ) || 0 ) + 20;
             framePadding = this.state.before ? 0 : 10;
         }
 
@@ -96,7 +105,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
                  onMouseUp={ e => this.onMouseUp( e ) }>
 
                 {
-                    this.props.selected || this.state.collapse ?
+                    ! this.isMobile && ( this.props.selected || this.state.collapse ) ?
                         <div className={ s.imageList }>
                             <ImageList images={ this.props.picture.images }
                                        top={ ( styles.height || 0 ) as number + 20 }

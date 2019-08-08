@@ -70,12 +70,12 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
 
         if ( this.props.selected ) {
 
-            const width = this.isMobile ? window.innerWidth - 50 : halfWidth - 77;
-            const height: number = Math.min( this.getImageHeightForWidth( width ) || 0, 500 );
+            const width = this.isMobile ? window.innerWidth - 30 : halfWidth - 77;
+            const height: number = Math.min( this.getImageHeightForWidth( width ) || 0, this.isMobile ? 250 : 500 );
 
             styles.height = height;
             styles.transform = this.isMobile ?
-                `translate( 25px, -500px )` :
+                `translate( 20px, -500px )` :
                 `translate( calc( 50vw - 100% - 20px ), -325px )`;
 
         } else if ( this.props.hidden ) {

@@ -41,8 +41,10 @@ export class Mouse extends React.Component<{}, MouseState> {
 
     componentDidMount() {
         if ( this.wrapperRef.current ) {
+
             window.addEventListener( "mousemove", this.onMouseMoveOnce );
             window.addEventListener( "mousemove", this.onMouseMove );
+
             document.addEventListener( "mousedown", () => this.setState( { isMouseDown: true } ) );
             document.addEventListener( "mouseup", () => this.setState( { isMouseDown: false } ) );
 

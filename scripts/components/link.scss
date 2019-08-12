@@ -1,0 +1,22 @@
+.wrapper {
+    color: inherit;
+    position: relative;
+    text-decoration: inherit;
+    cursor: inherit;
+}
+
+.wrapper::after {
+    background-color: white;
+    bottom: -2px;
+    content: " ";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transition: width 0.3s cubic-bezier( 0.455, 0.03, 0.515, 0.955 );
+    width: 0;
+    will-change: width;
+}
+
+.wrapper:hover::after {
+    width: 100%;
+}

@@ -15,8 +15,10 @@ export const Contact: React.FunctionComponent<{ delay: number }> = ( { delay } )
         <div className={ ss.textWrapper }>
             <Text delay={ delay + 100 } >
                 Let’s get in touch. There is a whole spectrum from the least personal of following me on
-                social media, such as <Link>Instagram</Link>, Twitter, Codepen to a more personal note at
-                mail@mathias-paumgarten.com.
+                social media, such as <Link href="https://instagram.com/roboshoes">Instagram</Link>
+                , <Link href="https://twitter.com/roboshoes">Twitter</Link>
+                , <Link href="https://codepen.io/roboshoes">Codepen</Link> to a more personal note
+                at <Link href="mailto:mail@mathias-paumgarten.com">mail@mathias-paumgarten.com</Link>.
             </Text>
 
             <Buffer />

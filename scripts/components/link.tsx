@@ -1,7 +1,6 @@
 import * as React from "react";
 
-export class Link extends React.Component {
-    render() {
-        return <span>{ this.props.children }</span>;
-    }
-}
+import s from "./link.scss";
+
+export const Link: React.FunctionComponent<{ href: string }> = ( { href, children } ) =>
+    <a className={ s.wrapper } href={ href } target="_blank">{ children }</a>;

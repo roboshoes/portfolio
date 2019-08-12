@@ -12,6 +12,7 @@ import { Who } from "./scripts/components/who";
 import { Work } from "./scripts/components/work";
 import { observeRoute } from "./scripts/services/router";
 import ss from "./styles/shared.scss";
+import { setScrollElement } from "./scripts/services/scroll";
 
 class App extends React.Component {
 
@@ -19,14 +20,7 @@ class App extends React.Component {
 
     componentDidMount() {
         if ( this.siteRef.current ) {
-            observeRoute( DETAIL_ROUTE ).subscribe( ( on: boolean ) => {
-                if ( on ) {
-                    this.siteRef.current!.scrollTo( {
-                        top: 0,
-                        behavior: "smooth"
-                    } );
-                }
-            } );
+            setScrollElement( this.siteRef.current );
         }
     }
 

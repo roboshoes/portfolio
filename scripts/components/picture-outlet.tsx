@@ -6,6 +6,7 @@ import { setRoute } from "../services/router";
 import { ImageList } from "./picture-list";
 import s from "./picture-outlet.scss";
 import { IMAGE_HEIGHT_DESKTOP } from "./work";
+import { pushScrollState, popScrollState } from "../services/scroll";
 
 
 interface PictureOutletProps {
@@ -81,7 +82,10 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
         } else if ( this.props.hidden ) {
 
             const width = this.getImageWidthForHeight( IMAGE_HEIGHT_DESKTOP ) || 0;
-            const x = Math.sign( this.props.x + width / 2 - window.innerWidth / 2 ) > 0 ? window.innerWidth : - width;
+            const x = Math.sign( this.props.x + width / 2 - window.innerWidth / 2 ) > 0 ?
+                window.innerWidth :
+                - ( width + 40 );
+
             styles.transform = `translate( ${ x }px, 0 )`;
 
         } else {
@@ -124,7 +128,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
                 </div>
 
                 <div className={ classnames( s.close, { [ s.hideTag ]: ! this.props.selected || this.state.before } ) }
-                     onClick={ () => setRoute( "/" ) }>
+                     onClick={ () => { setRoute( "/" ); popScrollState(); } }>
                     Close
                 </div>
             </div>
@@ -161,6 +165,7 @@ export class PictureOutlet extends React.Component<PictureOutletProps, PictureOu
         const distance = Math.sqrt( x * x + y * y );
 
         if ( Date.now() - this.mouseDown < 200 && distance < 5 ) {
+            pushScrollState();
             setRoute( `/work/${ this.props.index }` );
         }
     }

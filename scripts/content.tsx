@@ -23,7 +23,17 @@ export const work: Project[] = [
         title: "NASA FDL + Google Cloud",
         mainImage: nasaHero,
         images: [ nasaDetail1, nasaDetail2 ],
-        description: "",
+        description: <>
+            NASA’s Frontier Development Lab partnered with Google Cloud to understand how artificial
+            intelligence can help accelerate existing research to find life on other planets.
+            <br/>
+            We created a user experience that utalizes an artistic geneerative interpretation of
+            exoplanets to guide the user through both the problem of finding life as well as the
+            process that has been made.
+        </>,
+        buttons: {
+            "LAUNCH PROJECT": "https://showcase.withgoogle.com/nasa-fdl/"
+        }
     },
     {
         title: "Winter Wonderland",

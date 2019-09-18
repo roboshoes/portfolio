@@ -15,22 +15,20 @@ import alienHero from "../assets/alien/hero.jpg";
 import alienDetail1 from "../assets/alien/detail-1.jpg";
 import alienDetail2 from "../assets/alien/detail-2.jpg";
 import alienDetail3 from "../assets/alien/detail-3.jpg";
-import { Project } from "./models/project";
-import * as React from "react";
 
-export const work: Project[] = [
+export const work = [
     {
         title: "NASA FDL + Google Cloud",
         mainImage: nasaHero,
         images: [ nasaDetail1, nasaDetail2 ],
-        description: <>
+        description: `
             NASA’s Frontier Development Lab partnered with Google Cloud to understand how artificial
             intelligence can help accelerate existing research to find life on other planets.
             <br/>
             We created a user experience that utalizes an artistic geneerative interpretation of
             exoplanets to guide the user through both the problem of finding life as well as the
             process that has been made.
-        </>,
+        `,
         buttons: {
             "LAUNCH PROJECT": "https://showcase.withgoogle.com/nasa-fdl/"
         }
@@ -39,7 +37,7 @@ export const work: Project[] = [
         title: "Winter Wonderland",
         mainImage: wonderlandHero,
         images: [ wonderlandDetail ],
-        description: <>
+        description: `
             Take a walk through New York City's dazzling assortment of retail window
             displays and immerse yourself in the magic of the holidays.
             <br/><br/>
@@ -48,7 +46,7 @@ export const work: Project[] = [
             <br/><br/>
             For a full immersion it also provides a 360 VR view with authentic street sounds to
             truely experience the celebratory spirit.
-        </>,
+        `,
         buttons: {
             "LAUNCH PROJECT": "https://windowwonderland.withgoogle.com"
         }
@@ -57,14 +55,14 @@ export const work: Project[] = [
         title: "Tabel",
         mainImage: tabelHero,
         images: [ tabelDetail ],
-        description: <>
+        description: `
             With 6 storylines unfolding simultaneously, Tabel uses interactive directional audio to
             put you at the center of the chaos.
             <br/><br/>
             Tabel utilzes a WebGL based VR experience that gives the user agency in the unfolding of
             the short movie. By looking at different characters, the viewer can choose which
             storyline to follow and which to ignore.
-        </>,
+        `,
         buttons: {
             "LAUNCH PROJECT": "https://tabel.withgoogle.com"
         }
@@ -73,7 +71,7 @@ export const work: Project[] = [
         title: "Google Earth Studio",
         mainImage: earthHero,
         images: [ earthDetail ],
-        description: <>
+        description: `
             Let the world tell your story.
             <br/><br/>
             Earth Studio is an animation tool for Google Earth’s satellite and 3D imagery.
@@ -82,7 +80,7 @@ export const work: Project[] = [
             We built a simple interface that allows the user use all of google earth as footage
             for animated films. In addition a set of simple Quickstarts allow you to provide a few
             simple inputs to generate a full animation.
-        </>,
+        `,
         buttons: {
             "LAUNCH PROJECT": "https://earth.google.com/studio"
         }
@@ -91,19 +89,19 @@ export const work: Project[] = [
         title: "Toonami",
         mainImage: toonamiHero,
         images: [ toonamiDetail ],
-        description: <>
+        description: `
             Toonami's mobile application for Android and iOS was made out of almost entirely
             procedurally generated graphics using the web's canvas 2D API. Toonami is a part of
             Adult Swim’s weekly line up on Cartoon Network. It is a block of time dedicated to
             anime and has an extremely loyal fanbase. The fans deserved an app to help them
             countdown to the next event and to show their allegiance for everything Toonami.
-        </>,
+        `,
     },
     {
         title: "Alien Artifact",
         mainImage: alienHero,
         images: [ alienDetail1, alienDetail2, alienDetail3 ],
-        description: <>
+        description: `
             Alien was a mini game developed to highlight the new technology hidden in the
             Google Tango. One of the first hand held AR devices it includes sensores and software
             for spacial awareness.
@@ -115,13 +113,13 @@ export const work: Project[] = [
             player to the next level.
             <br/><br/>
             This game was built using Unity.
-        </>,
+        `,
     },
     {
         title: "Pinglr",
         mainImage: pinglrHero,
         images: [],
-        description: <>
+        description: `
             This is the story of Darrian Pinglr.
             <br/><br/>
             We are not quite sure how he got here, but he is ready for the next big move. Angels are
@@ -131,7 +129,7 @@ export const work: Project[] = [
             big new beta.
             <br/><br/>
             Check it out. The app is in beta.
-        </>,
+        `,
         buttons: {
             "WATCH IT": "https://www.youtube.com/watch?v=sajO0H8Xe44",
             "DOWNLOAD": "https://play.google.com/store/apps/details?id=biz.pinglr.Pinglr"
@@ -141,13 +139,13 @@ export const work: Project[] = [
         title: "Surfspot or Gaybar",
         mainImage: surfgayHero,
         images: [],
-        description: <>
+        description: `
             If one would draw a ven diagram with possible names for gaybars, and theoretical names
             for surf spots and breaks, then it would have a pretty wide overlapping sections.
             <br/><br/>
             We put that hypothesis to the test by creating a little game that let's you guess if the
             given name is a gaybar or a surfspot.
-        </>,
+        `,
         buttons: {
             "LAUNCH PROJECT": "http://surfspot-or-gaybar.robosho.es/"
         }

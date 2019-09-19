@@ -1,23 +1,25 @@
-import { LitElement, customElement, html, css } from "lit-element";
-import "./link";
-import { TIROL_LINK, OAKLAND_LINK } from "../constants";
+import "../link";
+
+import { css, customElement, html, LitElement } from "lit-element";
+
+import { OAKLAND_LINK, TIROL_LINK } from "../../constants";
 
 @customElement( "app-who" )
 export class WhoElement extends LitElement {
     static get styles() {
         return css`
             .container {
-                width: 100%;
-                padding: 150px 50px 0px 200px;
                 box-sizing: border-box;
+                padding: 150px 50px 0px 200px;
+                width: 100%;
             }
 
             p {
                 font-family: Merriweather, serif;
-                font-weight: 300;
-                line-height: 150%;
                 font-size: 30px;
+                font-weight: 300;
                 letter-spacing: 0.9px;
+                line-height: 150%;
             }
         `;
     }

@@ -6,7 +6,7 @@ import { COLORS_CSS } from "../constants";
 export class MenuElement extends LitElement {
     private menuItems = [ "WHO", "WORK", "CONTACT" ];
 
-    @property() private selected = 2;
+    @property() private selected = 0;
 
     static get styles() {
         return css`

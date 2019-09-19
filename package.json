@@ -12,6 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/lodash": "^4.14.138",
+    "@types/three": "^0.103.2",
     "@types/webfontloader": "^1.6.29",
     "autoprefixer": "^9.6.1",
     "lit-element": "^2.2.1",
@@ -20,6 +21,7 @@
     "postcss-modules": "^1.4.1",
     "rxjs": "^6.5.3",
     "sass": "^1.22.12",
+    "three": "^0.108.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3",
     "webfontloader": "^1.6.28"

@@ -1,4 +1,6 @@
 import { LitElement, customElement, html, css } from "lit-element";
+import { colors, colorsCSS } from "../constants";
+import { toCSS } from "../services/css";
 
 @customElement( "app-menu" )
 export class MenuElement extends LitElement {
@@ -26,6 +28,32 @@ export class MenuElement extends LitElement {
                 flex-direction: row;
                 justify-content: flex-start;
                 margin-bottom: 20px;
+                position: relative;
+            }
+
+            .menu-item::before {
+                background-color: #FF00E5;
+                bottom: 4px;
+                content: " ";
+                height: 7px;
+                left: 0;
+                position: absolute;
+                width: 100%;
+            }
+
+            .menu-item:nth-child( 1 )::before {
+                background-color: #${ colorsCSS[ 0 ] };
+                width: 80px;
+            }
+
+            .menu-item:nth-child( 2 )::before {
+                background-color: #${ colorsCSS[ 1 ] };
+                width: 90px;
+            }
+
+            .menu-item:nth-child( 3 )::before {
+                background-color: #${ colorsCSS[ 2 ] };
+                width: 120px;
             }
 
             .menu-item:last-child {
@@ -59,6 +87,7 @@ export class MenuElement extends LitElement {
 
             .name {
                 font-size: 18px;
+                z-index: 1;
             }
         `;
     }

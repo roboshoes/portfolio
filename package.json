@@ -11,9 +11,11 @@
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash": "^4.14.138",
     "@types/webfontloader": "^1.6.29",
     "autoprefixer": "^9.6.1",
     "lit-element": "^2.2.1",
+    "lodash": "^4.17.15",
     "parcel": "^1.12.3",
     "postcss-modules": "^1.4.1",
     "rxjs": "^6.5.3",

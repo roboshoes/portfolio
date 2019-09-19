@@ -1,6 +1,6 @@
-import { LitElement, customElement, html, css } from "lit-element";
-import { colors, colorsCSS } from "../constants";
-import { toCSS } from "../services/css";
+import { css, customElement, html, LitElement } from "lit-element";
+
+import { COLORS_CSS } from "../constants";
 
 @customElement( "app-menu" )
 export class MenuElement extends LitElement {
@@ -42,17 +42,17 @@ export class MenuElement extends LitElement {
             }
 
             .menu-item:nth-child( 1 )::before {
-                background-color: #${ colorsCSS[ 0 ] };
+                background-color: #${ COLORS_CSS[ 0 ] };
                 width: 80px;
             }
 
             .menu-item:nth-child( 2 )::before {
-                background-color: #${ colorsCSS[ 1 ] };
+                background-color: #${ COLORS_CSS[ 1 ] };
                 width: 90px;
             }
 
             .menu-item:nth-child( 3 )::before {
-                background-color: #${ colorsCSS[ 2 ] };
+                background-color: #${ COLORS_CSS[ 2 ] };
                 width: 120px;
             }
 

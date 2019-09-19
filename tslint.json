@@ -60,12 +60,7 @@
     "no-empty-interface": true,
     "no-empty": false,
     "no-eval": true,
-    "no-import-side-effect": [
-      true,
-      {
-        "ignore-module": "(\\.scss|\\.css)$"
-      }
-    ],
+    "no-import-side-effect": false,
     "no-inferrable-types": [
       true,
       "ignore-params"

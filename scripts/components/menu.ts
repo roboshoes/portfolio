@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement } from "lit-element";
+import { css, customElement, html, LitElement, property } from "lit-element";
 
 import { COLORS_CSS } from "../constants";
 
@@ -6,24 +6,36 @@ import { COLORS_CSS } from "../constants";
 export class MenuElement extends LitElement {
     private menuItems = [ "WHO", "WORK", "CONTACT" ];
 
+    @property() private selected = 2;
+
     static get styles() {
         return css`
+            :host {
+                position: absolute;
+                left: 0;
+            }
+
             li {
                 list-style: none;
             }
 
-            ul {
-                padding: 20px 20px 20px 0;
+            .background {
+                background-color: #F6F6F6;
+                height: 100%;
+                width: 150px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
             }
 
             .menu {
-                background-color: #F6F6F6;
-                left: 0;
-                position: absolute;
-                top: 40px;
+                padding: 20px 20px 20px 0;
+                position: relative;
             }
 
             .menu-item {
+                cursor: pointer;
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-start;
@@ -41,20 +53,28 @@ export class MenuElement extends LitElement {
                 width: 100%;
             }
 
+            .menu-item.selected::before {
+                height: 14px;
+            }
+
             .menu-item:nth-child( 1 )::before {
                 background-color: #${ COLORS_CSS[ 0 ] };
-                width: 80px;
+                width: 70px;
             }
+            .menu-item:nth-child( 1 ).selected::before { width: 247px; }
 
             .menu-item:nth-child( 2 )::before {
                 background-color: #${ COLORS_CSS[ 1 ] };
-                width: 90px;
+                width: 80px;
             }
+            .menu-item:nth-child( 2 ).selected::before { width: 255px; }
 
             .menu-item:nth-child( 3 )::before {
                 background-color: #${ COLORS_CSS[ 2 ] };
-                width: 120px;
+                width: 110px;
             }
+            .menu-item:nth-child( 3 ).selected::before { width: 283px; }
+
 
             .menu-item:last-child {
                 margin-bottom: 0;
@@ -72,7 +92,7 @@ export class MenuElement extends LitElement {
                 justify-content: flex-end;
                 margin-right: 6px;
                 position: relative;
-                width: 40px;
+                width: 30px;
             }
 
             .line::before {
@@ -85,6 +105,10 @@ export class MenuElement extends LitElement {
                 width: 100%;
             }
 
+            .menu-item.selected .line {
+                width: 195px;
+            }
+
             .name {
                 font-size: 18px;
                 z-index: 1;
@@ -92,9 +116,15 @@ export class MenuElement extends LitElement {
         `;
     }
 
+    private onMenuClick( index: number ) {
+        this.selected = index;
+    }
+
     private createMenuItem( name: string, index: number ) {
+        const selected = index === this.selected ? "selected" : "";
+
         return html`
-            <li class="menu-item">
+            <li class="menu-item ${ selected }" @click="${ () => this.onMenuClick( index ) }">
                 <div class="line">0${ index + 1 }</div>
                 <div class="name">${ name }</div>
             </li>
@@ -103,9 +133,16 @@ export class MenuElement extends LitElement {
 
     render() {
         return html`
+            <style>
+                :host {
+                    top: ${ 110 - this.selected * 38 }px;
+                }
+            </style>
+
             <ul class="menu">
                 ${ this.menuItems.map( this.createMenuItem.bind( this ) ) }
             </ul>
+            <div class="background"></div>
         `;
     }
 }

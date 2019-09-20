@@ -1,5 +1,7 @@
 import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderLib, ShaderMaterial, UniformsUtils } from "three";
 
+import { generateTexture } from "./gradient-texture";
+
 const projectVertex = `
     #include <common>
     #include <uv_pars_vertex>
@@ -12,33 +14,33 @@ const projectVertex = `
     #include <logdepthbuf_pars_vertex>
     #include <clipping_planes_pars_vertex>
 
-    const float radius = 10.0;
-    const float innerRadius = 5.0;
-
     uniform vec3 uColor;
+    uniform sampler2D uTexture;
 
     void main() {
         vColor = uColor;
 
         vec4 transformed = vec4( position, 1.0 );
-        vec4 screenPosition = projectionMatrix * modelViewMatrix * transformed;
+        vec4 glPosition = projectionMatrix * modelViewMatrix * transformed;
 
-        float toCenter = length( screenPosition.xy );
+        vec3 screenCoords = glPosition.xyz / glPosition.w;
+        vec2 uv = screenCoords.xy * 0.5 + 0.5;
 
-        transformed.z -= smoothstep( 0.0, radius, ( radius - clamp( toCenter, 0.0, radius ) ) ) * 7.0;
+        float offset = texture2D( uTexture, uv ).r;
+
+        transformed.z -= smoothstep( 0.0, 1.0, offset ) * 4.0;
 
         gl_Position = projectionMatrix * modelViewMatrix * transformed;
     }
 `;
-
-const texture
 
 const geometry = new PlaneBufferGeometry( 5, 1, 100, 50 );
 const material = new ShaderMaterial( {
     uniforms: UniformsUtils.merge( [
         ShaderLib.basic.uniforms,
         {
-            uColor: { value: new Color( 1, 0, 0 ) }
+            uColor: { value: new Color( 1, 0, 0 ) },
+            uTexture: { value: generateTexture() },
         }
     ] ),
 
@@ -59,13 +61,14 @@ export class Ribbon extends Mesh {
 
     constructor() {
         const m = material.clone();
+        const tone = Math.random() * 0.7 + 0.3;
 
-        m.uniforms.uColor.value = new Color( Math.random() * 0.7 + 0.3, 0, 0 );
+        m.uniforms.uColor.value = new Color( tone, 1, 1 );
 
         super( geometry, m );
 
         this.start = Math.random();
-        this.y = 0;
+        this.y = -10 + Math.random() * 20;
         this.z = Math.random() * 5;
 
         this.scale.set( Math.random() + 0.5, Math.random(), 1 );

@@ -21,20 +21,25 @@ const projectVertex = `
         vColor = uColor;
 
         vec4 transformed = vec4( position, 1.0 );
+        vec4 worldPosition = modelMatrix * transformed;
+
         vec4 glPosition = projectionMatrix * modelViewMatrix * transformed;
 
         vec3 screenCoords = glPosition.xyz / glPosition.w;
-        vec2 uv = screenCoords.xy * 0.5 + 0.5;
+        float z = ( worldPosition.z + 15.0 ) / 30.0;
 
-        float offset = texture2D( uTexture, uv ).r;
+        float offset = texture2D( uTexture, vec2( z, 0 ) ).r;
 
-        transformed.z -= smoothstep( 0.0, 1.0, offset ) * 4.0;
+        transformed.y += smoothstep( 0.0, 1.0, offset ) * 4.0;
 
         gl_Position = projectionMatrix * modelViewMatrix * transformed;
     }
 `;
 
-const geometry = new PlaneBufferGeometry( 5, 1, 100, 50 );
+const geometry = new PlaneBufferGeometry( 1, 5, 10, 50 );
+
+geometry.rotateX( Math.PI / 2 );
+
 const material = new ShaderMaterial( {
     uniforms: UniformsUtils.merge( [
         ShaderLib.basic.uniforms,
@@ -57,27 +62,27 @@ const material = new ShaderMaterial( {
 export class Ribbon extends Mesh {
     private start: number ;
     private y: number;
-    private z: number;
+    private x: number;
 
     constructor() {
         const m = material.clone();
         const tone = Math.random() * 0.7 + 0.3;
 
-        m.uniforms.uColor.value = new Color( tone, 1, 1 );
+        m.uniforms.uColor.value = new Color( tone, tone, 1 );
 
         super( geometry, m );
 
         this.start = Math.random();
-        this.y = -10 + Math.random() * 20;
-        this.z = Math.random() * 5;
+        this.y = -5 + Math.random() * 10;
+        this.x = -10 + Math.random() * 20;
 
         this.scale.set( Math.random() + 0.5, Math.random(), 1 );
     }
 
     update( t: number ) {
         const p = ( 1 - t + this.start ) % 1;
-        const x = 15 + p * -30;
+        const z = 15 + p * -30;
 
-        this.position.set( x, this.y, this.z );
+        this.position.set( this.x, this.y, z );
     }
 }

@@ -44,7 +44,6 @@ export class MenuElement extends LitElement {
             }
 
             .menu-item::before {
-                background-color: #FF00E5;
                 bottom: 4px;
                 content: " ";
                 height: 7px;

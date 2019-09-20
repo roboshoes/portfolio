@@ -11,10 +11,10 @@ export function generateTexture(): Texture {
     const gradient = context.createLinearGradient( 0, 0, 64, 0 );
 
     gradient.addColorStop( 0, "black" );
-    gradient.addColorStop( 0.3, "black" );
-    gradient.addColorStop( 0.5, "red" );
-    gradient.addColorStop( 0.7, "red" );
-    gradient.addColorStop( 0.9, "black" );
+    gradient.addColorStop( 0.2, "black" );
+    gradient.addColorStop( 0.3, "red" );
+    gradient.addColorStop( 0.9, "red" );
+    gradient.addColorStop( 0.95, "black" );
 
     context.fillStyle = gradient;
     context.fillRect( 0, 0, 64, 1 );

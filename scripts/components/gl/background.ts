@@ -17,6 +17,7 @@ camera.position.set( 0, 10, -10 );
 camera.lookAt( 0, 0, 0 );
 
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setPixelRatio( 2 );
 
 scene.background = new Color( "white" );
 
@@ -28,7 +29,7 @@ window.addEventListener( "resize", () => {
 } );
 
 
-for ( let i = 0; i < 20; i++ ) {
+for ( let i = 0; i < 40; i++ ) {
     ribbons.push( new Ribbon() );
     scene.add( ribbons[ i ] );
 }

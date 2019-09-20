@@ -15,7 +15,7 @@ export class LinkElement extends LitElement {
             }
 
             a::before {
-                background-color: #${ COLORS_CSS[ 0 ] };
+                /* background-color: #${ COLORS_CSS[ 0 ] }; */
                 bottom: 8px;
                 content: " ";
                 height: 12px;

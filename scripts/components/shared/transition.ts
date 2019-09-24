@@ -1,7 +1,11 @@
-import { LitElement, css, html, TemplateResult, CSSResult, customElement } from "lit-element";
+import { LitElement, css, html, TemplateResult, CSSResult, customElement, property } from "lit-element";
+import { observeRoute, onRoute, onRouteChange } from "../../services/router";
 
 @customElement( "app-transition" )
 export class TransitionElement extends LitElement {
+
+    @property( { type: String } ) route?: String;
+
     static get styles(): CSSResult {
         return css`
             .container {
@@ -26,6 +30,7 @@ export class TransitionElement extends LitElement {
     firstUpdated() {
         const slot = this.shadowRoot!.querySelector( ".left slot" ) as HTMLSlotElement;
         const right = this.shadowRoot!.querySelector( ".right" ) as HTMLDivElement;
+        const container = this.shadowRoot!.querySelector( ".container" ) as HTMLDivElement;
 
         slot.addEventListener( "slotchange", () => {
             right.innerHTML = "";
@@ -34,6 +39,12 @@ export class TransitionElement extends LitElement {
                 right.appendChild( node.cloneNode( true ) );
             } );
         } );
+
+        if ( this.route ) {
+            observeRoute( new RegExp( this.route as string ) ).subscribe( ( on: boolean ) => {
+                container.style.display = on ? null : "none";
+            } );
+        }
     }
 
     render(): TemplateResult {

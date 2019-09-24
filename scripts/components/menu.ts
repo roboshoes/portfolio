@@ -1,10 +1,13 @@
 import { css, customElement, html, LitElement, property } from "lit-element";
 
+import { setRoute } from "../services/router";
+
 const TRANSITION = css`all 0.3s ease-in-out`;
 
 @customElement( "app-menu" )
 export class MenuElement extends LitElement {
     private menuItems = [ "WHO", "WORK", "CONTACT" ];
+    private routes = [ "/", "/work", "/contact" ];
 
     @property() private selected = 0;
     @property() private collapsed = false;
@@ -105,14 +108,8 @@ export class MenuElement extends LitElement {
 
     private onMenuClick( index: number ) {
         this.selected = index;
-    }
 
-    private onMouseOver() {
-        this.collapsed = false;
-    }
-
-    private onMouseOut() {
-        this.collapsed = true;
+        setRoute( this.routes[ index ] );
     }
 
     private createMenuItem( name: string, index: number ) {

@@ -21,7 +21,7 @@ export class WhoElement extends LitElement {
     render() {
         return html`
             <div class="container">
-                <app-transition>
+                <app-transition route="\/$">
                     <style>
                         p {
                             font-family: Merriweather, serif;

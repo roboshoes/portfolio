@@ -1,18 +1,27 @@
+import "./scripts/components/mathias";
+import "./scripts/components/menu";
+import "./scripts/components/pages/who";
+
+import { customElement, html, LitElement } from "lit-element";
 import * as Webfont from "webfontloader";
 
 import { backgroundElement } from "./scripts/components/gl/background";
-import { MathiasElement } from "./scripts/components/mathias";
-import { MenuElement } from "./scripts/components/menu";
-import { WhoElement } from "./scripts/components/pages/who";
 
-
+@customElement( "app-app" )
+class AppElement extends LitElement {
+    render() {
+        return html`
+            <app-menu></app-menu>
+            <app-who></app-who>
+            <app-mathias></app-mathias>
+        `;
+    }
+}
 
 Webfont.load( {
     active: () => {
         document.body.appendChild( backgroundElement );
-        document.body.appendChild( new MenuElement() );
-        document.body.appendChild( new WhoElement() );
-        document.body.appendChild( new MathiasElement() );
+        document.body.appendChild( new AppElement() );
     },
     google: {
         families: [ "Reem Kufi", "Merriweather:300,400" ]

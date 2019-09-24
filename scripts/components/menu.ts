@@ -13,9 +13,11 @@ export class MenuElement extends LitElement {
         return css`
             :host {
                 --line-width: 30px;
-
                 position: absolute;
-                transition: ${ TRANSITION };
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 200px;
             }
 
             li {
@@ -23,10 +25,10 @@ export class MenuElement extends LitElement {
             }
 
             .menu {
-                padding: 20px 20px 20px 0;
-                position: relative;
-                width: 200px;
+                position: absolute;
+                transition: ${ TRANSITION };
                 height: 80px;
+                padding: 0;
             }
 
             .menu-item {
@@ -124,6 +126,11 @@ export class MenuElement extends LitElement {
         `;
     }
 
+    firstUpdated() {
+        this.addEventListener( "mouseenter", () => this.collapsed = false );
+        this.addEventListener( "mouseleave", () => this.collapsed = true );
+    }
+
     render() {
         const top = this.collapsed ?
             140 - this.selected * 10 :
@@ -133,15 +140,13 @@ export class MenuElement extends LitElement {
 
         return html`
             <style>
-                :host {
+                .menu {
                     top: ${ top }px;
                     left: ${ this.collapsed ? 30 : 0 }px;
                 }
             </style>
 
-            <ul class="menu ${ collapsed }"
-                @mouseenter="${ this.onMouseOver }"
-                @mouseleave="${ this.onMouseOut }">
+            <ul class="menu ${ collapsed }">
                 ${ this.menuItems.map( this.createMenuItem.bind( this ) ) }
             </ul>
         `;

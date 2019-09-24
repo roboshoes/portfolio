@@ -1,5 +1,4 @@
-import { LitElement, customElement, property, html, css } from "lit-element";
-import { COLORS_CSS } from "../constants";
+import { css, customElement, html, LitElement, property } from "lit-element";
 
 @customElement( "app-link" )
 export class LinkElement extends LitElement {
@@ -15,12 +14,12 @@ export class LinkElement extends LitElement {
             }
 
             a::before {
-                /* background-color: #${ COLORS_CSS[ 0 ] }; */
+                background-color: rgba( 0, 0, 0, 0.2 );
                 bottom: 8px;
                 content: " ";
                 height: 12px;
                 position: absolute;
-                transition: all 0.4s cubic-bezier( 0.77, 0, 0.175, 1 );
+                transition: all 0.2s cubic-bezier( 0.77, 0, 0.175, 1 );
                 width: 100%;
                 z-index: -1;
             }

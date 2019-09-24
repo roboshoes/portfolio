@@ -1,4 +1,4 @@
-import "../link";
+import "../shared/link";
 
 import { css, customElement, html, LitElement } from "lit-element";
 

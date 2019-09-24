@@ -2,24 +2,14 @@ import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderLib, ShaderMaterial
 
 import { generateTexture } from "./gradient-texture";
 
-const projectVertex = `
-    #include <common>
-    #include <uv_pars_vertex>
-    #include <uv2_pars_vertex>
-    #include <envmap_pars_vertex>
-    #include <color_pars_vertex>
-    #include <fog_pars_vertex>
-    #include <morphtarget_pars_vertex>
-    #include <skinning_pars_vertex>
-    #include <logdepthbuf_pars_vertex>
-    #include <clipping_planes_pars_vertex>
-
+const vertex = /* glsl */`
     uniform vec3 uColor;
     uniform sampler2D uTexture;
 
-    void main() {
-        vColor = uColor;
+    varying vec3 vColor;
+    varying float vFade;
 
+    void main() {
         vec4 transformed = vec4( position, 1.0 );
         vec4 worldPosition = modelMatrix * transformed;
 
@@ -32,7 +22,21 @@ const projectVertex = `
 
         transformed.y += smoothstep( 0.0, 1.0, offset ) * 4.0;
 
+        vColor = uColor;
+        vFade = ( worldPosition.z + 15.0 ) / 25.0;
+
         gl_Position = projectionMatrix * modelViewMatrix * transformed;
+    }
+`;
+
+const fragment = /* glsl */`
+    varying vec3 vColor;
+    varying float vFade;
+
+    const vec3 white = vec3( 1 );
+
+    void main() {
+        gl_FragColor = vec4( mix( vColor, white, vFade ), 1 );
     }
 `;
 
@@ -41,22 +45,15 @@ const geometry = new PlaneBufferGeometry( 1, 5, 10, 50 );
 geometry.rotateX( Math.PI / 2 );
 
 const material = new ShaderMaterial( {
-    uniforms: UniformsUtils.merge( [
-        ShaderLib.basic.uniforms,
-        {
-            uColor: { value: new Color( 1, 0, 0 ) },
-            uTexture: { value: generateTexture() },
-        }
-    ] ),
-
-    defines: {
-        USE_COLOR: "1"
+    uniforms: {
+        uColor: { value: new Color( 1, 0, 0 ) },
+        uTexture: { value: generateTexture() },
     },
 
     side: DoubleSide,
 
-    vertexShader: projectVertex,
-    fragmentShader: ShaderLib.basic.fragmentShader,
+    vertexShader: vertex,
+    fragmentShader: fragment,
 } );
 
 export class Ribbon extends Mesh {
@@ -69,6 +66,7 @@ export class Ribbon extends Mesh {
         const tone = Math.random() * 0.7 + 0.3;
 
         m.uniforms.uColor.value = new Color( tone, tone, 1 );
+        m.uniforms.uTexture.value = generateTexture();
 
         super( geometry, m );
 

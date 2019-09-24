@@ -1,37 +1,32 @@
 import { css, customElement, html, LitElement, property } from "lit-element";
 
-import { COLORS_CSS } from "../constants";
+const TRANSITION = css`all 0.3s ease-in-out`;
 
 @customElement( "app-menu" )
 export class MenuElement extends LitElement {
     private menuItems = [ "WHO", "WORK", "CONTACT" ];
 
     @property() private selected = 0;
+    @property() private collapsed = false;
 
     static get styles() {
         return css`
             :host {
+                --line-width: 30px;
+
                 position: absolute;
-                left: 0;
+                transition: ${ TRANSITION };
             }
 
             li {
                 list-style: none;
             }
 
-            .background {
-                background-color: #F6F6F6;
-                height: 100%;
-                width: 150px;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: -1;
-            }
-
             .menu {
                 padding: 20px 20px 20px 0;
                 position: relative;
+                width: 200px;
+                height: 80px;
             }
 
             .menu-item {
@@ -39,45 +34,18 @@ export class MenuElement extends LitElement {
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-start;
-                margin-bottom: 20px;
-                position: relative;
-            }
-
-            .menu-item::before {
-                bottom: 4px;
-                content: " ";
-                height: 7px;
-                left: 0;
                 position: absolute;
-                width: 100%;
+                transition: ${ TRANSITION };
             }
 
-            .menu-item.selected::before {
-                height: 14px;
-            }
+            .menu-item:nth-child( 1 ) { top: 0; }
+            .menu-item:nth-child( 2 ) { top: 35px; }
+            .menu-item:nth-child( 3 ) { top: 70px; }
 
-            .menu-item:nth-child( 1 )::before {
-                background-color: #${ COLORS_CSS[ 0 ] };
-                width: 70px;
-            }
-            .menu-item:nth-child( 1 ).selected::before { width: 247px; }
+            .collapsed .menu-item:nth-child( 2 ) { top: 10px; }
+            .collapsed .menu-item:nth-child( 3 ) { top: 20px; }
 
-            .menu-item:nth-child( 2 )::before {
-                background-color: #${ COLORS_CSS[ 1 ] };
-                width: 80px;
-            }
-            .menu-item:nth-child( 2 ).selected::before { width: 255px; }
-
-            .menu-item:nth-child( 3 )::before {
-                background-color: #${ COLORS_CSS[ 2 ] };
-                width: 110px;
-            }
-            .menu-item:nth-child( 3 ).selected::before { width: 283px; }
-
-
-            .menu-item:last-child {
-                margin-bottom: 0;
-            }
+            .collapsed .menu-item.selected .line { margin-right: 141px; }
 
             .line, .name {
                 display: inline-block;
@@ -91,7 +59,16 @@ export class MenuElement extends LitElement {
                 justify-content: flex-end;
                 margin-right: 6px;
                 position: relative;
-                width: 30px;
+                width: var( --line-width );
+                transition: ${ TRANSITION };;
+            }
+
+            .collapsed .menu-item.selected .line {
+                width: var( --line-width );
+            }
+
+            .collapsed .line {
+                color: rgba( 0, 0, 0, 0 );
             }
 
             .line::before {
@@ -110,13 +87,30 @@ export class MenuElement extends LitElement {
 
             .name {
                 font-size: 18px;
+                transition: ${ TRANSITION };;
                 z-index: 1;
+            }
+
+            .collapsed .name {
+                opacity: 0;
+            }
+
+            .collapsed .menu-item.selected .name {
+                opacity: inherit;
             }
         `;
     }
 
     private onMenuClick( index: number ) {
         this.selected = index;
+    }
+
+    private onMouseOver() {
+        this.collapsed = false;
+    }
+
+    private onMouseOut() {
+        this.collapsed = true;
     }
 
     private createMenuItem( name: string, index: number ) {
@@ -131,17 +125,25 @@ export class MenuElement extends LitElement {
     }
 
     render() {
+        const top = this.collapsed ?
+            140 - this.selected * 10 :
+            140 - this.selected * 35;
+
+        const collapsed = this.collapsed ? "collapsed" : "";
+
         return html`
             <style>
                 :host {
-                    top: ${ 110 - this.selected * 38 }px;
+                    top: ${ top }px;
+                    left: ${ this.collapsed ? 30 : 0 }px;
                 }
             </style>
 
-            <ul class="menu">
+            <ul class="menu ${ collapsed }"
+                @mouseenter="${ this.onMouseOver }"
+                @mouseleave="${ this.onMouseOut }">
                 ${ this.menuItems.map( this.createMenuItem.bind( this ) ) }
             </ul>
-            <div class="background"></div>
         `;
     }
 }

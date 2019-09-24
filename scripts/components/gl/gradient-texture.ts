@@ -1,3 +1,4 @@
+import { random } from "lodash";
 import { CanvasTexture, Texture } from "three";
 
 export function generateTexture(): Texture {
@@ -9,12 +10,18 @@ export function generateTexture(): Texture {
     canvas.height = 1;
 
     const gradient = context.createLinearGradient( 0, 0, 64, 0 );
+    const switches = random( 1, 7, false );
+    const step = 1 / switches;
 
-    gradient.addColorStop( 0, "black" );
-    gradient.addColorStop( 0.2, "black" );
-    gradient.addColorStop( 0.3, "red" );
-    gradient.addColorStop( 0.9, "red" );
-    gradient.addColorStop( 0.95, "black" );
+    let isOn = false;
+
+    for ( let i = 0; i < switches; i++ ) {
+        const point = i * step + random( 0, step );
+
+        gradient.addColorStop( point, isOn ? "red" : "black" );
+
+        isOn = !isOn;
+    }
 
     context.fillStyle = gradient;
     context.fillRect( 0, 0, 64, 1 );

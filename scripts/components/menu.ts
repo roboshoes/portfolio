@@ -131,10 +131,7 @@ export class MenuElement extends LitElement {
     }
 
     render() {
-        const top = this.collapsed ?
-            140 - this.selected * 10 :
-            140 - this.selected * 35;
-
+        const top = 140 - ( this.collapsed ? 10 : 35 ) * this.selected;
         const collapsed = this.collapsed ? "collapsed" : "";
 
         return html`

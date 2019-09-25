@@ -2,6 +2,7 @@ import "./scripts/components/mathias";
 import "./scripts/components/menu";
 import "./scripts/components/pages/contact";
 import "./scripts/components/pages/who";
+import "./scripts/components/pages/work";
 
 import { customElement, html, LitElement } from "lit-element";
 import * as Webfont from "webfontloader";
@@ -15,6 +16,7 @@ class AppElement extends LitElement {
             <app-who></app-who>
             <app-contact></app-contact>
             <app-mathias></app-mathias>
+            <app-work></app-work>
             <app-menu></app-menu>
         `;
     }

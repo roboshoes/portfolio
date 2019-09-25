@@ -12,37 +12,67 @@ export class TransitionElement extends LitElement {
                 position: relative;
             }
 
+            .left,
+            .right {
+                transition: clip-path 1.7s ease-in-out;
+            }
+
             .left {
-                clip-path: polygon( 0% 0%, 25% 0%, 75% 100%, 0% 100% );
+                clip-path: polygon( 0% 0%, 100% 100%, 0% 100% );
             }
 
             .right {
+                clip-path: polygon( 0% 0%, 100% 0%, 100% 100% );
                 height: 100%;
                 left: 0;
                 position: absolute;
                 top: 0;
                 width: 100%;
-                clip-path: polygon( 25% 0%, 100% 0%, 100% 100%, 75% 100% );
+            }
+
+            .hide .right {
+                clip-path: polygon( 20% 0%, 100% 0%, 120% 100% );
+            }
+
+            .right, .left {
+                overflow: hidden;
+            }
+
+            .mover {
+                transition: transform 1.7s cubic-bezier( 0.680, 0.040, 0.025, 1.000 );
+            }
+
+            .hide .mover {
+                transition: transform 1.7s cubic-bezier(0.970, 0.010, 0.550, 0.960);
+            }
+
+            .hide .right .mover {
+                transform: translateX( -100% );
+            }
+
+            .hide .left .mover {
+                transform: translateX( 100% );
             }
         `;
     }
 
     firstUpdated() {
         const slot = this.shadowRoot!.querySelector( ".left slot" ) as HTMLSlotElement;
-        const right = this.shadowRoot!.querySelector( ".right" ) as HTMLDivElement;
-        const container = this.shadowRoot!.querySelector( ".container" ) as HTMLDivElement;
+        const rightMover = this.shadowRoot!.querySelector( ".right .mover" ) as HTMLDivElement;
 
         slot.addEventListener( "slotchange", () => {
-            right.innerHTML = "";
+            rightMover.innerHTML = "";
 
             slot.assignedElements().forEach( node => {
-                right.appendChild( node.cloneNode( true ) );
+                rightMover.appendChild( node.cloneNode( true ) );
             } );
         } );
 
         if ( this.route ) {
+            const container = this.shadowRoot!.querySelector( ".container" ) as HTMLDivElement;
+
             observeRoute( new RegExp( this.route as string ) ).subscribe( ( on: boolean ) => {
-                container.style.display = on ? null : "none";
+                container.classList[ on ? "remove" : "add" ]( "hide" );
             } );
         }
     }
@@ -51,9 +81,13 @@ export class TransitionElement extends LitElement {
         return html`
             <div class="container">
                 <div class="left">
-                    <slot></slot>
+                    <div class="mover">
+                        <slot></slot>
+                    </div>
                 </div>
-                <div class="right"></div>
+                <div class="right">
+                    <div class="mover"></div>
+                </div>
             <div>
         `;
     }

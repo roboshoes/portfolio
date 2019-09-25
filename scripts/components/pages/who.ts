@@ -11,9 +11,8 @@ export class WhoElement extends LitElement {
         return css`
             .container {
                 box-sizing: border-box;
-                padding: 150px 200px 0px 200px;
+                padding: 180px 200px 0px 200px;
                 width: 100%;
-                margin-top: 30px;
             }
         `;
     }

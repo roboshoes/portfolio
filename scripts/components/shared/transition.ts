@@ -1,10 +1,13 @@
-import { LitElement, css, html, TemplateResult, CSSResult, customElement, property } from "lit-element";
-import { observeRoute, onRoute, onRouteChange } from "../../services/router";
+import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
+
+import { observeRoute } from "../../services/router";
 
 @customElement( "app-transition" )
 export class TransitionElement extends LitElement {
 
     @property( { type: String } ) route?: String;
+
+    private timeout = -1;
 
     static get styles(): CSSResult {
         return css`
@@ -72,14 +75,20 @@ export class TransitionElement extends LitElement {
             const container = this.shadowRoot!.querySelector( ".container" ) as HTMLDivElement;
 
             observeRoute( new RegExp( this.route as string ) ).subscribe( ( on: boolean ) => {
-                container.classList[ on ? "remove" : "add" ]( "hide" );
+                clearTimeout( this.timeout );
+
+                if ( !on ) {
+                    container.classList.add( "hide" );
+                } else {
+                    this.timeout = setTimeout( () => container.classList.remove( "hide" ), 1300 );
+                }
             } );
         }
     }
 
     render(): TemplateResult {
         return html`
-            <div class="container">
+            <div class="container hide">
                 <div class="left">
                     <div class="mover">
                         <slot></slot>

@@ -1,6 +1,6 @@
 import { css, customElement, html, LitElement, property } from "lit-element";
 
-import { setRoute } from "../services/router";
+import { onRouteChange, setRoute } from "../services/router";
 
 const TRANSITION = css`all 0.3s ease-in-out`;
 
@@ -10,7 +10,7 @@ export class MenuElement extends LitElement {
     private routes = [ "/", "/work", "/contact" ];
 
     @property() private selected = 0;
-    @property() private collapsed = false;
+    @property() private collapsed = true;
 
     static get styles() {
         return css`
@@ -107,8 +107,6 @@ export class MenuElement extends LitElement {
     }
 
     private onMenuClick( index: number ) {
-        this.selected = index;
-
         setRoute( this.routes[ index ] );
     }
 
@@ -126,6 +124,10 @@ export class MenuElement extends LitElement {
     firstUpdated() {
         this.addEventListener( "mouseenter", () => this.collapsed = false );
         this.addEventListener( "mouseleave", () => this.collapsed = true );
+
+        onRouteChange().subscribe( ( [ _, current ] ) => {
+            this.selected = this.routes.indexOf( current );
+        } );
     }
 
     render() {

@@ -1,6 +1,7 @@
-import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderLib, ShaderMaterial, UniformsUtils } from "three";
+import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderMaterial } from "three";
 
 import { generateTexture } from "./gradient-texture";
+import { random } from "lodash";
 
 const vertex = /* glsl */`
     uniform vec3 uColor;
@@ -74,7 +75,7 @@ export class Ribbon extends Mesh {
         this.y = -5 + Math.random() * 10;
         this.x = -10 + Math.random() * 20;
 
-        this.scale.set( Math.random() + 0.5, Math.random(), 1 );
+        this.scale.set( Math.random() + 0.5, Math.random(), Math.random() + 0.5 );
     }
 
     update( t: number ) {

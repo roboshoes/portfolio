@@ -2,6 +2,8 @@ import { css, CSSResult, customElement, html, LitElement, property, TemplateResu
 
 import { observeRoute } from "../../services/router";
 
+import { clamp } from "lodash";
+
 @customElement( "app-transition" )
 export class TransitionElement extends LitElement {
 
@@ -16,6 +18,7 @@ export class TransitionElement extends LitElement {
     private leftOffset = 0;
     private rightOffset = 0;
     private raf = -1;
+    private active = false;
 
     static get styles(): CSSResult {
         return css`
@@ -73,6 +76,7 @@ export class TransitionElement extends LitElement {
         super();
 
         this.loop = this.loop.bind( this );
+        this.onScroll = this.onScroll.bind( this );
     }
 
     firstUpdated() {
@@ -89,6 +93,8 @@ export class TransitionElement extends LitElement {
                 this.rightMover!.appendChild( node.cloneNode( true ) );
             } );
         } );
+
+        window.addEventListener( "resize", this.updateHeights.bind( this ) );
 
         if ( this.route ) {
 
@@ -121,11 +127,14 @@ export class TransitionElement extends LitElement {
                 this.rightMover!.classList.remove( "animated" );
 
                 this.loop();
+                this.active = true;
             }, 1700 );
         }, 1300 );
     }
 
     private animateOut() {
+        this.active = false;
+
         this.leftMover!.classList.add( "animated" );
         this.rightMover!.classList.add( "animated" );
 
@@ -145,7 +154,8 @@ export class TransitionElement extends LitElement {
     }
 
     private updateHeights() {
-        window.addEventListener( "wheel", this.onScroll.bind( this ) );
+        window.removeEventListener( "wheel", this.onScroll );
+        window.addEventListener( "wheel", this.onScroll );
 
         const left = this.shadowRoot!.querySelector( ".left" ) as HTMLDivElement;
 
@@ -154,7 +164,14 @@ export class TransitionElement extends LitElement {
     }
 
     private onScroll( event: WheelEvent ) {
+        if ( ! this.active ) {
+            return;
+        }
+
+        const difference = Math.max( this.contentHeight - this.maskHeight + 20, 0 );
+
         this.leftOffset += event.deltaY * -1 / 2;
+        this.leftOffset = clamp( this.leftOffset, - difference, 0 );
 
         this.leftMover!.style.transform = `translateY( ${ this.leftOffset }px )`;
     }

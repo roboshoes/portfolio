@@ -16,7 +16,7 @@ export class ContactElement extends LitElement {
 
             .container {
                 box-sizing: border-box;
-                padding: 180px 200px 0px 200px;
+                height: 100vh;
                 width: 100%;
             }
         `;

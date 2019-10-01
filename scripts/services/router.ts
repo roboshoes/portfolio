@@ -2,6 +2,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { filter, startWith, pairwise, map } from "rxjs/operators";
 
 const route = new BehaviorSubject<string>( "" );
+const forwards = new Map<string, string>();
 
 export function onRouteChange(): Observable<[string, string]> {
     return route.pipe(
@@ -22,6 +23,11 @@ export function onRoute( value: string ): Observable<string> {
 }
 
 export function setRoute( value: string ) {
+    if ( forwards.has( value ) ) {
+        setRoute( forwards.get( value )! );
+        return;
+    }
+
     window.history.pushState( null, "", value );
     resolveRoute();
 }
@@ -30,10 +36,23 @@ export function getRoute(): string {
     return window.location.pathname;
 }
 
+export function setForward( from: string, to: string ) {
+    forwards.set( from, to );
+}
+
+export function initRouter() {
+    const initialValue = window.location.pathname;
+
+    if ( forwards.has( initialValue ) ) {
+        setRoute( forwards.get( initialValue )! );
+        return;
+    }
+
+    resolveRoute();
+}
+
 function resolveRoute() {
     route.next( window.location.pathname );
 }
 
 window.addEventListener( "popstate", resolveRoute );
-
-resolveRoute();

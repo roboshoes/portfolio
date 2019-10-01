@@ -8,6 +8,7 @@ const TRANSITION = css`all 0.3s ease-in-out`;
 export class MenuElement extends LitElement {
     private menuItems = [ "WHO", "WORK", "CONTACT" ];
     private routes = [ "/", "/work", "/contact" ];
+    private routePattern = [ /^\/$/, /^\/work/, /\/contact/ ];
 
     @property() private selected = 0;
     @property() private collapsed = true;
@@ -126,7 +127,7 @@ export class MenuElement extends LitElement {
         this.addEventListener( "mouseleave", () => this.collapsed = true );
 
         onRouteChange().subscribe( ( [ _, current ] ) => {
-            this.selected = this.routes.indexOf( current );
+            this.selected = this.routePattern.findIndex( pattern => pattern.test( current ) );
         } );
     }
 

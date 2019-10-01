@@ -1,4 +1,4 @@
-import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderMaterial } from "three";
+import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderMaterial, Vector2 } from "three";
 
 import { generateTexture } from "./gradient-texture";
 import { random } from "lodash";
@@ -31,13 +31,20 @@ const vertex = /* glsl */`
 `;
 
 const fragment = /* glsl */`
+    uniform vec2 uResolution;
+
     varying vec3 vColor;
     varying float vFade;
 
     const vec3 white = vec3( 1 );
+    const vec3 grey = vec3( 0.8 );
 
     void main() {
-        gl_FragColor = vec4( mix( vColor, white, vFade ), 1 );
+        vec2 uv = gl_FragCoord.xy / uResolution;
+
+        vec3 color = mix( vColor, grey, step( 2.0 - uv.y, uv.x ) );
+
+        gl_FragColor = vec4( mix( color, white, vFade ), 1 );
     }
 `;
 
@@ -49,6 +56,7 @@ const material = new ShaderMaterial( {
     uniforms: {
         uColor: { value: new Color( 1, 0, 0 ) },
         uTexture: { value: generateTexture() },
+        uResolution: { value: new Vector2( window.innerWidth, window.innerHeight ) },
     },
 
     side: DoubleSide,
@@ -76,6 +84,11 @@ export class Ribbon extends Mesh {
         this.x = -10 + Math.random() * 20;
 
         this.scale.set( Math.random() + 0.5, Math.random(), Math.random() + 0.5 );
+
+        window.addEventListener( "resize", () => {
+            m.uniforms.uResolution.value.x = window.innerWidth;
+            m.uniforms.uResolution.value.y = window.innerHeight;
+        } );
     }
 
     update( t: number ) {

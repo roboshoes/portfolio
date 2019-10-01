@@ -1,8 +1,7 @@
 import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
+import { clamp } from "lodash";
 
 import { observeRoute } from "../../services/router";
-
-import { clamp } from "lodash";
 
 @customElement( "app-transition" )
 export class TransitionElement extends LitElement {

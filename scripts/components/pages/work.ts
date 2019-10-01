@@ -18,7 +18,6 @@ export class WorkElement extends LitElement {
 
             .container {
                 box-sizing: border-box;
-                padding: 180px 200px 0px 200px;
                 width: 100%;
                 height: 100vh;
             }

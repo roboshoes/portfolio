@@ -1,8 +1,10 @@
-import { LitElement, customElement, TemplateResult, html, css } from "lit-element";
-import { observeRoute } from "../../services/router";
+import { css, customElement, html, LitElement, TemplateResult } from "lit-element";
+import { Subscription } from "rxjs";
+
+import { projects } from "../../constants";
+import { observeRoute, onRouteChange } from "../../services/router";
 import { observeHitAreaX } from "../../services/trigger";
 
-const projects = [ "Tabel", "NASA", "Window Wonderland", "Cloud City", "Pinglr", "Tango" ];
 
 @customElement( "app-work-menu" )
 export class WorkMenuElement extends LitElement {
@@ -17,36 +19,36 @@ export class WorkMenuElement extends LitElement {
     static get styles() {
         return css`
             ul {
-                position: fixed;
-                top: 60vh;
+                cursor: pointer;
+                height: ${ projects.length * 10 }px;
                 left: 30px;
                 list-style: none;
                 padding: 0;
-                height: ${ projects.length * 10 }px;
-                width: 180px;
+                position: fixed;
+                top: 60vh;
                 transition: all 0.3s ease-in-out;
-                cursor: pointer;
+                width: 180px;
             }
 
             li {
-                position: absolute;
                 left: 0;
+                position: absolute;
             }
 
             .bar {
-                transition: all 0.15s ease-out;
-                height: 3px;
                 background-color: black;
-                width: 15px;
-                position: absolute;
                 bottom: 0;
+                height: 3px;
+                position: absolute;
+                transition: all 0.15s ease-out;
+                width: 15px;
             }
 
             .name {
-                position: absolute;
                 bottom: -4px;
                 left: 33px;
                 opacity: 0;
+                position: absolute;
             }
 
             li.selected .bar {
@@ -105,6 +107,8 @@ export class WorkMenuElement extends LitElement {
     }
 
     firstUpdated() {
+        const subscription = new Subscription();
+
         this.ul = this.shadowRoot!.querySelector( "ul" )!;
         this.listElements = Array.from( this.shadowRoot!.querySelectorAll( "li" ) );
 
@@ -112,6 +116,16 @@ export class WorkMenuElement extends LitElement {
 
         observeRoute( /^\/work/ ).subscribe( ( on ) => {
             this.ul!.classList[ on ? "remove" : "add" ]( "hidden" );
+
+            if ( on ) {
+                subscription.add( onRouteChange().subscribe( ( [ _, current ] ) => {
+                    const parts = current.split( "/" );
+
+                    this.setHighlight( parseInt( parts[ 2 ] || "1", 10 ) - 1 );
+                } ) );
+            } else {
+                subscription.unsubscribe();
+            }
         } );
 
         observeHitAreaX( 200 ).subscribe( ( isInside )  => {

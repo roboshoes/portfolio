@@ -1,10 +1,18 @@
 import { LitElement, customElement, TemplateResult, html, css } from "lit-element";
 import { observeRoute } from "../../services/router";
+import { observeHitAreaX } from "../../services/trigger";
+
+const projects = [ "Tabel", "NASA", "Window Wonderland", "Cloud City", "Pinglr", "Tango" ];
 
 @customElement( "app-work-menu" )
 export class WorkMenuElement extends LitElement {
-    private projects = [ "Tabel", "NASA", "Window Wonderland", "Cloud City", "Pinglr", "Tango" ];
+
     private listElements: HTMLLIElement[] = [];
+    private highlight = -1;
+    private selected = 0;
+    private ul?: HTMLUListElement;
+    private ulOffsetY = 0;
+    private ulHeight = projects.length * 10;
 
     static get styles() {
         return css`
@@ -14,8 +22,10 @@ export class WorkMenuElement extends LitElement {
                 left: 30px;
                 list-style: none;
                 padding: 0;
-                height: ${ 6 * 10 }px;
-                width: 40px;
+                height: ${ projects.length * 10 }px;
+                width: 180px;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
             }
 
             li {
@@ -24,8 +34,8 @@ export class WorkMenuElement extends LitElement {
             }
 
             .bar {
-                transition: all 0.3s ease-in-out;
-                height: 3.5px;
+                transition: all 0.15s ease-out;
+                height: 3px;
                 background-color: black;
                 width: 15px;
                 position: absolute;
@@ -43,18 +53,16 @@ export class WorkMenuElement extends LitElement {
                 width: 30px;
             }
 
-            li.selected .name {
-                opacity: 1
-            }
-
             ul.hidden li .bar {
                 width: 0px;
             }
-
-            ul.highlight li.selected .bar {
-                height: 12px;
-            }
         `;
+    }
+
+    constructor() {
+        super();
+
+        this.onMouseMove = this.onMouseMove.bind( this );
     }
 
     private buildLine( name: string ): TemplateResult {
@@ -67,6 +75,12 @@ export class WorkMenuElement extends LitElement {
     }
 
     private setHighlight( index: number ) {
+        if ( index === this.highlight ) {
+            return;
+        }
+
+        this.highlight = index;
+
         this.listElements.forEach( ( element: HTMLLIElement, i: number ) => {
             element.style.top = `${ i * 10 }px`;
             element.classList[ i === index ? "add" : "remove" ]( "selected" );
@@ -74,29 +88,41 @@ export class WorkMenuElement extends LitElement {
     }
 
     private onMouseEnter() {
-
+        this.ulOffsetY = this.ul!.getBoundingClientRect().top;
+        this.ul!.addEventListener( "mousemove", this.onMouseMove );
     }
 
     private onMouseLeave() {
+        this.ul!.removeEventListener( "mousemove", this.onMouseMove );
+        this.setHighlight( this.selected );
+    }
 
+    private onMouseMove( event: MouseEvent ) {
+        const percent = ( event.pageY - this.ulOffsetY ) / this.ulHeight;
+        const hightlight = Math.round( percent * ( projects.length - 1 ) );
+
+        this.setHighlight( hightlight );
     }
 
     firstUpdated() {
+        this.ul = this.shadowRoot!.querySelector( "ul" )!;
         this.listElements = Array.from( this.shadowRoot!.querySelectorAll( "li" ) );
 
         this.setHighlight( 0 );
 
-        const ul = this.shadowRoot!.querySelector( "ul" )!;
+        observeRoute( /^\/work/ ).subscribe( ( on ) => {
+            this.ul!.classList[ on ? "remove" : "add" ]( "hidden" );
+        } );
 
-        observeRoute( /\work/ ).subscribe( ( on ) => {
-            ul.classList[ on ? "remove" : "add" ]( "hidden" );
+        observeHitAreaX( 200 ).subscribe( ( isInside )  => {
+            this.ul!.classList[ isInside ? "add" : "remove" ]( "highlight" );
         } );
     }
 
     render(): TemplateResult {
         return html`
             <ul @mouseenter="${ this.onMouseEnter }" @mouseleave="${ this.onMouseLeave }">
-                ${ this.projects.map( this.buildLine.bind( this ) ) }
+                ${ projects.map( this.buildLine.bind( this ) ) }
             </ul>
         `;
     }

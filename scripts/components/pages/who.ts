@@ -35,7 +35,7 @@ export class WhoElement extends LitElement {
 
                     <p>
                         Mathias is a freelance, award winning creative developer. He wrote this short bio
-                        in third-person to appear serious and professional, but make no mistake: It’s mearly
+                        in third-person to appear serious and professional, but make no mistake: It’s merely
                         a facade to the playful and at times inappropriate coder that was born and raised in
                         <app-link href="${ TIROL_LINK }">Austria</app-link>, and currently resides in
                         <app-link href="${ OAKLAND_LINK }">Oakland</app-link>.
@@ -43,7 +43,7 @@ export class WhoElement extends LitElement {
 
                     <p>
                         After years of working at world class agencies such as B-Reel, Firstborn and others
-                        he dabbeled with the best of Silicon Valley working as creative engineer at Google.
+                        he dabbled with the best of Silicon Valley working as creative engineer at Google.
                         Looking for a wider spectrum of partnerships, he decided to become a freelancer.
                     </p>
 

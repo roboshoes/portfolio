@@ -196,8 +196,8 @@ export class TransitionElement extends LitElement {
 
     private loop() {
 
-        this.leftOffset += ( this.targetOffset - this.leftOffset ) / 2;
-        this.rightOffset += ( this.targetOffset - this.rightOffset ) / 3;
+        this.leftOffset += ( this.targetOffset - this.leftOffset ) / 5;
+        this.rightOffset += ( this.targetOffset - this.rightOffset ) / 10;
 
         this.rightMover!.style.transform = `translateY( ${ this.rightOffset }px )`;
         this.leftMover!.style.transform = `translateY( ${ this.leftOffset }px )`;

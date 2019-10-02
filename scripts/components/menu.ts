@@ -1,6 +1,7 @@
 import { css, customElement, html, LitElement, property } from "lit-element";
 
 import { onRouteChange, setRoute } from "../services/router";
+import { observeHitAreaX } from "../services/trigger";
 
 const TRANSITION = css`all 0.3s ease-in-out`;
 
@@ -20,8 +21,6 @@ export class MenuElement extends LitElement {
                 position: absolute;
                 top: 0;
                 left: 0;
-                height: 100%;
-                width: 200px;
             }
 
             li {
@@ -123,8 +122,7 @@ export class MenuElement extends LitElement {
     }
 
     firstUpdated() {
-        this.addEventListener( "mouseenter", () => this.collapsed = false );
-        this.addEventListener( "mouseleave", () => this.collapsed = true );
+        observeHitAreaX( 200 ).subscribe( isInside => this.collapsed = !isInside );
 
         onRouteChange().subscribe( ( [ _, current ] ) => {
             this.selected = this.routePattern.findIndex( pattern => pattern.test( current ) );

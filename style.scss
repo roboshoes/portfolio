@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+:root {
+    --sans-serif: "Reem Kufi", sans-serif;
+    --serif: Merriweather, serif;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -16,5 +21,5 @@ html, body {
 }
 
 body {
-    font-family: "Reem Kufi", sans-serif;
+    font-family: var( --sans-serif );
 }

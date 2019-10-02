@@ -42,7 +42,8 @@ const fragment = /* glsl */`
     void main() {
         vec2 uv = gl_FragCoord.xy / uResolution;
 
-        vec3 color = mix( vColor, grey, step( 2.0 - uv.y, uv.x ) );
+        // vec3 color = mix( vColor, grey, step( 2.0 - uv.y, uv.x ) );
+        vec3 color = vColor;
 
         gl_FragColor = vec4( mix( color, white, vFade ), 1 );
     }

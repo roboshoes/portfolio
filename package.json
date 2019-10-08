@@ -28,5 +28,8 @@
   },
   "browserslist": [
     "Chrome > 50"
-  ]
+  ],
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.3.0"
+  }
 }

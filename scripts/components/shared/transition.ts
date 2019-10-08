@@ -40,7 +40,7 @@ export class TransitionElement extends LitElement {
             }
 
             .left {
-                clip-path: polygon( 1% 0%, 100% 99%, 0% 100% );
+                clip-path: polygon( 1% 0%, 101% 100%, 0% 100% );
             }
 
             .left.unmasked {

@@ -1,16 +1,14 @@
-import "../shared/transition";
+import "../../shared/transition";
+import "./work-title";
 
 import { css, customElement, html, LitElement } from "lit-element";
 
-import nasaDetail from "../../../assets/nasa/detail-1.png";
-import nasaHero from "../../../assets/nasa/hero.png";
-import { projects } from "../../constants";
-import { onRouteChange, setRoute } from "../../services/router";
+import nasaDetail from "../../../../assets/nasa/detail-1.png";
+import nasaHero from "../../../../assets/nasa/hero.png";
 
 @customElement( "app-work" )
 export class WorkElement extends LitElement {
 
-    private currentID = 1;
 
     static get styles() {
         return css`
@@ -29,38 +27,11 @@ export class WorkElement extends LitElement {
         `;
     }
 
-    firstUpdated() {
-        onRouteChange().subscribe( ( [ _, current ] ) => {
-            const parts = current.split( "/" );
-
-            this.currentID = parseInt( parts[ 2 ] || "1", 10 );
-        } );
-    }
-
-    private onNext() {
-        let newID = this.currentID + 1;
-
-        if ( newID > projects.length ) {
-            newID = 1;
-        }
-
-        setRoute( `/work/${ newID }` );
-    }
-
-    private onPrevious() {
-        let newID = this.currentID - 1;
-
-        if ( newID < 1 ) {
-            newID = projects.length;
-        }
-
-        setRoute( `/work/${ newID }` );
-    }
-
     render() {
         return html`
             <div class="container">
-                <app-transition route="\/work">
+
+                <app-transition route="\/work" padding="240px 200px 0px 200px">
                     <style>
                         .block {
                             font-family: var( --serif );
@@ -69,56 +40,6 @@ export class WorkElement extends LitElement {
                             letter-spacing: 0.3px;
                             line-height: 150%;
                             margin-top: 10px;
-                        }
-
-                        .header {
-                            display: flex;
-                            flex-direction: row;
-                            margin-bottom: 80px;
-                        }
-
-                        .title {
-                            background-color: black;
-                            color: white;
-                            display: inline-block;
-                            font-family: var( --sans-serif );
-                            font-size: 28px;
-                            padding: 13px 13px 5px 13px;
-                        }
-
-                        .button {
-                            background-color: black;
-                            cursor: pointer;
-                            display: inline-block;
-                            height: 48px;
-                            margin-left: 3px;
-                            position: relative;
-                            width: 48px;
-                        }
-
-                        .button::before,
-                        .button::after {
-                            background-color: white;
-                            content: " ";
-                            height: 3px;
-                            left: 50%;
-                            position: absolute;
-                            width: 20px;
-                        }
-
-                        .button::before {
-                            top: 37%;
-                            transform: translate( -50%, -50% ) rotate( 45deg );
-                        }
-
-                        .button::after {
-                            top: 63%;
-                            transform: translate( -50%, -50% ) rotate( -45deg );
-                        }
-
-                        .button.previous {
-                            transform-origin: center center;
-                            transform: rotate( 180deg );
                         }
 
                         .section-left,
@@ -164,11 +85,6 @@ export class WorkElement extends LitElement {
                     </style>
 
                     <div class="block">
-                        <div class="header">
-                            <div class="title">NASA FDL - Google Cloud</div>
-                            <div class="button previous" @click="${ this.onPrevious }"></div>
-                            <div class="button next" @click="${ this.onNext }"></div>
-                        </div>
 
                         <section class="section-left">
 
@@ -199,6 +115,8 @@ export class WorkElement extends LitElement {
                         </section>
                     </div>
                 </app-transition>
+
+                <app-work-title></app-work-title>
             </div>
         `;
     }

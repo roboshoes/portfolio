@@ -6,7 +6,8 @@ import { observeRoute } from "../../services/router";
 @customElement( "app-transition" )
 export class TransitionElement extends LitElement {
 
-    @property( { type: String } ) route?: String;
+    @property( { type: String } ) route?: string;
+    @property( { type: String } ) padding = "180px 200px 0px 200px";
 
     private timeout = -1;
     private maskHeight = -1;
@@ -34,13 +35,12 @@ export class TransitionElement extends LitElement {
             .right {
                 box-sizing: border-box;
                 height: 100%;
-                padding: 180px 200px 0px 200px;
                 transition: clip-path 1.7s ease-in-out;
                 width: 100%;
             }
 
             .left {
-                clip-path: polygon( 0% 0%, 100% 100%, 0% 100% );
+                clip-path: polygon( 1% 0%, 100% 99%, 0% 100% );
             }
 
             .left.unmasked {
@@ -219,6 +219,13 @@ export class TransitionElement extends LitElement {
 
     render(): TemplateResult {
         return html`
+            <style>
+                .left,
+                .right {
+                    padding: ${ this.padding };
+                }
+            </style>
+
             <div class="container hide" style="display: none">
                 <div class="left">
                     <div class="wrapper">

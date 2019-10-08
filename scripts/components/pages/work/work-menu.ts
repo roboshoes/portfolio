@@ -1,9 +1,9 @@
 import { css, customElement, html, LitElement, TemplateResult } from "lit-element";
 import { Subscription } from "rxjs";
 
-import { projects } from "../../constants";
-import { observeRoute, onRouteChange } from "../../services/router";
-import { observeHitAreaX } from "../../services/trigger";
+import { projects } from "../../../constants";
+import { observeRoute, onRouteChange } from "../../../services/router";
+import { observeHitAreaX } from "../../../services/trigger";
 
 
 @customElement( "app-work-menu" )

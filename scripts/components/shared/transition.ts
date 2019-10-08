@@ -23,6 +23,7 @@ export class TransitionElement extends LitElement {
     private raf = -1;
     private active = false;
     private masked = true;
+    private isVisible = false;
 
     static get styles(): CSSResult {
         return css`
@@ -112,12 +113,13 @@ export class TransitionElement extends LitElement {
 
         if ( this.route ) {
 
-            observeRoute( new RegExp( this.route as string ) ).subscribe( ( on: boolean ) => {
+            observeRoute( new RegExp( this.route ) ).subscribe( ( on: boolean ) => {
+
                 clearTimeout( this.timeout );
 
-                if ( !on ) {
+                if ( !on && this.isVisible ) {
                     this.animateOut();
-                } else {
+                } else if ( on && !this.isVisible ) {
                     this.animateIn();
                 }
             } );
@@ -131,6 +133,7 @@ export class TransitionElement extends LitElement {
         this.leftOffset = 0;
         this.rightOffset = 0;
         this.targetOffset = 0;
+        this.isVisible = true;
 
         this.timeout = setTimeout( () => {
             this.container!.classList.remove( "hide" );
@@ -170,6 +173,7 @@ export class TransitionElement extends LitElement {
 
         this.timeout = setTimeout( () => {
             this.container!.style.display = "none";
+            this.isVisible = false;
         }, 2000 );
     }
 
@@ -195,6 +199,7 @@ export class TransitionElement extends LitElement {
     }
 
     private loop() {
+        cancelAnimationFrame( this.raf );
 
         this.leftOffset += ( this.targetOffset - this.leftOffset ) / 5;
         this.rightOffset += ( this.targetOffset - this.rightOffset ) / 10;

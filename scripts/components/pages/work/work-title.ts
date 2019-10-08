@@ -159,17 +159,20 @@ export class WorkTitleElement extends LitElement {
     }
 
     render() {
+        // First and only render is in an animated out state. If anything would cause a re-render
+        // it would set it to an animate out state.
+
         return html`
             <div class="header">
-                <div class="title element">
+                <div class="title element hidden">
                     <div class="wrapper">NASA FDL - Google Cloud</div>
                 </div>
 
-                <div class="button previous element" @click="${ this.onPrevious }">
+                <div class="button previous element hidden" @click="${ this.onPrevious }">
                     <div class="wrapper"></div>
                 </div>
 
-                <div class="button next element" @click="${ this.onNext }">
+                <div class="button next element hidden" @click="${ this.onNext }">
                     <div class="wrapper"></div>
                 </div>
             </div>

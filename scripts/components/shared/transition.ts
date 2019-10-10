@@ -1,7 +1,8 @@
 import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
-import { clamp } from "lodash";
+import { clamp, bindAll } from "lodash";
 
 import { observeRoute } from "../../services/router";
+import { Subscription } from "rxjs";
 
 @customElement( "app-transition" )
 export class TransitionElement extends LitElement {
@@ -17,13 +18,15 @@ export class TransitionElement extends LitElement {
     private leftMover?: HTMLDivElement;
     private rightMover?: HTMLDivElement;
     private container?: HTMLDivElement;
+    private primarySlot?: HTMLSlotElement;
     private targetOffset = 0;
     private leftOffset = 0;
     private rightOffset = 0;
     private raf = -1;
-    private active = false;
-    private masked = true;
+    private isScrollable = false;
     private isVisible = false;
+    private isMasked = true;
+    private subscription = new Subscription();
 
     static get styles(): CSSResult {
         return css`
@@ -88,41 +91,63 @@ export class TransitionElement extends LitElement {
     constructor() {
         super();
 
-        this.loop = this.loop.bind( this );
-        this.onScroll = this.onScroll.bind( this );
+        bindAll( this, "loop", "onScroll", "onResize", "onRouteChange", "onSlotUpdate" );
     }
 
     firstUpdated() {
-        const slot = this.shadowRoot!.querySelector( ".left slot" ) as HTMLSlotElement;
-
+        this.primarySlot = this.shadowRoot!.querySelector( ".left slot" ) as HTMLSlotElement;
         this.left = this.shadowRoot!.querySelector( ".left" ) as HTMLDivElement;
         this.right = this.shadowRoot!.querySelector( ".right" ) as HTMLDivElement;
         this.rightMover = this.shadowRoot!.querySelector( ".right .mover" ) as HTMLDivElement;
         this.leftMover = this.shadowRoot!.querySelector( ".left .mover" ) as HTMLDivElement;
         this.container = this.shadowRoot!.querySelector( ".container" ) as HTMLDivElement;
 
-        slot.addEventListener( "slotchange", () => {
-            this.rightMover!.innerHTML = "";
+        this.connectRouting();
 
-            slot.assignedElements().forEach( node => {
-                this.rightMover!.appendChild( node.cloneNode( true ) );
-            } );
+        this.primarySlot.addEventListener( "slotchange", this.onSlotUpdate );
+
+        window.addEventListener( "resize", this.onResize );
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+
+        clearTimeout( this.timeout );
+        cancelAnimationFrame( this.raf );
+
+        window.removeEventListener( "resize", this.onResize );
+
+        this.primarySlot!.removeEventListener( "slotchange", this.onSlotUpdate );
+        this.subscription.unsubscribe();
+    }
+
+    private onSlotUpdate() {
+        this.rightMover!.innerHTML = "";
+
+        this.primarySlot!.assignedElements().forEach( node => {
+            this.rightMover!.appendChild( node.cloneNode( true ) );
         } );
 
-        window.addEventListener( "resize", this.updateHeights.bind( this ) );
+        this.onResize();
+    }
 
+    private connectRouting() {
         if ( this.route ) {
 
-            observeRoute( new RegExp( this.route ) ).subscribe( ( on: boolean ) => {
+            const regex = new RegExp( this.route );
+            const listener = observeRoute( regex ).subscribe( this.onRouteChange );
 
-                clearTimeout( this.timeout );
+            this.subscription.add( listener );
+        }
+    }
 
-                if ( !on && this.isVisible ) {
-                    this.animateOut();
-                } else if ( on && !this.isVisible ) {
-                    this.animateIn();
-                }
-            } );
+    private onRouteChange( on: boolean ) {
+        clearTimeout( this.timeout );
+
+        if ( !on && this.isVisible ) {
+            this.animateOut();
+        } else if ( on && !this.isVisible ) {
+            this.animateIn();
         }
     }
 
@@ -138,20 +163,20 @@ export class TransitionElement extends LitElement {
         this.timeout = setTimeout( () => {
             this.container!.classList.remove( "hide" );
 
-            this.updateHeights();
+            this.onResize();
 
             this.timeout = setTimeout( () => {
                 this.leftMover!.classList.remove( "animated" );
                 this.rightMover!.classList.remove( "animated" );
 
                 this.loop();
-                this.active = true;
+                this.isScrollable = true;
             }, 1700 );
         }, 1300 );
     }
 
     private animateOut() {
-        this.active = false;
+        this.isScrollable = false;
 
         this.leftMover!.classList.add( "animated" );
         this.rightMover!.classList.add( "animated" );
@@ -159,7 +184,7 @@ export class TransitionElement extends LitElement {
         this.left!.classList.remove( "unmasked" );
         this.right!.style.display = null;
 
-        this.masked = true;
+        this.isMasked = true;
 
         cancelAnimationFrame( this.raf );
 
@@ -177,7 +202,7 @@ export class TransitionElement extends LitElement {
         }, 2000 );
     }
 
-    private updateHeights() {
+    private onResize() {
         window.removeEventListener( "wheel", this.onScroll );
         window.addEventListener( "wheel", this.onScroll );
 
@@ -188,7 +213,7 @@ export class TransitionElement extends LitElement {
     }
 
     private onScroll( event: WheelEvent ) {
-        if ( ! this.active ) {
+        if ( ! this.isScrollable ) {
             return;
         }
 
@@ -207,16 +232,16 @@ export class TransitionElement extends LitElement {
         this.rightMover!.style.transform = `translateY( ${ this.rightOffset }px )`;
         this.leftMover!.style.transform = `translateY( ${ this.leftOffset }px )`;
 
-        if ( Math.abs( this.rightOffset - this.leftOffset ) < 1 && this.masked ) {
+        if ( Math.abs( this.rightOffset - this.leftOffset ) < 1 && this.isMasked ) {
             this.left!.classList.add( "unmasked" );
             this.right!.style.display = "none";
 
-            this.masked = false;
-        } else if ( Math.abs( this.rightOffset - this.leftOffset ) >=  1 && ! this.masked ) {
+            this.isMasked = false;
+        } else if ( Math.abs( this.rightOffset - this.leftOffset ) >=  1 && ! this.isMasked ) {
             this.left!.classList.remove( "unmasked" );
             this.right!.style.display = null;
 
-            this.masked = true;
+            this.isMasked = true;
         }
 
         this.raf = requestAnimationFrame( this.loop );

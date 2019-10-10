@@ -117,14 +117,14 @@ export class WorkMenuElement extends LitElement {
         observeRoute( /^\/work/ ).subscribe( ( on ) => {
             this.ul!.classList[ on ? "remove" : "add" ]( "hidden" );
 
+            subscription.unsubscribe();
+
             if ( on ) {
                 subscription.add( onRouteChange().subscribe( ( [ _, current ] ) => {
                     const parts = current.split( "/" );
 
                     this.setHighlight( parseInt( parts[ 2 ] || "1", 10 ) - 1 );
                 } ) );
-            } else {
-                subscription.unsubscribe();
             }
         } );
 

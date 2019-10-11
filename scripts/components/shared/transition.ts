@@ -44,7 +44,7 @@ export class TransitionElement extends LitElement {
             }
 
             .left {
-                clip-path: polygon( 1% 0%, 101% 100%, 0% 100% );
+                clip-path: polygon( 1px 0%, calc( 100% + 1px ) 100%, 0% 100% );
             }
 
             .left.unmasked {
@@ -91,7 +91,7 @@ export class TransitionElement extends LitElement {
     constructor() {
         super();
 
-        bindAll( this, "loop", "onScroll", "onResize", "onRouteChange", "onSlotUpdate" );
+        bindAll( this, "loop", "onScroll", "onResize", "onRouteChange", "updateSlotCopy" );
     }
 
     firstUpdated() {
@@ -104,7 +104,7 @@ export class TransitionElement extends LitElement {
 
         this.connectRouting();
 
-        this.primarySlot.addEventListener( "slotchange", this.onSlotUpdate );
+        this.primarySlot.addEventListener( "slotchange", this.updateSlotCopy );
 
         window.addEventListener( "resize", this.onResize );
     }
@@ -117,11 +117,11 @@ export class TransitionElement extends LitElement {
 
         window.removeEventListener( "resize", this.onResize );
 
-        this.primarySlot!.removeEventListener( "slotchange", this.onSlotUpdate );
+        this.primarySlot!.removeEventListener( "slotchange", this.updateSlotCopy );
         this.subscription.unsubscribe();
     }
 
-    private onSlotUpdate() {
+    updateSlotCopy() {
         this.rightMover!.innerHTML = "";
 
         this.primarySlot!.assignedElements().forEach( node => {

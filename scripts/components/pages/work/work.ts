@@ -1,4 +1,3 @@
-import "../../shared/transition";
 import "./work-title";
 
 import { css, customElement, html, LitElement, property } from "lit-element";
@@ -6,11 +5,13 @@ import { css, customElement, html, LitElement, property } from "lit-element";
 import { getContentForID } from "./work-content";
 import { observeRoute, onRouteChange } from "../../../services/router";
 import { Subscription } from "rxjs";
+import { TransitionElement } from "../../shared/transition";
 
 @customElement( "app-work" )
 export class WorkElement extends LitElement {
 
     private subscription = new Subscription();
+    private content!: TransitionElement;
 
     @property( { type: Number } ) private index = 0;
 
@@ -32,6 +33,8 @@ export class WorkElement extends LitElement {
     }
 
     firstUpdated() {
+        this.content = this.shadowRoot!.querySelector<TransitionElement>( "#transition-container" )!;
+
         observeRoute( /^\/work/ ).subscribe( ( on ) => {
             this.subscription.unsubscribe();
 
@@ -42,6 +45,8 @@ export class WorkElement extends LitElement {
 
                     if ( id !== this.index ) {
                         this.index = id;
+
+                        requestAnimationFrame( () => this.content.updateSlotCopy() );
                     }
                 } ) );
             }
@@ -51,7 +56,7 @@ export class WorkElement extends LitElement {
     render() {
         return html`
             <div class="container">
-                <app-transition route="\/work" padding="240px 200px 0px 200px">
+                <app-transition route="\/work" padding="240px 200px 0px 200px" id="transition-container">
 
                     ${ getContentForID( this.index ) }
 

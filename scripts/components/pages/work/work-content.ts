@@ -1,13 +1,24 @@
-import { html } from "lit-html";
+import { html, TemplateResult } from "lit-html";
+import { clamp } from "lodash";
 
-import nasaDetail from "../../../../assets/nasa/detail-1.png";
-import nasaHero from "../../../../assets/nasa/hero.png";
+import { Project, work } from "../../../content";
 
-export function getContentForID( id: number ) {
-    return id === 0 ? getNasa() : getWonderland();
+export function getContentForID( id: number ): TemplateResult {
+    const project: Project = work[ clamp( id, 0, work.length - 1 ) ];
+    return generateContent( project );
 }
 
-function getNasa() {
+function generateContent( project: Project ) {
+
+    let side = "right";
+    const nextSide = () => {
+        side = side === "left" ? "right" : "left";
+        return `section-${ side }`;
+    };
+
+    const amount = Math.min( project.images.length, project.paragraphs.length );
+    const array = new Array( amount ).fill( 0 );
+
     return html`
         <style>
             .block {
@@ -26,6 +37,10 @@ function getNasa() {
                 flex-direction: row;
                 height: 350px;
                 margin-bottom: 80px;
+            }
+
+            .section-right {
+                flex-direction: row-reverse;
             }
 
             .text {
@@ -63,104 +78,20 @@ function getNasa() {
 
         <div class="block">
 
-            <section class="section-left">
+            ${ array.map( ( _, i: number ) => html`
+                <section class="${ nextSide() }">
 
                 <div class="text">
-                    We created a user experience that utalizes an artistic geneerative interpretation of
-                    exoplanets to guide the user through both the problem of finding life as well as the
-                    process that has been made.
+                    ${ project.paragraphs[ i ] }
                 </div>
 
                 <div class="image">
-                    <img src="${ nasaHero }" />
+                    <img src="${ project.images[ i ] }" />
                 </div>
 
-            </section>
+                </section>
+            ` ) }
 
-            <section class="section-right">
-
-                <div class="image">
-                    <img src="${ nasaDetail }" />
-                </div>
-
-                <div class="text">
-                    We created a user experience that utalizes an artistic geneerative interpretation of
-                    exoplanets to guide the user through both the problem of finding life as well as the
-                    process that has been made.
-                </div>
-
-            </section>
-        </div>
-    `;
-}
-
-function getWonderland() {
-    return html`
-        <style>
-            .block {
-                font-family: var( --serif );
-                font-size: 20px;
-                font-weight: 300;
-                letter-spacing: 0.3px;
-                line-height: 150%;
-                margin-top: 10px;
-            }
-
-            .section-left,
-            .section-right {
-                align-items: flex-end;
-                display: flex;
-                flex-direction: row;
-                height: 350px;
-                margin-bottom: 80px;
-            }
-
-            .text {
-                flex: 30% 0 0;
-                font-family: var( --serif );
-                font-size: 13px;
-                letter-spacing: 0.8px;
-                line-height: 20px;
-            }
-
-            .section-left .text {
-                padding-right: 20px;
-                text-align: right;
-            }
-
-            .section-right .text {
-                padding-left: 20px;
-                text-align: left;
-            }
-
-            .image {
-                flex: 70% 1 1;
-                height: 100%;
-                padding-bottom: 4px;
-            }
-
-            .section-right .image {
-                text-align: right;
-            }
-
-            .image img {
-                height: 100%;
-            }
-        </style>
-
-        <div class="block">
-
-            <section class="section-left">
-
-                <div class="text">
-                    Here3 is some other text of course.
-                </div>
-
-                <div class="image">
-                    <img src="${ nasaHero }" />
-                </div>
-
-            </section>
         </div>
     `;
 }

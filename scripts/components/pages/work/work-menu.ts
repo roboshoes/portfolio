@@ -1,5 +1,6 @@
 import { css, customElement, html, LitElement, TemplateResult } from "lit-element";
 import { Subscription } from "rxjs";
+import autobind from "autobind-decorator";
 
 import { projects } from "../../../constants";
 import { observeRoute, onRouteChange } from "../../../services/router";
@@ -61,12 +62,7 @@ export class WorkMenuElement extends LitElement {
         `;
     }
 
-    constructor() {
-        super();
-
-        this.onMouseMove = this.onMouseMove.bind( this );
-    }
-
+    @autobind
     private buildLine( name: string ): TemplateResult {
         return html`
             <li>
@@ -99,6 +95,7 @@ export class WorkMenuElement extends LitElement {
         this.setHighlight( this.selected );
     }
 
+    @autobind
     private onMouseMove( event: MouseEvent ) {
         const percent = ( event.pageY - this.ulOffsetY ) / this.ulHeight;
         const hightlight = Math.round( percent * ( projects.length - 1 ) );
@@ -136,7 +133,7 @@ export class WorkMenuElement extends LitElement {
     render(): TemplateResult {
         return html`
             <ul @mouseenter="${ this.onMouseEnter }" @mouseleave="${ this.onMouseLeave }">
-                ${ projects.map( this.buildLine.bind( this ) ) }
+                ${ projects.map( this.buildLine ) }
             </ul>
         `;
     }

@@ -8,13 +8,16 @@ export function getContentForID( id: number ): TemplateResult {
     return generateContent( project );
 }
 
+function* swapSide( side: "right" | "left" = "right" ) {
+    while( true ) {
+        side = side === "left" ? "right" : "left";
+        yield side;
+    }
+}
+
 function generateContent( project: Project ) {
 
-    let side = "right";
-    const nextSide = () => {
-        side = side === "left" ? "right" : "left";
-        return `section-${ side }`;
-    };
+    const nextSide = swapSide( "right" );
 
     const amount = Math.min( project.images.length, project.paragraphs.length );
     const array = new Array( amount ).fill( 0 );
@@ -79,7 +82,7 @@ function generateContent( project: Project ) {
         <div class="block">
 
             ${ array.map( ( _, i: number ) => html`
-                <section class="${ nextSide() }">
+                <section class="${ nextSide.next().value }">
 
                 <div class="text">
                     ${ project.paragraphs[ i ] }

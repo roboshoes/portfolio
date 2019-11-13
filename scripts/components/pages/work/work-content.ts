@@ -9,7 +9,7 @@ export function getContentForID( id: number ): TemplateResult {
 }
 
 function* swapSide( side: "right" | "left" = "right" ) {
-    while( true ) {
+    while ( true ) {
         side = side === "left" ? "right" : "left";
         yield side;
     }
@@ -84,13 +84,13 @@ function generateContent( project: Project ) {
             ${ array.map( ( _, i: number ) => html`
                 <section class="${ nextSide.next().value }">
 
-                <div class="text">
-                    ${ project.paragraphs[ i ] }
-                </div>
+                    <div class="text">
+                        ${ project.paragraphs[ i ] }
+                    </div>
 
-                <div class="image">
-                    <img src="${ project.images[ i ] }" />
-                </div>
+                    <div class="image">
+                        <img src="${ project.images[ i ] }" />
+                    </div>
 
                 </section>
             ` ) }

@@ -62,6 +62,43 @@ export class WorkMenuElement extends LitElement {
         `;
     }
 
+
+
+    firstUpdated() {
+        const subscription = new Subscription();
+
+        this.ul = this.shadowRoot!.querySelector( "ul" )!;
+        this.listElements = Array.from( this.shadowRoot!.querySelectorAll( "li" ) );
+
+        this.setHighlight( 0 );
+
+        observeRoute( /^\/work/ ).subscribe( ( on ) => {
+            this.ul!.classList[ on ? "remove" : "add" ]( "hidden" );
+
+            subscription.unsubscribe();
+
+            if ( on ) {
+                subscription.add( onRouteChange().subscribe( ( [ _, current ] ) => {
+                    const parts = current.split( "/" );
+
+                    this.setHighlight( parseInt( parts[ 2 ] || "1", 10 ) - 1 );
+                } ) );
+            }
+        } );
+
+        observeHitAreaX( 200 ).subscribe( ( isInside ) => {
+            this.ul!.classList[ isInside ? "add" : "remove" ]( "highlight" );
+        } );
+    }
+
+    render(): TemplateResult {
+        return html`
+            <ul @mouseenter="${ this.onMouseEnter }" @mouseleave="${ this.onMouseLeave }">
+                ${ projects.map( this.buildLine ) }
+            </ul>
+        `;
+    }
+
     @autobind
     private buildLine( name: string ): TemplateResult {
         return html`
@@ -101,40 +138,5 @@ export class WorkMenuElement extends LitElement {
         const hightlight = Math.round( percent * ( projects.length - 1 ) );
 
         this.setHighlight( hightlight );
-    }
-
-    firstUpdated() {
-        const subscription = new Subscription();
-
-        this.ul = this.shadowRoot!.querySelector( "ul" )!;
-        this.listElements = Array.from( this.shadowRoot!.querySelectorAll( "li" ) );
-
-        this.setHighlight( 0 );
-
-        observeRoute( /^\/work/ ).subscribe( ( on ) => {
-            this.ul!.classList[ on ? "remove" : "add" ]( "hidden" );
-
-            subscription.unsubscribe();
-
-            if ( on ) {
-                subscription.add( onRouteChange().subscribe( ( [ _, current ] ) => {
-                    const parts = current.split( "/" );
-
-                    this.setHighlight( parseInt( parts[ 2 ] || "1", 10 ) - 1 );
-                } ) );
-            }
-        } );
-
-        observeHitAreaX( 200 ).subscribe( ( isInside )  => {
-            this.ul!.classList[ isInside ? "add" : "remove" ]( "highlight" );
-        } );
-    }
-
-    render(): TemplateResult {
-        return html`
-            <ul @mouseenter="${ this.onMouseEnter }" @mouseleave="${ this.onMouseLeave }">
-                ${ projects.map( this.buildLine ) }
-            </ul>
-        `;
     }
 }

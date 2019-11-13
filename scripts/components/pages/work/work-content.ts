@@ -1,5 +1,5 @@
 import { html, TemplateResult } from "lit-html";
-import { clamp } from "lodash";
+import { clamp, times } from "lodash";
 
 import { Project, work } from "../../../content";
 
@@ -17,10 +17,8 @@ function* swapSide( side: "right" | "left" = "right" ) {
 
 function generateContent( project: Project ) {
 
-    const nextSide = swapSide( "right" );
-
+    const nextSide: Generator = swapSide( "right" );
     const amount = Math.min( project.images.length, project.paragraphs.length );
-    const array = new Array( amount ).fill( 0 );
 
     return html`
         <style>
@@ -81,7 +79,7 @@ function generateContent( project: Project ) {
 
         <div class="block">
 
-            ${ array.map( ( _, i: number ) => html`
+            ${ times( amount, ( i: number ) => html`
                 <section class="section-${ nextSide.next().value }">
 
                     <div class="text">

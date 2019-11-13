@@ -1,5 +1,5 @@
 import "../shared/link";
-import "../shared/transition";
+import "../shared/route-outlet";
 
 import { css, customElement, html, LitElement } from "lit-element";
 
@@ -23,9 +23,15 @@ export class ContactElement extends LitElement {
     }
 
     render() {
+        const links = [
+            { url: "mailto:mail@mathias-paumgarten.com", text: "mail@mathias-paumgarten.com" },
+            { url: "https://www.twitter.com/roboshoes", text: "Twitter" },
+            { url: "https://www.linkedin.com/in/mathiaspaumgarten", text: "LinkedIn" },
+        ];
+
         return html`
             <div class="container">
-                <app-transition route="\/contact">
+                <app-route-outlet route="\/contact">
                     <style>
                         .text {
                             font-family: Merriweather, serif;
@@ -45,12 +51,12 @@ export class ContactElement extends LitElement {
                     <div class="text">
                         You can reach me on various channels:
                         <ul>
-                            <li> <app-link href="mailto:mail@mathias-paumgarten.com">mail@mathias-paumgarten.com</app-link> </li>
-                            <li> <app-link href="https://www.twitter.com/roboshoes">Twitter</app-link> </li>
-                            <li> <app-link href="https://www.linkedin.com/in/mathiaspaumgarten/">LinkedIn</app-link> </li>
+                            ${ links.map( link => html`
+                                <li> <app-link href="${ link.url }">${ link.text }</app-link> </li>
+                            ` ) }
                         </ul>
                     </div>
-                </app-transition>
+                </app-route-outlet>
             </div>
         `;
     }

@@ -1,5 +1,5 @@
 import "../shared/link";
-import "../shared/transition";
+import "../shared/route-outlet";
 
 import { css, customElement, html, LitElement } from "lit-element";
 
@@ -20,7 +20,7 @@ export class WhoElement extends LitElement {
     render() {
         return html`
             <div class="container">
-                <app-transition route="\/$">
+                <app-route-outlet route="\/$">
                     <style>
                         p {
                             font-family: Merriweather, serif;
@@ -48,7 +48,7 @@ export class WhoElement extends LitElement {
                     </p>
 
                     <p> And here we are. </p>
-                </app-transition>
+                </app-route-outlet>
             </div>
         `;
     }

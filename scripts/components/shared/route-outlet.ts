@@ -1,11 +1,12 @@
+import autobind from "autobind-decorator";
 import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
-import { clamp, bindAll } from "lodash";
+import { clamp } from "lodash";
+import { fromEvent, Subscription } from "rxjs";
 
 import { observeRoute } from "../../services/router";
-import { Subscription } from "rxjs";
 
-@customElement( "app-transition" )
-export class TransitionElement extends LitElement {
+@customElement( "app-route-outlet" )
+export class RouteOutletElement extends LitElement {
 
     @property( { type: String } ) route?: string;
     @property( { type: String } ) padding = "180px 200px 0px 200px";
@@ -88,12 +89,6 @@ export class TransitionElement extends LitElement {
         `;
     }
 
-    constructor() {
-        super();
-
-        bindAll( this, "loop", "onScroll", "onResize", "onRouteChange", "updateSlotCopy" );
-    }
-
     firstUpdated() {
         this.primarySlot = this.shadowRoot!.querySelector( ".left slot" ) as HTMLSlotElement;
         this.left = this.shadowRoot!.querySelector( ".left" ) as HTMLDivElement;
@@ -104,9 +99,8 @@ export class TransitionElement extends LitElement {
 
         this.connectRouting();
 
-        this.primarySlot.addEventListener( "slotchange", this.updateSlotCopy );
-
-        window.addEventListener( "resize", this.onResize );
+        this.subscription.add( fromEvent( window, "resize" ).subscribe( this.onResize ) );
+        this.subscription.add( fromEvent( this.primarySlot, "slotchange").subscribe( this.updateSlotCopy ) );
     }
 
     disconnectedCallback() {
@@ -115,12 +109,10 @@ export class TransitionElement extends LitElement {
         clearTimeout( this.timeout );
         cancelAnimationFrame( this.raf );
 
-        window.removeEventListener( "resize", this.onResize );
-
-        this.primarySlot!.removeEventListener( "slotchange", this.updateSlotCopy );
         this.subscription.unsubscribe();
     }
 
+    @autobind
     updateSlotCopy() {
         this.rightMover!.innerHTML = "";
 
@@ -129,6 +121,32 @@ export class TransitionElement extends LitElement {
         } );
 
         this.onResize();
+    }
+
+    render(): TemplateResult {
+        return html`
+            <style>
+                .left,
+                .right {
+                    padding: ${ this.padding };
+                }
+            </style>
+
+            <div class="container hide" style="display: none">
+                <div class="left">
+                    <div class="wrapper">
+                        <div class="mover animated">
+                            <slot></slot>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="wrapper">
+                        <div class="mover animated"></div>
+                    </div>
+                </div>
+            <div>
+        `;
     }
 
     private connectRouting() {
@@ -141,6 +159,7 @@ export class TransitionElement extends LitElement {
         }
     }
 
+    @autobind
     private onRouteChange( on: boolean ) {
         clearTimeout( this.timeout );
 
@@ -202,6 +221,7 @@ export class TransitionElement extends LitElement {
         }, 2000 );
     }
 
+    @autobind
     private onResize() {
         window.removeEventListener( "wheel", this.onScroll );
         window.addEventListener( "wheel", this.onScroll );
@@ -212,6 +232,7 @@ export class TransitionElement extends LitElement {
         this.contentHeight = this.leftMover!.getBoundingClientRect().height;
     }
 
+    @autobind
     private onScroll( event: WheelEvent ) {
         if ( ! this.isScrollable ) {
             return;
@@ -223,6 +244,7 @@ export class TransitionElement extends LitElement {
         this.targetOffset = clamp( this.targetOffset, - difference, 0 );
     }
 
+    @autobind
     private loop() {
         cancelAnimationFrame( this.raf );
 
@@ -245,31 +267,5 @@ export class TransitionElement extends LitElement {
         }
 
         this.raf = requestAnimationFrame( this.loop );
-    }
-
-    render(): TemplateResult {
-        return html`
-            <style>
-                .left,
-                .right {
-                    padding: ${ this.padding };
-                }
-            </style>
-
-            <div class="container hide" style="display: none">
-                <div class="left">
-                    <div class="wrapper">
-                        <div class="mover animated">
-                            <slot></slot>
-                        </div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="wrapper">
-                        <div class="mover animated"></div>
-                    </div>
-                </div>
-            <div>
-        `;
     }
 }

@@ -5,13 +5,13 @@ import { css, customElement, html, LitElement, property } from "lit-element";
 import { getContentForID } from "./work-content";
 import { observeRoute, onRouteChange } from "../../../services/router";
 import { Subscription } from "rxjs";
-import { TransitionElement } from "../../shared/transition";
+import { RouteOutletElement } from "../../shared/route-outlet";
 
 @customElement( "app-work" )
 export class WorkElement extends LitElement {
 
     private subscription = new Subscription();
-    private content!: TransitionElement;
+    private content!: RouteOutletElement;
 
     @property( { type: Number } ) private index = 0;
 
@@ -33,9 +33,9 @@ export class WorkElement extends LitElement {
     }
 
     firstUpdated() {
-        this.content = this.shadowRoot!.querySelector<TransitionElement>( "#transition-container" )!;
+        this.content = this.shadowRoot!.querySelector<RouteOutletElement>( "#transition-container" )!;
 
-        observeRoute( /^\/work\/\d+/ ).subscribe( ( on ) => {
+        observeRoute( /^\/work\/\d+/ ).subscribe( ( on: boolean ) => {
             this.subscription.unsubscribe();
 
             if ( on ) {
@@ -56,11 +56,11 @@ export class WorkElement extends LitElement {
     render() {
         return html`
             <div class="container">
-                <app-transition route="\/work" padding="240px 200px 0px 200px" id="transition-container">
+                <app-route-outlet route="\/work" padding="240px 200px 0px 200px" id="transition-container">
 
                     ${ getContentForID( this.index ) }
 
-                </app-transition>
+                </app-route-outlet>
 
                 <app-work-title></app-work-title>
             </div>

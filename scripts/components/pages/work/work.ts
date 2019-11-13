@@ -35,7 +35,7 @@ export class WorkElement extends LitElement {
     firstUpdated() {
         this.content = this.shadowRoot!.querySelector<TransitionElement>( "#transition-container" )!;
 
-        observeRoute( /^\/work/ ).subscribe( ( on ) => {
+        observeRoute( /^\/work\/\d+/ ).subscribe( ( on ) => {
             this.subscription.unsubscribe();
 
             if ( on ) {

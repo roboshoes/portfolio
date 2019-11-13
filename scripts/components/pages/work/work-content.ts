@@ -82,7 +82,7 @@ function generateContent( project: Project ) {
         <div class="block">
 
             ${ array.map( ( _, i: number ) => html`
-                <section class="${ nextSide.next().value }">
+                <section class="section-${ nextSide.next().value }">
 
                     <div class="text">
                         ${ project.paragraphs[ i ] }

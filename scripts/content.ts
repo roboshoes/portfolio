@@ -27,8 +27,8 @@ export const work: Project[] = [
     {
         title: "NASA FDL + Google Cloud",
         images: [ nasaHero, nasaDetail1, nasaDetail2 ],
-        paragraphs: [`
-            NASA’s Frontier Development Lab partnered with Google Cloud to understand how artificial
+        paragraphs: [
+            `NASA’s Frontier Development Lab partnered with Google Cloud to understand how artificial
             intelligence can help accelerate existing research to find life on other planets.`,
 
             `We created a user experience that utalizes an artistic geneerative interpretation of
@@ -42,16 +42,16 @@ export const work: Project[] = [
     {
         title: "Winter Wonderland",
         images: [ wonderlandHero, wonderlandDetail ],
-        paragraphs: [`
-            Take a walk through New York City's dazzling assortment of retail window
+        paragraphs: [
+            `Take a walk through New York City's dazzling assortment of retail window
             displays and immerse yourself in the magic of the holidays.`,
 
             `Window Wonderland utilizes sequences of high-res photography to bring the wonder
             and christmas spirit of New York City's 5th avenue to the masses.`,
 
             `For a full immersion it also provides a 360 VR view with authentic street sounds to
-            truely experience the celebratory spirit.
-        `],
+            truely experience the celebratory spirit.`
+        ],
         buttons: {
             "LAUNCH PROJECT": "https://windowwonderland.withgoogle.com"
         }
@@ -59,8 +59,8 @@ export const work: Project[] = [
     {
         title: "Tabel",
         images: [ tabelHero, tabelDetail ],
-        paragraphs: [`
-            With 6 storylines unfolding simultaneously, Tabel uses interactive directional audio to
+        paragraphs: [
+            `With 6 storylines unfolding simultaneously, Tabel uses interactive directional audio to
             put you at the center of the chaos.`,
 
             `Tabel utilzes a WebGL based VR experience that gives the user agency in the unfolding of
@@ -75,7 +75,7 @@ export const work: Project[] = [
         title: "Google Earth Studio",
         images: [ earthHero, earthDetail ],
         paragraphs: [
-            `Let the world tell your story.`,
+            "Let the world tell your story.",
 
             `Earth Studio is an animation tool for Google Earth’s satellite and 3D imagery.
             Being built fully in the browser it requires no installs.`,
@@ -91,8 +91,8 @@ export const work: Project[] = [
     {
         title: "Toonami",
         images: [ toonamiHero, toonamiDetail ],
-        paragraphs: [`
-            Toonami's mobile application for Android and iOS was made out of almost entirely
+        paragraphs: [
+            `Toonami's mobile application for Android and iOS was made out of almost entirely
             procedurally generated graphics using the web's canvas 2D API. Toonami is a part of
             Adult Swim’s weekly line up on Cartoon Network. It is a block of time dedicated to
             anime and has an extremely loyal fanbase. The fans deserved an app to help them
@@ -113,13 +113,14 @@ export const work: Project[] = [
             levels to create a cohesive pieces. This would would open up a portal which took the
             player to the next level.`,
 
-            `This game was built using Unity.`
+            "This game was built using Unity."
         ],
     },
     {
         title: "Pinglr",
         images: [ pinglrHero ],
-        paragraphs: [`This is the story of Darrian Pinglr.`,
+        paragraphs: [
+            "This is the story of Darrian Pinglr.",
 
             `We are not quite sure how he got here, but he is ready for the next big move. Angels are
             interested in some series A funding. That is great news because we are talking about a
@@ -127,7 +128,7 @@ export const work: Project[] = [
             full stack engineer he hired, he is ready to gamify the upgrade and offer us some
             big new beta.`,
 
-            `Check it out. The app is in beta.`
+            "Check it out. The app is in beta."
         ],
         buttons: {
             "WATCH IT": "https://www.youtube.com/watch?v=sajO0H8Xe44",

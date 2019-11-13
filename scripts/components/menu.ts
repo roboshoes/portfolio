@@ -20,7 +20,7 @@ export class MenuElement extends LitElement {
                 --line-width: 30px;
                 position: absolute;
                 top: 0;
-                left: 0;
+                left: 30px;
             }
 
             li {
@@ -87,7 +87,7 @@ export class MenuElement extends LitElement {
             }
 
             .menu-item.selected .line {
-                width: 195px;
+                width: 182px;
             }
 
             .name {
@@ -103,21 +103,6 @@ export class MenuElement extends LitElement {
             .collapsed .menu-item.selected .name {
                 opacity: inherit;
             }
-        `;
-    }
-
-    private onMenuClick( index: number ) {
-        setRoute( this.routes[ index ] );
-    }
-
-    private createMenuItem( name: string, index: number ) {
-        const selected = index === this.selected ? "selected" : "";
-
-        return html`
-            <li class="menu-item ${ selected }" @click="${ () => this.onMenuClick( index ) }">
-                <div class="line">0${ index + 1 }</div>
-                <div class="name">${ name }</div>
-            </li>
         `;
     }
 
@@ -137,13 +122,27 @@ export class MenuElement extends LitElement {
             <style>
                 .menu {
                     top: ${ top }px;
-                    left: ${ this.collapsed ? 30 : 0 }px;
                 }
             </style>
 
             <ul class="menu ${ collapsed }">
                 ${ this.menuItems.map( this.createMenuItem.bind( this ) ) }
             </ul>
+        `;
+    }
+
+    private onMenuClick( index: number ) {
+        setRoute( this.routes[ index ] );
+    }
+
+    private createMenuItem( name: string, index: number ) {
+        const selected = index === this.selected ? "selected" : "";
+
+        return html`
+            <li class="menu-item ${ selected }" @click="${ () => this.onMenuClick( index ) }">
+                <div class="line">0${ index + 1 }</div>
+                <div class="name">${ name }</div>
+            </li>
         `;
     }
 }

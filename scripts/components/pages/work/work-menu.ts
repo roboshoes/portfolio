@@ -62,8 +62,6 @@ export class WorkMenuElement extends LitElement {
         `;
     }
 
-
-
     firstUpdated() {
         const subscription = new Subscription();
 

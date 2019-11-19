@@ -116,6 +116,9 @@ export const work: Project[] = [
             <br/><br/>
             This game was built using Unity.
         </>,
+        buttons: {
+            "TRAILER": "https://vimeo.com/158294691",
+        }
     },
     {
         title: "Pinglr",

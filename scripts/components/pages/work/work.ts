@@ -6,6 +6,7 @@ import { getContentForID } from "./work-content";
 import { observeRoute, onRouteChange } from "../../../services/router";
 import { Subscription } from "rxjs";
 import { RouteOutletElement } from "../../shared/route-outlet";
+import { nextFrame } from "../../../services/promise";
 
 @customElement( "app-work" )
 export class WorkElement extends LitElement {
@@ -44,9 +45,7 @@ export class WorkElement extends LitElement {
                     const id = parseInt( parts[ 2 ] || "1", 10 ) - 1;
 
                     if ( id !== this.index ) {
-                        this.index = id;
-
-                        requestAnimationFrame( () => this.content.updateSlotCopy() );
+                        this.content.swapContent( () => this.index = id );
                     }
                 } ) );
             }

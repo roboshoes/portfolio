@@ -3,6 +3,7 @@ import { css, CSSResult, customElement, html, LitElement, property, TemplateResu
 import { clamp } from "lodash";
 import { fromEvent, Subscription } from "rxjs";
 
+import { nextFrame, waitForSeconds } from "../../services/promise";
 import { observeRoute } from "../../services/router";
 
 @customElement( "app-route-outlet" )
@@ -100,6 +101,7 @@ export class RouteOutletElement extends LitElement {
         this.connectRouting();
 
         this.subscription.add( fromEvent( window, "resize" ).subscribe( this.onResize ) );
+        this.subscription.add( fromEvent<WheelEvent>( window, "wheel" ).subscribe( this.onScroll ) );
         this.subscription.add( fromEvent( this.primarySlot, "slotchange").subscribe( this.updateSlotCopy ) );
     }
 
@@ -121,6 +123,22 @@ export class RouteOutletElement extends LitElement {
         } );
 
         this.onResize();
+
+    }
+
+    async swapContent( changeContentFn: () => void ) {
+        this.isScrollable = false;
+        this.targetOffset = - this.contentHeight - 100;
+
+        await waitForSeconds( 1 );
+
+        changeContentFn();
+
+        await nextFrame();
+
+        this.updateSlotCopy();
+
+        this.targetOffset = 0;
     }
 
     render(): TemplateResult {

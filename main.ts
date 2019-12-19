@@ -1,31 +1,27 @@
 import "./scripts/components/mathias";
-import "./scripts/components/menu";
-import "./scripts/components/pages/contact";
 import "./scripts/components/pages/who";
-import "./scripts/components/pages/work/work";
-import "./scripts/components/pages/work/work-menu";
 
-import { customElement, html, LitElement } from "lit-element";
+import { customElement, html, LitElement, property } from "lit-element";
 import * as Webfont from "webfontloader";
 
 import { backgroundElement } from "./scripts/components/gl/background";
-import { setForward, initRouter } from "./scripts/services/router";
+import { initRouter } from "./scripts/services/router";
 
 @customElement( "app-app" )
 class AppElement extends LitElement {
+    @property( { type: Boolean } ) hideMathias = false;
+
     render() {
         return html`
-            <app-who></app-who>
-            <app-contact></app-contact>
-            <app-mathias></app-mathias>
-            <app-work></app-work>
-            <app-work-menu></app-work-menu>
-            <app-menu></app-menu>
+            <app-who
+                @active="${ () => this.hideMathias = true }"
+                @idle="${ () => this.hideMathias = false }"
+            ></app-who>
+            <app-mathias hide="${ this.hideMathias }"></app-mathias>
         `;
     }
-}
 
-setForward( "/work", "/work/1" );
+}
 
 Webfont.load( {
     active: () => {

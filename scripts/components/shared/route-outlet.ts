@@ -1,16 +1,10 @@
 import autobind from "autobind-decorator";
-import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
+import { css, CSSResult, customElement, html, LitElement, TemplateResult } from "lit-element";
 import { clamp } from "lodash";
 import { fromEvent, Subscription } from "rxjs";
 
-import { nextFrame, waitForSeconds } from "../../services/promise";
-import { observeRoute } from "../../services/router";
-
 @customElement( "app-route-outlet" )
 export class RouteOutletElement extends LitElement {
-
-    @property( { type: String } ) route?: string;
-    @property( { type: String } ) padding = "180px 200px 0px 200px";
 
     private timeout = -1;
     private maskHeight = -1;
@@ -26,9 +20,9 @@ export class RouteOutletElement extends LitElement {
     private rightOffset = 0;
     private raf = -1;
     private isScrollable = false;
-    private isVisible = false;
     private isMasked = true;
     private subscription = new Subscription();
+    private scrolledMode = false;
 
     static get styles(): CSSResult {
         return css`
@@ -75,17 +69,19 @@ export class RouteOutletElement extends LitElement {
             }
 
             .hide .right .mover {
-                transform: translateX( -100% );
+                transform: translateX( -150% );
             }
 
             .hide .left .mover {
-                transform: translateX( 100% );
+                transform: translateX( 150% );
             }
 
             .wrapper {
                 height: 100%;
                 overflow: hidden;
                 width: 100%;
+                box-sizing: border-box;
+                padding: 180px 200px 180px 200px;
             }
         `;
     }
@@ -98,7 +94,7 @@ export class RouteOutletElement extends LitElement {
         this.leftMover = this.shadowRoot!.querySelector( ".left .mover" ) as HTMLDivElement;
         this.container = this.shadowRoot!.querySelector( ".container" ) as HTMLDivElement;
 
-        this.connectRouting();
+        this.animateIn();
 
         this.subscription.add( fromEvent( window, "resize" ).subscribe( this.onResize ) );
         this.subscription.add( fromEvent<WheelEvent>( window, "wheel" ).subscribe( this.onScroll ) );
@@ -126,31 +122,9 @@ export class RouteOutletElement extends LitElement {
 
     }
 
-    async swapContent( changeContentFn: () => void ) {
-        this.isScrollable = false;
-        this.targetOffset = - this.contentHeight - 100;
-
-        await waitForSeconds( 1 );
-
-        changeContentFn();
-
-        await nextFrame();
-
-        this.updateSlotCopy();
-
-        this.targetOffset = 0;
-    }
-
     render(): TemplateResult {
         return html`
-            <style>
-                .left,
-                .right {
-                    padding: ${ this.padding };
-                }
-            </style>
-
-            <div class="container hide" style="display: none">
+            <div class="container hide">
                 <div class="left">
                     <div class="wrapper">
                         <div class="mover animated">
@@ -167,35 +141,13 @@ export class RouteOutletElement extends LitElement {
         `;
     }
 
-    private connectRouting() {
-        if ( this.route ) {
-
-            const regex = new RegExp( this.route );
-            const listener = observeRoute( regex ).subscribe( this.onRouteChange );
-
-            this.subscription.add( listener );
-        }
-    }
-
-    @autobind
-    private onRouteChange( on: boolean ) {
-        clearTimeout( this.timeout );
-
-        if ( !on && this.isVisible ) {
-            this.animateOut();
-        } else if ( on && !this.isVisible ) {
-            this.animateIn();
-        }
-    }
-
     private animateIn() {
-        this.container!.style.display = null;
+        this.container!.style.display = "";
         this.leftMover!.style.transform = "";
         this.rightMover!.style.transform = "";
         this.leftOffset = 0;
         this.rightOffset = 0;
         this.targetOffset = 0;
-        this.isVisible = true;
 
         this.timeout = setTimeout( () => {
             this.container!.classList.remove( "hide" );
@@ -209,34 +161,7 @@ export class RouteOutletElement extends LitElement {
                 this.loop();
                 this.isScrollable = true;
             }, 1700 );
-        }, 1300 );
-    }
-
-    private animateOut() {
-        this.isScrollable = false;
-
-        this.leftMover!.classList.add( "animated" );
-        this.rightMover!.classList.add( "animated" );
-
-        this.left!.classList.remove( "unmasked" );
-        this.right!.style.display = null;
-
-        this.isMasked = true;
-
-        cancelAnimationFrame( this.raf );
-
-        requestAnimationFrame( () => {
-            this.container!.classList.add( "hide" );
-
-            this.leftMover!.style.transform = `translate( 100%, ${ this.leftOffset }px )`;
-            this.rightMover!.style.transform = `translate( -100%, ${ this.rightOffset }px )`;
-
-        } );
-
-        this.timeout = setTimeout( () => {
-            this.container!.style.display = "none";
-            this.isVisible = false;
-        }, 2000 );
+        }, 100 );
     }
 
     @autobind
@@ -247,7 +172,7 @@ export class RouteOutletElement extends LitElement {
         const left = this.shadowRoot!.querySelector( ".left .wrapper" ) as HTMLDivElement;
 
         this.maskHeight = left.getBoundingClientRect().height;
-        this.contentHeight = this.leftMover!.getBoundingClientRect().height;
+        this.contentHeight = this.leftMover!.getBoundingClientRect().height + ( 2 * 180 );
     }
 
     @autobind
@@ -279,9 +204,17 @@ export class RouteOutletElement extends LitElement {
             this.isMasked = false;
         } else if ( Math.abs( this.rightOffset - this.leftOffset ) >=  1 && ! this.isMasked ) {
             this.left!.classList.remove( "unmasked" );
-            this.right!.style.display = null;
+            this.right!.style.display = "";
 
             this.isMasked = true;
+        }
+
+        if ( this.leftOffset < -100 && this.scrolledMode === false ) {
+            this.scrolledMode = true;
+            this.dispatchEvent( new CustomEvent( "active", { composed: true, bubbles: true } ) );
+        } else if ( this.leftOffset > -100 && this.scrolledMode === true ) {
+            this.scrolledMode = false;
+            this.dispatchEvent( new CustomEvent( "idle", { composed: true, bubbles: true } ) );
         }
 
         this.raf = requestAnimationFrame( this.loop );

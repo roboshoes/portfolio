@@ -12,3 +12,6 @@ export const OAKLAND_LINK = "https://www.google.com/maps/place/Oakland,+CA/@37.7
 
 export const projects = work.map( project => project.title );
 
+export const MAIL = "mailto:mail@mathias-paumgarten.com";
+export const TWITTER = "https://www.twitter.com/roboshoes";
+export const LINKEDIN = "https://www.linkedin.com/in/mathiaspaumgarten";

@@ -1,14 +1,14 @@
 import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderMaterial, Vector2 } from "three";
 
 import { generateTexture } from "./gradient-texture";
-import { random } from "lodash";
 
-const vertex = /* glsl */`
+const vertex = /* GLSL */`
     uniform vec3 uColor;
     uniform sampler2D uTexture;
 
     varying vec3 vColor;
     varying float vFade;
+    varying vec2 vUV;
 
     void main() {
         vec4 transformed = vec4( position, 1.0 );
@@ -25,31 +25,56 @@ const vertex = /* glsl */`
 
         vColor = uColor;
         vFade = ( worldPosition.z + 15.0 ) / 25.0;
+        vUV = worldPosition.xy;
 
         gl_Position = projectionMatrix * modelViewMatrix * transformed;
     }
 `;
 
-const fragment = /* glsl */`
+const fragment = /* GLSL */`
     uniform vec2 uResolution;
 
     varying vec3 vColor;
     varying float vFade;
+    varying vec2 vUV;
 
     const vec3 white = vec3( 1 );
-    const vec3 grey = vec3( 0.8 );
+
+    float rand( vec2 n ) {
+	    return fract( sin( dot( n, vec2( 12.9898, 4.1414 ) ) ) * 43758.5453 );
+    }
+
+    float noise( vec2 p ) {
+        vec2 ip = floor( p );
+        vec2 u = fract( p );
+
+        u = u * u * ( 3.0 - 2.0 * u );
+
+        float res = mix(
+            mix( rand( ip ), rand( ip + vec2( 1.0,0.0 ) ), u.x ),
+            mix( rand( ip + vec2( 0.0,1.0 ) ), rand( ip + vec2( 1.0,1.0 ) ), u.x ),
+            u.y
+        );
+
+        return res * res;
+    }
 
     void main() {
         vec2 uv = gl_FragCoord.xy / uResolution;
 
-        // vec3 color = mix( vColor, grey, step( 2.0 - uv.y, uv.x ) );
         vec3 color = vColor;
+
+        float threshold = noise( vUV * 5.0 );
+
+        if ( mod( threshold, 0.2 ) > 0.1 ) {
+            discard;
+        }
 
         gl_FragColor = vec4( mix( color, white, vFade ), 1 );
     }
 `;
 
-const geometry = new PlaneBufferGeometry( 1, 5, 10, 50 );
+const geometry = new PlaneBufferGeometry( 1, 5, 10, 100 );
 
 geometry.rotateX( Math.PI / 2 );
 
@@ -73,9 +98,9 @@ export class Ribbon extends Mesh {
 
     constructor() {
         const m = material.clone();
-        const tone = Math.random() * 0.7 + 0.3;
+        const tone = Math.random() * 0.5 + 0.5;
 
-        m.uniforms.uColor.value = new Color( tone, tone, 1 );
+        m.uniforms.uColor.value = new Color( tone, tone, 1 ).multiplyScalar( Math.random() * 0.3 + 0.7 );
         m.uniforms.uTexture.value = generateTexture();
 
         super( geometry, m );
@@ -84,7 +109,7 @@ export class Ribbon extends Mesh {
         this.y = -5 + Math.random() * 10;
         this.x = -10 + Math.random() * 20;
 
-        this.scale.set( Math.random() + 0.5, Math.random(), Math.random() + 0.5 );
+        this.scale.set( Math.random(), Math.random(), Math.random() + 0.5 );
 
         window.addEventListener( "resize", () => {
             m.uniforms.uResolution.value.x = window.innerWidth;

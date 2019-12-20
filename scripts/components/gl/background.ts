@@ -4,7 +4,7 @@ import { Ribbon } from "./ribbon";
 
 const camera = new PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 10000 );
 const scene = new Scene();
-const renderer = new WebGLRenderer();
+const renderer = new WebGLRenderer( { alpha: true } );
 const style: CSSStyleDeclaration = renderer.domElement.style;
 const ribbons: Ribbon[] = [];
 
@@ -29,7 +29,7 @@ window.addEventListener( "resize", () => {
 } );
 
 
-for ( let i = 0; i < 40; i++ ) {
+for ( let i = 0; i < 100; i++ ) {
     ribbons.push( new Ribbon() );
     scene.add( ribbons[ i ] );
 }

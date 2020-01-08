@@ -1,11 +1,11 @@
 import "./scripts/components/mathias";
 import "./scripts/components/pages/who";
 
+import { initRouter } from "@roboshoes/router";
 import { customElement, html, LitElement, property } from "lit-element";
 import * as Webfont from "webfontloader";
 
 import { backgroundElement } from "./scripts/components/gl/background";
-import { initRouter } from "./scripts/services/router";
 
 @customElement( "app-app" )
 class AppElement extends LitElement {

@@ -36,7 +36,7 @@ for ( let i = 0; i < 100; i++ ) {
 
 const start = Date.now() / 1000;
 
-function loop() {
+function loop(): void {
     const delta = Date.now() / 1000 - start;
     const t = ( delta % 6 ) / 6;
 

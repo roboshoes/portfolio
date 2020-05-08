@@ -1,13 +1,13 @@
 import "./link";
 import "./route-outlet";
 
-import { css, customElement, html, LitElement } from "lit-element";
+import { css, CSSResult, customElement, html, LitElement, TemplateResult } from "lit-element";
 
 import { MAIL, TWITTER } from "../constants";
 
 @customElement( "app-who" )
 export class WhoElement extends LitElement {
-    static get styles() {
+    static get styles(): CSSResult {
         return css`
             .container {
                 box-sizing: border-box;
@@ -17,7 +17,7 @@ export class WhoElement extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult {
         return html`
             <div class="container">
                 <app-route-outlet>

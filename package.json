@@ -11,6 +11,7 @@
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "devDependencies": {
+    "@roboshoes/eslint-config": "^1.1.0",
     "@types/lodash": "^4.14.150",
     "@types/three": "^0.103.2",
     "@types/webfontloader": "^1.6.29",
@@ -20,7 +21,7 @@
     "@webcomponents/webcomponentsjs": "^2.4.3",
     "autobind-decorator": "^2.4.0",
     "autoprefixer": "^9.7.6",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "eslint-plugin-import": "^2.20.2",
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1",

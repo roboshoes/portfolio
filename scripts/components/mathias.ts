@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property } from "lit-element";
+import { css, customElement, html, LitElement, property, CSSResult, TemplateResult } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
 
 @customElement( "app-mathias" )
@@ -6,7 +6,7 @@ export class MathiasElement extends LitElement {
 
     @property( { type: String } ) hide = "false";
 
-    static get styles() {
+    static get styles(): CSSResult {
         return css`
             .logo {
                 font-size: 30px;
@@ -30,11 +30,11 @@ export class MathiasElement extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult {
         // This is a strange workaround as boolean variable do not trigger updates and the toggle is passed as a string.
         const hide = this.hide === "true";
         return html`
-            <div class="${ classMap( { logo: true, hide })}">MATHIAS PAUMGARTEN</div>
+            <div class="${ classMap( { logo: true, hide } )}">MATHIAS PAUMGARTEN</div>
         `;
     }
 }

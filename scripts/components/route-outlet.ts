@@ -93,7 +93,7 @@ export class RouteOutletElement extends LitElement {
         `;
     }
 
-    firstUpdated() {
+    firstUpdated(): void {
         this.primarySlot = this.shadowRoot!.querySelector( ".left slot" ) as HTMLSlotElement;
         this.left = this.shadowRoot!.querySelector( ".left" ) as HTMLDivElement;
         this.right = this.shadowRoot!.querySelector( ".right" ) as HTMLDivElement;
@@ -104,11 +104,11 @@ export class RouteOutletElement extends LitElement {
         this.animateIn();
 
         this.subscription.add( fromEvent( window, "resize" ).subscribe( this.onResize ) );
-        this.subscription.add( fromEvent( this.primarySlot, "slotchange").subscribe( this.updateSlotCopy ) );
+        this.subscription.add( fromEvent( this.primarySlot, "slotchange" ).subscribe( this.updateSlotCopy ) );
         this.subscription.add( this.createTouchScrollObservable( this.container ).subscribe( this.onScrollDelta ) );
     }
 
-    disconnectedCallback() {
+    disconnectedCallback(): void {
         super.disconnectedCallback();
 
         clearTimeout( this.timeout );
@@ -118,7 +118,7 @@ export class RouteOutletElement extends LitElement {
     }
 
     @autobind
-    updateSlotCopy() {
+    updateSlotCopy(): void {
         this.rightMover!.innerHTML = "";
 
         this.primarySlot!.assignedElements().forEach( node => {
@@ -152,11 +152,11 @@ export class RouteOutletElement extends LitElement {
         return new Observable( ( observer: Observer<number> ) => {
             let latest = 0;
 
-            function onTouchStart( event: TouchEvent ) {
+            function onTouchStart( event: TouchEvent ): void {
                 latest = event.touches[ 0 ].pageY;
             }
 
-            function onTouchMove( event: TouchEvent ) {
+            function onTouchMove( event: TouchEvent ): void {
                 const delta = event.touches[ 0 ].pageY - latest;
                 latest = event.touches[ 0 ].pageY;
 
@@ -173,7 +173,7 @@ export class RouteOutletElement extends LitElement {
         } );
     }
 
-    private animateIn() {
+    private animateIn(): void {
         this.container!.style.display = "";
         this.leftMover!.style.transform = "";
         this.rightMover!.style.transform = "";
@@ -197,7 +197,7 @@ export class RouteOutletElement extends LitElement {
     }
 
     @autobind
-    private onResize() {
+    private onResize(): void {
         window.removeEventListener( "wheel", this.onScrollEvent );
         window.addEventListener( "wheel", this.onScrollEvent );
 
@@ -208,12 +208,12 @@ export class RouteOutletElement extends LitElement {
     }
 
     @autobind
-    private onScrollEvent( event: WheelEvent ) {
+    private onScrollEvent( event: WheelEvent ): void {
         this.onScrollDelta( normalizeWheel( event ).pixelY * -1 / 4 );
     }
 
     @autobind
-    private onScrollDelta( delta: number ) {
+    private onScrollDelta( delta: number ): void {
         if ( ! this.isScrollable ) {
             return;
         }
@@ -225,7 +225,7 @@ export class RouteOutletElement extends LitElement {
     }
 
     @autobind
-    private loop() {
+    private loop(): void {
         cancelAnimationFrame( this.raf );
 
         this.leftOffset += ( this.targetOffset - this.leftOffset ) / 5;

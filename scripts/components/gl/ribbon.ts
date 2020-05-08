@@ -117,7 +117,7 @@ export class Ribbon extends Mesh {
         } );
     }
 
-    update( t: number ) {
+    update( t: number ): void {
         const p = ( 1 - t + this.start ) % 1;
         const z = 15 + p * -30;
 

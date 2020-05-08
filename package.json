@@ -11,33 +11,33 @@
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "devDependencies": {
-    "@roboshoes/router": "^0.2.0",
-    "@types/lodash": "^4.14.149",
+    "@types/lodash": "^4.14.150",
     "@types/three": "^0.103.2",
     "@types/webfontloader": "^1.6.29",
-    "@typescript-eslint/eslint-plugin": "^2.8.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^2.8.0",
-    "@typescript-eslint/parser": "^2.8.0",
-    "@webcomponents/webcomponentsjs": "^2.4.0",
-    "acorn": "^7.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "@webcomponents/webcomponentsjs": "^2.4.3",
     "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^9.7.2",
-    "eslint": "^6.6.0",
-    "eslint-plugin-import": "^2.18.2",
-    "lit-element": "^2.2.1",
-    "lit-html": "^1.1.2",
+    "autoprefixer": "^9.7.6",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.2",
+    "lit-element": "^2.3.1",
+    "lit-html": "^1.2.1",
     "lodash": "^4.17.15",
     "parcel": "^1.12.4",
-    "postcss-modules": "^1.4.1",
-    "rxjs": "^6.5.3",
-    "sass": "^1.23.6",
+    "postcss-modules": "^1.5.0",
+    "rxjs": "^6.5.5",
+    "sass": "^1.26.5",
     "three": "^0.110.0",
-    "tslint": "^5.20.1",
-    "typescript": "^3.7.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3",
     "webfontloader": "^1.6.28"
   },
   "browserslist": [
     "Chrome > 50"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "normalize-wheel": "^1.0.1"
+  }
 }

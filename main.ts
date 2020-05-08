@@ -1,7 +1,6 @@
 import "./scripts/components/mathias";
-import "./scripts/components/pages/who";
+import "./scripts/components/who";
 
-import { initRouter } from "@roboshoes/router";
 import { customElement, html, LitElement, property } from "lit-element";
 import * as Webfont from "webfontloader";
 
@@ -27,8 +26,6 @@ Webfont.load( {
     active: () => {
         document.body.appendChild( backgroundElement );
         document.body.appendChild( new AppElement() );
-
-        initRouter();
     },
     google: {
         families: [ "Reem Kufi", "Merriweather:300,400" ]

@@ -17,6 +17,13 @@ export class MathiasElement extends LitElement {
                 transition: transform 0.3s ease-in-out;
             }
 
+            @media (max-width: 500px) {
+                .logo {
+                    font-size: 25px;
+                    left: 50px;
+                }
+            }
+
             .hide {
                 transform: translateY( -200px );
             }

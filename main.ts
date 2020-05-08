@@ -1,7 +1,7 @@
 import "./scripts/components/mathias";
 import "./scripts/components/who";
 
-import { customElement, html, LitElement, property } from "lit-element";
+import { customElement, html, LitElement, property, TemplateResult } from "lit-element";
 import * as Webfont from "webfontloader";
 
 import { backgroundElement } from "./scripts/components/gl/background";
@@ -10,7 +10,7 @@ import { backgroundElement } from "./scripts/components/gl/background";
 class AppElement extends LitElement {
     @property( { type: Boolean } ) hideMathias = false;
 
-    render() {
+    render(): TemplateResult {
         return html`
             <app-who
                 @active="${ () => this.hideMathias = true }"

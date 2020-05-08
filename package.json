@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html",
-    "deploy": "rm -rf dist && npm run build && cp app.yaml dist/ && gcloud app deploy dist --project=mathias-paumgarten"
+    "deploy": "rm -rf dist && npm run build && cp app.yaml dist/ && gcloud app deploy dist --project=mathias-paumgarten --quiet"
   },
   "author": "Mathias Paumgarten",
   "license": "MIT",
@@ -18,27 +18,19 @@
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/eslint-plugin-tslint": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
-    "@webcomponents/webcomponentsjs": "^2.4.3",
-    "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^9.7.6",
     "eslint": "^7.0.0",
-    "eslint-plugin-import": "^2.20.2",
-    "lit-element": "^2.3.1",
-    "lit-html": "^1.2.1",
-    "lodash": "^4.17.15",
     "parcel": "^1.12.4",
-    "postcss-modules": "^1.5.0",
-    "rxjs": "^6.5.5",
-    "sass": "^1.26.5",
-    "three": "^0.110.0",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "webfontloader": "^1.6.28"
   },
-  "browserslist": [
-    "Chrome > 50"
-  ],
   "dependencies": {
+    "autobind-decorator": "^2.4.0",
+    "lodash": "^4.17.15",
+    "lit-element": "^2.3.1",
+    "lit-html": "^1.2.1",
+    "three": "^0.110.0",
+    "rxjs": "^6.5.5",
     "normalize-wheel": "^1.0.1"
   }
 }

@@ -1,11 +1,11 @@
-import { css, customElement, html, LitElement, property } from "lit-element";
+import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
 
 @customElement( "app-link" )
 export class LinkElement extends LitElement {
 
     @property( { type: String } ) href = "";
 
-    static get styles() {
+    static get styles(): CSSResult {
         return css`
             a {
                 color: inherit;
@@ -31,7 +31,7 @@ export class LinkElement extends LitElement {
         `;
     }
 
-    render() {
+    render(): TemplateResult {
         return html`<a href="${ this.href }" target="_blank"><slot></slot></a>`;
     }
 }

@@ -1,5 +1,4 @@
-@import "styles/reset.scss";
-@import "styles/mixins.scss";
+@import "./styles/reset.css";
 
 * {
     box-sizing: border-box;

@@ -6,31 +6,31 @@
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html",
-    "deploy": "rm -rf dist && npm run build && cp app.yaml dist/ && gcloud app deploy dist --project=mathias-paumgarten"
+    "deploy": "rm -rf dist && npm run build && cp app.yaml dist/ && gcloud app deploy dist --project=mathias-paumgarten --quiet"
   },
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "devDependencies": {
-    "@types/classnames": "^2.2.9",
-    "@types/gsap": "^1.20.2",
-    "@types/lodash": "^4.14.149",
-    "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.4",
+    "@roboshoes/eslint-config": "^1.1.0",
+    "@types/lodash": "^4.14.150",
+    "@types/three": "^0.103.2",
     "@types/webfontloader": "^1.6.29",
-    "autoprefixer": "^9.7.2",
-    "classnames": "^2.2.6",
-    "get-image-pixels": "^1.0.1",
-    "get-rgba-palette": "^2.0.1",
-    "gsap": "^2.1.3",
-    "lodash": "^4.17.15",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^7.0.0",
     "parcel": "^1.12.4",
-    "postcss-modules": "^1.4.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "rxjs": "^6.5.3",
-    "sass": "^1.23.6",
-    "tslint": "^5.20.1",
-    "typescript": "^3.7.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3",
     "webfontloader": "^1.6.28"
+  },
+  "dependencies": {
+    "autobind-decorator": "^2.4.0",
+    "lodash": "^4.17.15",
+    "lit-element": "^2.3.1",
+    "lit-html": "^1.2.1",
+    "three": "^0.110.0",
+    "rxjs": "^6.5.5",
+    "normalize-wheel": "^1.0.1"
   }
 }

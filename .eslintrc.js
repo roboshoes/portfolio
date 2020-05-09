@@ -11,5 +11,7 @@ module.exports = {
         project: "./tsconfig.json",
     },
     "extends": ["@roboshoes/eslint-config"],
-    "rules": {},
+    "rules": {
+        "@typescript-eslint/member-ordering": 0,
+    },
 };

@@ -29,7 +29,7 @@
     "@typescript-eslint/eslint-plugin-tslint": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^7.0.0",
-    "parcel": "^1.12.4",
+    "parcel": "^2.8.2",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "webfontloader": "^1.6.28"

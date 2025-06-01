@@ -4,7 +4,7 @@ import "./route-outlet";
 import { LitElement, html, css, CSSResult, TemplateResult } from "lit";
 import { customElement } from "lit/decorators.js";
 
-import { MAIL, TWITTER } from "../constants";
+import { MAIL, LINKEDIN, CV_URL } from "../constants";
 
 @customElement("app-who")
 export class WhoElement extends LitElement {
@@ -52,31 +52,30 @@ export class WhoElement extends LitElement {
                     <h2>WHO</h2>
 
                     <p>
-                        Mathias is a freelance, award winning creative developer. He wrote this intro in third-person to
-                        appear serious and professional, but make no mistake: It’s merely a facade to the playful and at
-                        times silly coder that was born and raised in Austria, and currently resides in Oakland.
+                        Mathias is a founding engineer who wrote this intro in third-person to sound professional, but
+                        that's just a facade for the playful Austrian coder now based in Oakland.
                     </p>
 
                     <p>
-                        I spent years working at world-class agencies such as B-Reel, Firstborn and most recently worked
-                        as a Creative Engineer at Google.
+                        He's spent decades building everything from award-winning campaigns with agencies to patented 3d
+                        animation software at Google to RPA systems aiming at eliminating and automating tedious work at
+                        <app-link href="https://proper.ai">Proper AI</app-link>. After five years leading engineering
+                        teams, he's back to what he loves most: hands-on building at
+                        <app-link href="https://99ravens.com">99 Ravens</app-link>.
                     </p>
 
                     <p>
-                        Over the last decade I have worked with clients of all sizes, from huge international
-                        corporations to small projects executed by a single person.
-                    </p>
-
-                    <p>
-                        Past work has come in all forms and shapes. Websites, Apps, VR/AR, IoT, you name. If it's
-                        programmable I can build with it.
+                        If it's programmable, he can work with it. If it's not programmable then he can probably ... eat
+                        it?
                     </p>
 
                     <h2 class="seperator">CONTACT</h2>
 
                     <p>
-                        So if you wanna get in touch, reach out via
-                        <app-link href="${MAIL}">e-mail</app-link> or on <app-link href="${TWITTER}">twitter</app-link>.
+                        So if you want to get in touch, reach out via
+                        <app-link href="${MAIL}">e-mail</app-link>. If you want some more dates and places check out his
+                        <app-link href="${LINKEDIN}">linkedin</app-link> profile. If you want to print out proof that
+                        Mathias exists, weird, but sure. Download this <app-link href="${CV_URL}">CV</app-link> here.
                     </p>
                 </app-route-outlet>
             </div>

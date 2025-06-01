@@ -9,10 +9,7 @@ module.exports = {
         sourceType: "module",
         project: "./tsconfig.json"
     },
-    extends: [
-        "@roboshoes/eslint-config",
-        "plugin:prettier/recommended"
-    ],
+    extends: ["@roboshoes/eslint-config", "plugin:prettier/recommended"],
     plugins: ["@typescript-eslint", "prettier"],
     rules: {
         "@typescript-eslint/member-ordering": 0,

@@ -32,6 +32,8 @@ const vertex = /* GLSL */ `
 `;
 
 const fragment = /* GLSL */ `
+    // #extension GL_OES_standard_derivatives : enable
+
     uniform vec2 uResolution;
 
     varying vec3 vColor;
@@ -61,16 +63,18 @@ const fragment = /* GLSL */ `
 
     void main() {
         vec2 uv = gl_FragCoord.xy / uResolution;
-
         vec3 color = vColor;
 
+        // Generate noise pattern
         float threshold = noise( vUV * 5.0 );
+        float pattern = mod( threshold, 0.2 );
 
-        if ( mod( threshold, 0.2 ) > 0.1 ) {
-            discard;
-        }
+        // Create anti-aliased edges - show where pattern < 0.1
+        float delta = fwidth( pattern );
+        float alpha = smoothstep( 0.1 + delta, 0.1 - delta, pattern );
 
-        gl_FragColor = vec4( mix( color, white, vFade ), 1 );
+
+        gl_FragColor = vec4( mix( color, white, vFade ), alpha );
     }
 `;
 
@@ -86,9 +90,15 @@ const material = new ShaderMaterial({
     },
 
     side: DoubleSide,
+    transparent: true,
+    depthWrite: false,
 
     vertexShader: vertex,
-    fragmentShader: fragment
+    fragmentShader: fragment,
+
+    extensions: {
+        derivatives: true
+    }
 });
 
 export class Ribbon extends Mesh {

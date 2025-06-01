@@ -121,7 +121,7 @@ export class RouteOutletElement extends LitElement {
     updateSlotCopy(): void {
         this.rightMover!.innerHTML = "";
 
-        this.primarySlot!.assignedElements().forEach(node => {
+        this.primarySlot!.assignedElements().forEach((node) => {
             this.rightMover!.appendChild(node.cloneNode(true));
         });
 

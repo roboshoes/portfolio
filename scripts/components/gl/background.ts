@@ -41,7 +41,7 @@ function loop(): void {
     const delta = Date.now() / 1000 - start;
     const t = (delta % 6) / 6;
 
-    ribbons.forEach(ribbon => ribbon.update(t));
+    ribbons.forEach((ribbon) => ribbon.update(t));
 
     renderer.render(scene, camera);
 

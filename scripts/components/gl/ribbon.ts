@@ -2,7 +2,7 @@ import { Color, DoubleSide, Mesh, PlaneGeometry, ShaderMaterial, Vector2 } from 
 
 import { generateTexture } from "./gradient-texture";
 
-const vertex = /* GLSL */`
+const vertex = /* GLSL */ `
     uniform vec3 uColor;
     uniform sampler2D uTexture;
 
@@ -31,7 +31,7 @@ const vertex = /* GLSL */`
     }
 `;
 
-const fragment = /* GLSL */`
+const fragment = /* GLSL */ `
     uniform vec2 uResolution;
 
     varying vec3 vColor;
@@ -74,25 +74,25 @@ const fragment = /* GLSL */`
     }
 `;
 
-const geometry = new PlaneGeometry( 1, 5, 10, 100 );
+const geometry = new PlaneGeometry(1, 5, 10, 100);
 
-geometry.rotateX( Math.PI / 2 );
+geometry.rotateX(Math.PI / 2);
 
-const material = new ShaderMaterial( {
+const material = new ShaderMaterial({
     uniforms: {
-        uColor: { value: new Color( 1, 0, 0 ) },
+        uColor: { value: new Color(1, 0, 0) },
         uTexture: { value: generateTexture() },
-        uResolution: { value: new Vector2( window.innerWidth, window.innerHeight ) },
+        uResolution: { value: new Vector2(window.innerWidth, window.innerHeight) }
     },
 
     side: DoubleSide,
 
     vertexShader: vertex,
-    fragmentShader: fragment,
-} );
+    fragmentShader: fragment
+});
 
 export class Ribbon extends Mesh {
-    private start: number ;
+    private start: number;
     private y: number;
     private x: number;
 
@@ -100,27 +100,27 @@ export class Ribbon extends Mesh {
         const m = material.clone();
         const tone = Math.random() * 0.5 + 0.5;
 
-        m.uniforms.uColor.value = new Color( tone, tone, 1 ).multiplyScalar( Math.random() * 0.3 + 0.7 );
+        m.uniforms.uColor.value = new Color(tone, tone, 1).multiplyScalar(Math.random() * 0.3 + 0.7);
         m.uniforms.uTexture.value = generateTexture();
 
-        super( geometry, m );
+        super(geometry, m);
 
         this.start = Math.random();
         this.y = -5 + Math.random() * 10;
         this.x = -10 + Math.random() * 20;
 
-        this.scale.set( Math.random(), Math.random(), Math.random() + 0.5 );
+        this.scale.set(Math.random(), Math.random(), Math.random() + 0.5);
 
-        window.addEventListener( "resize", () => {
+        window.addEventListener("resize", () => {
             m.uniforms.uResolution.value.x = window.innerWidth;
             m.uniforms.uResolution.value.y = window.innerHeight;
-        } );
+        });
     }
 
-    update( t: number ): void {
-        const p = ( 1 - t + this.start ) % 1;
+    update(t: number): void {
+        const p = (1 - t + this.start) % 1;
         const z = 15 + p * -30;
 
-        this.position.set( this.x, this.y, z );
+        this.position.set(this.x, this.y, z);
     }
 }

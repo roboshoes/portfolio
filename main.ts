@@ -7,28 +7,24 @@ import * as Webfont from "webfontloader";
 
 import { backgroundElement } from "./scripts/components/gl/background";
 
-@customElement( "app-app" )
+@customElement("app-app")
 class AppElement extends LitElement {
-    @property( { type: Boolean } ) hideMathias = false;
+    @property({ type: Boolean }) hideMathias = false;
 
     render(): TemplateResult {
         return html`
-            <app-who
-                @active="${ () => this.hideMathias = true }"
-                @idle="${ () => this.hideMathias = false }"
-            ></app-who>
-            <app-mathias hide="${ this.hideMathias }"></app-mathias>
+            <app-who @active="${() => (this.hideMathias = true)}" @idle="${() => (this.hideMathias = false)}"></app-who>
+            <app-mathias hide="${this.hideMathias}"></app-mathias>
         `;
     }
-
 }
 
-Webfont.load( {
+Webfont.load({
     active: () => {
-        document.body.appendChild( backgroundElement );
-        document.body.appendChild( new AppElement() );
+        document.body.appendChild(backgroundElement);
+        document.body.appendChild(new AppElement());
     },
     google: {
-        families: [ "Reem Kufi", "Merriweather:300,400" ]
-    },
-} );
+        families: ["Reem Kufi", "Merriweather:300,400"]
+    }
+});

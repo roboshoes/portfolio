@@ -4,7 +4,10 @@
       "Bash(npm outdated)",
       "Bash(npm update)",
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run format:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

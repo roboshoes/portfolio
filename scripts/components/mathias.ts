@@ -2,10 +2,9 @@ import { LitElement, html, css, CSSResult, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
-@customElement( "app-mathias" )
+@customElement("app-mathias")
 export class MathiasElement extends LitElement {
-
-    @property( { type: String } ) hide = "false";
+    @property({ type: String }) hide = "false";
 
     static get styles(): CSSResult {
         return css`
@@ -26,7 +25,7 @@ export class MathiasElement extends LitElement {
             }
 
             .hide {
-                transform: translateY( -200px );
+                transform: translateY(-200px);
             }
         `;
     }
@@ -34,8 +33,6 @@ export class MathiasElement extends LitElement {
     render(): TemplateResult {
         // This is a strange workaround as boolean variable do not trigger updates and the toggle is passed as a string.
         const hide = this.hide === "true";
-        return html`
-            <div class="${ classMap( { logo: true, hide } )}">MATHIAS PAUMGARTEN</div>
-        `;
+        return html` <div class="${classMap({ logo: true, hide })}">MATHIAS PAUMGARTEN</div> `;
     }
 }

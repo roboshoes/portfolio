@@ -1,7 +1,8 @@
 import "./link";
 import "./route-outlet";
 
-import { css, CSSResult, customElement, html, LitElement, TemplateResult } from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit";
+import { customElement } from "lit/decorators.js";
 
 import { MAIL, TWITTER } from "../constants";
 

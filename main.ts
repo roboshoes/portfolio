@@ -1,7 +1,8 @@
 import "./scripts/components/mathias";
 import "./scripts/components/who";
 
-import { customElement, html, LitElement, property, TemplateResult } from "lit-element";
+import { LitElement, html, TemplateResult } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import * as Webfont from "webfontloader";
 
 import { backgroundElement } from "./scripts/components/gl/background";

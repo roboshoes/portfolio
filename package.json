@@ -11,28 +11,31 @@
   "author": "Mathias Paumgarten",
   "license": "MIT",
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "^2.4.3",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
     "autobind-decorator": "^2.4.0",
-    "lit-element": "^2.3.1",
-    "lit-html": "^1.2.1",
-    "lodash": "^4.17.19",
+    "lit": "^3.3.0",
+    "lit-element": "^4.2.0",
+    "lit-html": "^3.3.0",
+    "lodash": "^4.17.21",
     "normalize-wheel": "^1.0.1",
-    "rxjs": "^6.5.5",
-    "three": "^0.110.0"
+    "rxjs": "^7.8.2",
+    "three": "^0.177.0"
   },
   "devDependencies": {
     "@roboshoes/eslint-config": "^1.1.0",
-    "@types/lodash": "^4.14.150",
-    "@types/three": "^0.103.2",
-    "@types/webfontloader": "^1.6.29",
+    "@types/lodash": "^4.17.17",
+    "@types/three": "^0.176.0",
+    "@types/webfontloader": "^1.6.38",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/eslint-plugin-tslint": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^7.0.0",
-    "parcel": "^1.12.4",
+    "parcel": "^2.15.2",
     "tslint": "^6.1.2",
-    "typescript": "^3.8.3",
+    "typescript": "^5.8.3",
     "webfontloader": "^1.6.28"
   },
-  "browserslist": ["> 5%"]
+  "browserslist": [
+    "> 5%"
+  ]
 }

@@ -1,6 +1,7 @@
 import autobind from "autobind-decorator";
 import normalizeWheel from "normalize-wheel";
-import { css, CSSResult, customElement, html, LitElement, TemplateResult } from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit";
+import { customElement } from "lit/decorators.js";
 import { clamp } from "lodash";
 import { fromEvent, Observable, Observer, Subscription } from "rxjs";
 

@@ -1,4 +1,5 @@
-import { css, CSSResult, customElement, html, LitElement, property, TemplateResult } from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 @customElement( "app-link" )
 export class LinkElement extends LitElement {

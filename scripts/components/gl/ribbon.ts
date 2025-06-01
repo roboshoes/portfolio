@@ -1,4 +1,4 @@
-import { Color, DoubleSide, Mesh, PlaneBufferGeometry, ShaderMaterial, Vector2 } from "three";
+import { Color, DoubleSide, Mesh, PlaneGeometry, ShaderMaterial, Vector2 } from "three";
 
 import { generateTexture } from "./gradient-texture";
 
@@ -74,7 +74,7 @@ const fragment = /* GLSL */`
     }
 `;
 
-const geometry = new PlaneBufferGeometry( 1, 5, 10, 100 );
+const geometry = new PlaneGeometry( 1, 5, 10, 100 );
 
 geometry.rotateX( Math.PI / 2 );
 
